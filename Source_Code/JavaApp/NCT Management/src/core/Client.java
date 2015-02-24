@@ -8,7 +8,7 @@ public class Client implements ClientUi{
 	private String username;
 	private String password;
 	
-	private ArrayList<TestResults> testResults = new ArrayList<TestResults>();
+	private TestResults testResults;
 	private ArrayList<Booking> bookings = new ArrayList<Booking>();
 	
 	private ClientDAO clientDAO = null;
@@ -34,7 +34,7 @@ public class Client implements ClientUi{
 	
 	//Client Methods
 	public void logIn(String uname, String pass){
-		
+		clientDAO.verifyUsername(uname, pass);
 	}
 	public void logOut(){
 		
