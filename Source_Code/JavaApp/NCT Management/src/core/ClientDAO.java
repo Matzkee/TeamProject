@@ -2,6 +2,7 @@ package core;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -17,6 +18,7 @@ public class ClientDAO implements DaoUi{
 	public Connection conn;
 	public Statement stmt;
 	public ResultSet rs;
+	public PreparedStatement ps;
 	
 	//Default Constructor
 	public ClientDAO(){
@@ -51,14 +53,85 @@ public class ClientDAO implements DaoUi{
 	
 	// Interface MEthods
 	@Override
-	public boolean connectToDB() {
+	public boolean verifyUsername(String uname, String pass) {
+		
+		// Temporary variables
+		String query, password = null;
+		
+		//query the database for the user with these credentials 
+		try{
+			// Load the database driver
+			Class.forName( "com.mysql.jdbc.Driver" );
+			// Get a connection to the database
+			this.conn = DriverManager.getConnection("jdbc:mysql://83.212.127.2:3306/NCT", "user", "TeamGravity123");
+			//Prepare statement
+			query = "SELECT Password FROM User WHERE LoginName = ?";
+			this.ps = conn.prepareStatement(query);
+			ps.setString(1, uname); // This binds the String to '?'
+			//Execute Query
+			ResultSet rs = ps.executeQuery();
+			while (rs.next())
+			{
+				password = rs.getString(1);
+			}
+			// Check if the passwords match
+			if(pass != password)
+			{
+				stmt.close();
+				conn.close();
+				return false;
+			}
+			else
+			{
+				stmt.close();
+				conn.close();
+				return true;
+			}
+		}
+		catch(SQLException e){
+			
+			//Temporary System message
+			System.out.println( "SQL Exception:" ) ;
+
+			// Loop through the SQL Exceptions
+			while( e != null ){
+				System.out.println( "State  : " + e.getSQLState()  ) ;
+				System.out.println( "Message: " + e.getMessage()   ) ;
+				System.out.println( "Error  : " + e.getErrorCode() ) ;
+
+				e = e.getNextException() ;
+			}
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+		
+		
+		
+		return false;
+	}
+	@Override
+	public boolean executeUpdate(String queryS) {
 		// TODO Auto-generated method stub
+		return false;
+	}
+
+
+	@Override
+	public boolean testConnection() {
+		
 		try{
 			// Load the database driver
 			Class.forName( "com.mysql.jdbc.Driver" ) ;
 
 			// Get a connection to the database
 			this.conn = DriverManager.getConnection( "jdbc:mysql://83.212.127.2:3306/NCT", "user", "TeamGravity123" );
+			
+			// Get a statement from the connection
+			Statement stmt = conn.createStatement();
+			
+			stmt.close();
+			conn.close();
+			
 			return true;
 		}
 		
@@ -75,36 +148,9 @@ public class ClientDAO implements DaoUi{
 
 				e = e.getNextException() ;
 			}
-		} 
-		catch (ClassNotFoundException e) {
+		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}
-		
-		return false;
-	}
-	@Override
-	public boolean verifyUsername(String uname, String pass) {
-		// TODO Auto-generated method stub
-		connectToDB();
-		
-		//query the database for the user with these credentials 
-		
-		closeConnection();
-		return false;
-	}
-	@Override
-	public void closeConnection() {
-		try {
-			this.conn.close();
-			this.stmt.close();
-			this.rs.close();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-	}
-	@Override
-	public boolean executeQuery(String queryS) {
-		// TODO Auto-generated method stub
 		return false;
 	}
 }
