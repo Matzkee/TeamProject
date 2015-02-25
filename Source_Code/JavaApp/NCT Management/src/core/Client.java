@@ -34,7 +34,15 @@ public class Client implements ClientUi{
 	
 	//Client Methods
 	public void logIn(String uname, String pass){
-		clientDAO.verifyUsername(uname, pass);
+		boolean success;
+		success = clientDAO.verifyUsername(uname, pass);
+		
+		if (success == true){
+			System.out.println("Login Successful!" + success);
+		}
+		else{
+			System.out.println("Login Failed!" + success);
+		}
 	}
 	public void logOut(){
 		

@@ -70,23 +70,12 @@ public class ClientDAO implements DaoUi{
 			ps.setString(1, uname); // This binds the String to '?'
 			//Execute Query
 			ResultSet rs = ps.executeQuery();
-			while (rs.next())
-			{
+			while (rs.next()){
 				password = rs.getString(1);
+				System.out.println("Password from db: "+ password);
 			}
-			// Check if the passwords match
-			if(pass != password)
-			{
-				stmt.close();
-				conn.close();
-				return false;
-			}
-			else
-			{
-				stmt.close();
-				conn.close();
-				return true;
-			}
+			ps.close();
+			conn.close();
 		}
 		catch(SQLException e){
 			
@@ -101,17 +90,25 @@ public class ClientDAO implements DaoUi{
 
 				e = e.getNextException() ;
 			}
-		} catch (ClassNotFoundException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
-		
-		
-		return false;
+
+		// Check if the passwords match
+		if(pass.equals(password)){
+			System.out.println("passwords to compare: (" + pass + "/" + password +")");
+			return true;
+			}
+		else{
+			System.out.println("passwords to compare: (" + pass + "/" + password +")");
+			return false;
+			}
 	}
 	@Override
 	public boolean executeUpdate(String queryS) {
-		// TODO Auto-generated method stub
+
+		
+		
 		return false;
 	}
 
@@ -126,10 +123,6 @@ public class ClientDAO implements DaoUi{
 			// Get a connection to the database
 			this.conn = DriverManager.getConnection( "jdbc:mysql://83.212.127.2:3306/NCT", "user", "TeamGravity123" );
 			
-			// Get a statement from the connection
-			Statement stmt = conn.createStatement();
-			
-			stmt.close();
 			conn.close();
 			
 			return true;
@@ -148,7 +141,7 @@ public class ClientDAO implements DaoUi{
 
 				e = e.getNextException() ;
 			}
-		} catch (ClassNotFoundException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return false;

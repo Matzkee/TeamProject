@@ -6,13 +6,24 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+/*
+ * This is a test class
+ * Any tests on the system should be done within this class
+ * Any functionality you consider important, is working or still not implemented
+ * should be commented out.
+ * 
+ *  -Mateusz Pietraszewski
+ */
 public class DBTest {
-
-	/**
-	 * @param args
-	 */
 	public static void main( String args[] )
 	{
+		String userName, password;
+		userName = "admin";
+		password = "admin";
+		
+		Client testClient = new Client();
+		testClient.logIn(userName, password);
+		/*
 		try{
 			// Load the database driver
 			Class.forName( "com.mysql.jdbc.Driver" ) ;
@@ -39,6 +50,7 @@ public class DBTest {
 			rs.close() ;
 			stmt.close() ;
 			conn.close() ;
+			
 		}
 		catch( SQLException se ){
 			System.out.println( "SQL Exception:" ) ;
@@ -54,6 +66,6 @@ public class DBTest {
 		}
 		catch( Exception e ){
 			System.out.println( e ) ;
-		}
+		}*/
 	}
 }
