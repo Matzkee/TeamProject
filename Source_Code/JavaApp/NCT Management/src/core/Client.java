@@ -33,9 +33,9 @@ public class Client implements ClientUi{
 	}
 	
 	//Client Methods
-	public void logIn(String uname, String pass){
+	public void logIn(){
 		boolean success;
-		success = clientDAO.verifyUsername(uname, pass);
+		success = clientDAO.verifyUsername(username, password);
 		
 		if (success == true){
 			System.out.println("Login Successful!" + success);
@@ -46,6 +46,9 @@ public class Client implements ClientUi{
 	}
 	public void logOut(){
 		
+		//reset the username and password
+		this.username = null;
+		this.password = null;
 	}
 
 	// Interface Methods

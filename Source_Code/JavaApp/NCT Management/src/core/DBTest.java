@@ -22,7 +22,9 @@ public class DBTest {
 		password = "admin";
 		
 		Client testClient = new Client();
-		testClient.logIn(userName, password);
+		testClient.setUsername(userName);
+		testClient.setPassword(password);
+		testClient.logIn();
 		/*
 		try{
 			// Load the database driver
