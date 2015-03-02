@@ -56,8 +56,8 @@ public class ClientDAO implements DaoUi{
 	public boolean verifyUsername(String uname, String pass) {
 		
 		// Temporary variables
-		String query, password = null;
-		
+		String query;
+		int count = 0;
 		//query the database for the user with these credentials 
 		try{
 			// Load the database driver
@@ -65,14 +65,15 @@ public class ClientDAO implements DaoUi{
 			// Get a connection to the database
 			this.conn = DriverManager.getConnection("jdbc:mysql://83.212.127.2:3306/NCT", "user", "TeamGravity123");
 			//Prepare statement
-			query = "SELECT Password FROM User WHERE LoginName = ?";
+			query = "SELECT * FROM Users WHERE LoginName =? and Password =?";
 			this.ps = conn.prepareStatement(query);
 			ps.setString(1, uname); // This binds the String to '?'
+			ps.setString(2, pass);
 			//Execute Query
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()){
-				password = rs.getString(1);
-				System.out.println("Password from db: "+ password);
+				count += 1;
+				System.out.println("Found user in database ");
 			}
 			ps.close();
 			conn.close();
@@ -94,13 +95,18 @@ public class ClientDAO implements DaoUi{
 			e.printStackTrace();
 		}
 
-		// Check if the passwords match
-		if(pass.equals(password)){
-			System.out.println("passwords to compare: (" + pass + "/" + password +")");
+		// Check if the user was found
+		if(count == 1){
+			System.out.println("Found user within database");
 			return true;
 			}
+		else if (count > 1)
+		{
+			System.out.println("Duplicate users within database");
+			return false;
+		}
 		else{
-			System.out.println("passwords to compare: (" + pass + "/" + password +")");
+			System.out.println("Username and password do not match");
 			return false;
 			}
 	}

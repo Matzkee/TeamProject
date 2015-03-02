@@ -14,7 +14,8 @@ import java.sql.Statement;
  * 
  *  -Mateusz Pietraszewski
  */
-public class DBTest {
+
+public class DBTest {/*
 	public static void main( String args[] )
 	{
 		String userName, password;
@@ -68,6 +69,6 @@ public class DBTest {
 		}
 		catch( Exception e ){
 			System.out.println( e ) ;
-		}*/
-	}
+		}
+	}*/
 }
