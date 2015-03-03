@@ -1,10 +1,12 @@
-package core;
+package testing;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+
+import core.Client;
 
 /*
  * This is a test class
@@ -15,7 +17,7 @@ import java.sql.Statement;
  *  -Mateusz Pietraszewski
  */
 
-public class DBTest {/*
+public class DBTest {
 	public static void main( String args[] )
 	{
 		String userName, password;
@@ -26,6 +28,8 @@ public class DBTest {/*
 		testClient.setUsername(userName);
 		testClient.setPassword(password);
 		testClient.logIn();
+		testClient.viewBookings();
+		
 		/*
 		try{
 			// Load the database driver
@@ -69,6 +73,6 @@ public class DBTest {/*
 		}
 		catch( Exception e ){
 			System.out.println( e ) ;
-		}
-	}*/
+		}*/
+	}
 }

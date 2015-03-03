@@ -61,8 +61,14 @@ public class Client implements ClientUi{
 	}
 
 	@Override
-	public void viewBooking() {
-		// TODO Auto-generated method stub
+	public void viewBookings() {
+		Booking booking;
+		bookings = clientDAO.getBookings();
+		for(int i = 0; i < bookings.size(); i++)
+		{
+			booking = bookings.get(i);
+			System.out.println("Car reg: "+booking.getCarReg()+" | Date: "+booking.getDate()+" | Time: "+booking.getTime());
+		}
 		
 	}
 

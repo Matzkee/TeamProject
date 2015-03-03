@@ -1,7 +1,9 @@
-package core;
+package frames;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
+import core.Client;
 
 @SuppressWarnings("serial")
 public class TestFrame extends javax.swing.JFrame {

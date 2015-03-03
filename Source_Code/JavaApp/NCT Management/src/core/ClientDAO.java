@@ -33,10 +33,59 @@ public class ClientDAO implements DaoUi{
 	
 	// ClientDAO Methods
 	public ArrayList<Booking> getBookings(){
-		//Implement: connect, query all bookings for next 2-7 days, 
-		//return results as a list
 		
-		return this.bookings;
+		//temporary variables
+		Booking booking = null;
+		int count = 0;
+		
+		try{
+			String query;
+			// Load the database driver
+			Class.forName( "com.mysql.jdbc.Driver" );
+			// Get a connection to the database
+			this.conn = DriverManager.getConnection("jdbc:mysql://83.212.127.2:3306/NCT", "user", "TeamGravity123");
+			//Prepare statement
+			query = "SELECT * FROM Booking WHERE DATEDIFF(BDate,curdate()) < 50";
+			this.ps = conn.prepareStatement(query);
+			//Execute Query
+			ResultSet rs = ps.executeQuery();
+			while (rs.next()){
+				booking = new Booking();
+				booking.setCarReg(rs.getString(2));
+				booking.setDate(rs.getString(3));
+				booking.setTime(rs.getString(4));
+				bookings.add(booking);
+				count ++;
+			}
+			ps.close();
+			conn.close();
+		}
+		catch(SQLException e){
+			
+			//Temporary System message
+			System.out.println( "SQL Exception:" ) ;
+
+			// Loop through the SQL Exceptions
+			while( e != null ){
+				System.out.println( "State  : " + e.getSQLState()  ) ;
+				System.out.println( "Message: " + e.getMessage()   ) ;
+				System.out.println( "Error  : " + e.getErrorCode() ) ;
+
+				e = e.getNextException() ;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		if(count == 0)
+		{
+			return null;
+		}
+		else
+		{
+			return bookings;
+		}
+		
 	}
 	public TestResults getTestResults(){
 		//Implement: connect, query Booking using the registration no &
