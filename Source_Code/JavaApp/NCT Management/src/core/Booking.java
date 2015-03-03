@@ -40,7 +40,7 @@ public class Booking {
 	public TestResults getTest(){
 		return this.test;
 	}
-	public void setTest(String alignment, String suspension, String brakes, String eEmission, String headLights){
+	public void setTest(int alignment, int suspension, int brakes, int eEmission, int headLights){
 		this.test.setTestAlignment(alignment);
 		this.test.setTestSuspension(suspension);
 		this.test.setTestBrakes(brakes);

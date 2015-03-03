@@ -1,11 +1,5 @@
 package testing;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-
 import core.Client;
 
 /*
@@ -29,7 +23,7 @@ public class DBTest {
 		testClient.setPassword(password);
 		testClient.logIn();
 		testClient.viewBookings();
-		
+		testClient.viewTestResults("9LTREUSF");
 		/*
 		try{
 			// Load the database driver

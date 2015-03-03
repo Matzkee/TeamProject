@@ -87,11 +87,60 @@ public class ClientDAO implements DaoUi{
 		}
 		
 	}
-	public TestResults getTestResults(){
-		//Implement: connect, query Booking using the registration no &
-		//based on that get TestResults, return as a single object
-		
-		return this.tests;
+	public TestResults getTestResults(String RegNo){
+		// Temporary variables
+		String query;
+		int count = 0;
+		//query the database for the user with these credentials 
+		try{
+			// Load the database driver
+			Class.forName( "com.mysql.jdbc.Driver" );
+			// Get a connection to the database
+			this.conn = DriverManager.getConnection("jdbc:mysql://83.212.127.2:3306/NCT", "user", "TeamGravity123");
+			//Prepare statement
+			query = "SELECT * FROM TestResults WHERE Car_Reg=?";
+			this.ps = conn.prepareStatement(query);
+			ps.setString(1, RegNo); // This binds the String to '?'
+			//Execute Query
+			ResultSet rs = ps.executeQuery();
+			while (rs.next()){
+				tests = new TestResults();
+				tests.setTestAlignment(rs.getInt(3));
+				tests.setTestSuspension(rs.getInt(4));
+				tests.setTestBrakes(rs.getInt(5));
+				tests.setTestEEmission(rs.getInt(6));
+				tests.setTestHeadLights(rs.getInt(7));
+				count += 1;
+			}
+			ps.close();
+			conn.close();
+		}
+		catch(SQLException e){
+					
+			//Temporary System message
+			System.out.println( "SQL Exception:" ) ;
+
+			// Loop through the SQL Exceptions
+			while( e != null ){
+				System.out.println( "State  : " + e.getSQLState()  ) ;
+				System.out.println( "Message: " + e.getMessage()   ) ;
+				System.out.println( "Error  : " + e.getErrorCode() ) ;
+
+				e = e.getNextException() ;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+				
+		if(count == 0)
+		{
+			return null;
+		}
+		else
+		{
+			return tests;
+		}
+
 	}
 	public ArrayList<User> getAllUsers(){
 		//Implements: connect, query All Users within DB,

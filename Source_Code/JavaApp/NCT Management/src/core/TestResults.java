@@ -13,32 +13,47 @@ public class TestResults {
 	public String getTestAlignment() {
 		return testAlignment;
 	}
-	public void setTestAlignment(String testAlignment) {
-		this.testAlignment = testAlignment;
+	public void setTestAlignment(int testAlignment) {
+		if (testAlignment == 1)
+			this.testAlignment = "passed";
+		else
+			this.testAlignment = "failed";
 	}
 	public String getTestSuspension() {
 		return testSuspension;
 	}
-	public void setTestSuspension(String testSuspension) {
-		this.testSuspension = testSuspension;
+	public void setTestSuspension(int testSuspension) {
+		if (testSuspension == 1)
+			this.testSuspension = "passed";
+		else
+			this.testSuspension = "failed";
 	}
 	public String getTestBrakes() {
 		return testBrakes;
 	}
-	public void setTestBrakes(String testBrakes) {
-		this.testBrakes = testBrakes;
+	public void setTestBrakes(int testBrakes) {
+		if (testBrakes == 1)
+			this.testBrakes = "passed";
+		else
+			this.testBrakes = "failed";
 	}
 	public String getTestEEmission() {
 		return testEEmission;
 	}
-	public void setTestEEmission(String testEEmission) {
-		this.testEEmission = testEEmission;
+	public void setTestEEmission(int testEEmission) {
+		if (testEEmission == 1)
+		this.testEEmission = "passed";
+	else
+		this.testEEmission = "failed";
 	}
 	public String getTestHeadLights() {
 		return testHeadLights;
 	}
-	public void setTestHeadLights(String testHeadLights) {
-		this.testHeadLights = testHeadLights;
+	public void setTestHeadLights(int testHeadLights) {
+		if (testHeadLights == 1)
+			this.testHeadLights = "passed";
+		else
+			this.testHeadLights = "failed";
 	}
 
 }

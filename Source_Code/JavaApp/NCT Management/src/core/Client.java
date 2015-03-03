@@ -9,7 +9,7 @@ public class Client implements ClientUi{
 	private String password;
 	
 	private TestResults testResults;
-	private ArrayList<Booking> bookings = new ArrayList<Booking>();
+	private ArrayList<Booking> bookings;
 	
 	private ClientDAO clientDAO = null;
 	
@@ -62,6 +62,7 @@ public class Client implements ClientUi{
 
 	@Override
 	public void viewBookings() {
+		bookings = new ArrayList<Booking>();
 		Booking booking;
 		bookings = clientDAO.getBookings();
 		for(int i = 0; i < bookings.size(); i++)
@@ -86,7 +87,11 @@ public class Client implements ClientUi{
 
 	@Override
 	public void viewTestResults(String RegNo) {
-		// TODO Auto-generated method stub
+		testResults = new TestResults();
+		testResults = clientDAO.getTestResults(RegNo);
+		System.out.println("Alignment: "+testResults.getTestAlignment()+" | Suspension: "+testResults.getTestSuspension()+
+				" | Brakes: "+testResults.getTestBrakes()+" | Exhause Emission: "+testResults.getTestEEmission()+
+				" | Head Lights: "+testResults.getTestHeadLights());
 		
 	}
 
