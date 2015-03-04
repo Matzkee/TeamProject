@@ -80,9 +80,10 @@ public class Client implements ClientUi{
 	}
 
 	@Override
-	public void cancelBooking(String RegNo) {
-		// TODO Auto-generated method stub
-		
+	public boolean cancelBooking(String query) {
+		boolean success;
+		success = clientDAO.executeUpdate(query);
+		return success;
 	}
 
 	@Override
@@ -92,7 +93,6 @@ public class Client implements ClientUi{
 		System.out.println("Alignment: "+testResults.getTestAlignment()+" | Suspension: "+testResults.getTestSuspension()+
 				" | Brakes: "+testResults.getTestBrakes()+" | Exhause Emission: "+testResults.getTestEEmission()+
 				" | Head Lights: "+testResults.getTestHeadLights());
-		
 	}
 
 	@Override

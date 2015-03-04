@@ -35,6 +35,7 @@ public class ClientDAO implements DaoUi{
 	public ArrayList<Booking> getBookings(){
 		
 		//temporary variables
+		bookings = new ArrayList<Booking>();
 		Booking booking = null;
 		int count = 0;
 		
@@ -55,7 +56,7 @@ public class ClientDAO implements DaoUi{
 				booking.setDate(rs.getString(3));
 				booking.setTime(rs.getString(4));
 				bookings.add(booking);
-				count ++;
+				count += 1;
 			}
 			ps.close();
 			conn.close();
@@ -132,21 +133,63 @@ public class ClientDAO implements DaoUi{
 			e.printStackTrace();
 		}
 				
-		if(count == 0)
-		{
+		if(count == 0){
 			return null;
 		}
-		else
-		{
+		else{
 			return tests;
 		}
 
 	}
 	public ArrayList<User> getAllUsers(){
-		//Implements: connect, query All Users within DB,
-		//return as a list
+		// Temporary variables
+		String query;
+		int count = 0;
+		User tempUser;
+		users = new ArrayList<User>();
+		//query the database for the user with these credentials 
+		try{
+			// Load the database driver
+			Class.forName( "com.mysql.jdbc.Driver" );
+			// Get a connection to the database
+			this.conn = DriverManager.getConnection("jdbc:mysql://83.212.127.2:3306/NCT", "user", "TeamGravity123");
+			//Prepare statement
+			query = "SELECT Name FROM Users";
+			this.ps = conn.prepareStatement(query);
+			//Execute Query
+			ResultSet rs = ps.executeQuery();
+			while (rs.next()){
+				tempUser = new User();
+				tempUser.setName(rs.getString(3));
+				users.add(tempUser);
+				count += 1;
+			}
+			ps.close();
+			conn.close();
+		}
+		catch(SQLException e){
+			
+			//Temporary System message
+			System.out.println( "SQL Exception:" ) ;
+			
+			// Loop through the SQL Exceptions
+			while( e != null ){
+				System.out.println( "State  : " + e.getSQLState()  ) ;
+				System.out.println( "Message: " + e.getMessage()   ) ;
+				System.out.println( "Error  : " + e.getErrorCode() ) ;
+				
+				e = e.getNextException() ;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		
-		return this.users;
+		if(count == 0){
+			return null;
+		}
+		else{
+			return users;
+		}
 	}
 	
 	// Interface MEthods
@@ -198,8 +241,7 @@ public class ClientDAO implements DaoUi{
 			System.out.println("Found user within database");
 			return true;
 			}
-		else if (count > 1)
-		{
+		else if (count > 1){
 			System.out.println("Duplicate users within database");
 			return false;
 		}
@@ -211,6 +253,36 @@ public class ClientDAO implements DaoUi{
 	@Override
 	public boolean executeUpdate(String queryS) {
 
+		//query the database for the user with these credentials 
+		try{
+			// Load the database driver
+			Class.forName( "com.mysql.jdbc.Driver" );
+			// Get a connection to the database
+			this.conn = DriverManager.getConnection("jdbc:mysql://83.212.127.2:3306/NCT", "user", "TeamGravity123");
+			//Prepare statement
+			stmt = conn.createStatement();
+			stmt.executeUpdate(queryS);
+			
+			stmt.close();
+			conn.close();
+			return true;
+		}
+		catch(SQLException e){
+			
+			//Temporary System message
+			System.out.println( "SQL Exception:" ) ;
+			
+			// Loop through the SQL Exceptions
+			while( e != null ){
+				System.out.println( "State  : " + e.getSQLState()  ) ;
+				System.out.println( "Message: " + e.getMessage()   ) ;
+				System.out.println( "Error  : " + e.getErrorCode() ) ;
+				
+				e = e.getNextException() ;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		
 		
 		return false;
