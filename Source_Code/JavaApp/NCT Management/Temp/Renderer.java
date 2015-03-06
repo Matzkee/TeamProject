@@ -67,6 +67,15 @@ public class Renderer extends JPanel implements ListCellRenderer<Booking>{
         tLabel.setText(booking.getTime());
         cLabel.setText(booking.getCarReg());
         
+        if (isSelected){
+            setBackground(list.getSelectionBackground());
+            setForeground(list.getSelectionForeground());
+        }
+        else{
+            setBackground(list.getBackground());
+            setForeground(list.getForeground());
+        }
+        
         return this;
     }
     

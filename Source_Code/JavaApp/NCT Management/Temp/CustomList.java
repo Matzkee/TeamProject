@@ -23,11 +23,7 @@ public class CustomList extends JFrame{
         ArrayList<Booking> myBookingList = new ArrayList<>();
         Booking book = null;
         DefaultListModel<Booking> myListModel = new DefaultListModel<>();
-        
-        JLabel image = new JLabel();
-        image.setIcon(new javax.swing.ImageIcon(getClass().getResource("/custom/list/BookingsBG.jpg")));
-        
-        setContentPane(image);
+        JLabel background = new JLabel();
         
         for(int i = 0; i < 4; i++){
             book = new Booking("date: "+i,"time: "+i,"carReg"+i);
@@ -35,10 +31,17 @@ public class CustomList extends JFrame{
             myListModel.addElement(book);
         }
         
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        
         //create the list
         JList<Booking> bookingList = new JList<>(myListModel);
-        add(new JScrollPane(bookingList));
+        getContentPane().add(new JScrollPane(bookingList),new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 170, 400, 300));
         bookingList.setCellRenderer(new Renderer());
+        
+        background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/custom/list/BookingsBG.jpg"))); // NOI18N
+        getContentPane().add(background, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+
+        pack();
         
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setTitle("Custom JList Example");
