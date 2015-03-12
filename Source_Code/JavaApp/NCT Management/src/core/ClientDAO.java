@@ -46,7 +46,7 @@ public class ClientDAO implements DaoUi{
 			// Get a connection to the database
 			this.conn = DriverManager.getConnection("jdbc:mysql://83.212.127.2:3306/NCT", "user", "TeamGravity123");
 			//Prepare statement
-			query = "SELECT * FROM Booking WHERE DATEDIFF(BDate,curdate()) < 50";
+			query = "SELECT * FROM Booking WHERE DATEDIFF(BDate,curdate()) < 40";
 			this.ps = conn.prepareStatement(query);
 			//Execute Query
 			ResultSet rs = ps.executeQuery();

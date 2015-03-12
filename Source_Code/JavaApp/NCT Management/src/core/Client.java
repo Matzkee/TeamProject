@@ -52,6 +52,10 @@ public class Client implements ClientUi{
 		this.username = null;
 		this.password = null;
 	}
+	
+	public ArrayList<Booking> getBookings(){
+		return this.bookings;
+	}
 
 	// Interface Methods
 	@Override

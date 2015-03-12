@@ -1,97 +1,118 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package frames;
+import java.awt.Color;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.util.ArrayList;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import javax.swing.DefaultListModel;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JList;
+import javax.swing.ListSelectionModel;
+import javax.swing.SwingUtilities;
 
-import javax.swing.JFrame;
+import core.Booking;
+import core.Client;
+import javax.swing.JPanel;
+import javax.swing.JTable;
 
-@SuppressWarnings("serial")
-public class AdminMenu extends JFrame implements ActionListener{
+/**
+ *
+ * @author Mateusz Pietraszewski
+ */
+public class AdminMenu extends javax.swing.JFrame {
 
+	private static final long serialVersionUID = 1L;
+
+	private Client testClient;
+	
+	private ArrayList<Booking> bookings = null;
+	private DefaultListModel<Booking> listModel;
+	private JList<Booking> bookingList;
+	private bookingsListPane pane;
+	
 	public AdminMenu() {
-		initComponents();
-	}
-	                        
-	private void initComponents() {
+		getContentPane().setLayout(null);
+		testClient = new Client();
 		
-		menuLabel = new javax.swing.JLabel();
-		addButton = new javax.swing.JButton();
-		viewButton = new javax.swing.JButton();
-		
-		setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-		
-		menuLabel.setText("Admin Menu");
-		
-		addButton.setText("Add Booking");
-		
-		viewButton.setText("View Bookings");
-		
-		javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-		getContentPane().setLayout(layout);
-		layout.setHorizontalGroup(
-				layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-				.addGroup(layout.createSequentialGroup()
-						.addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-								.addComponent(menuLabel)
-								.addComponent(addButton)
-								.addComponent(viewButton))
-								.addGap(0, 128, Short.MAX_VALUE))
-				);
-		layout.setVerticalGroup(
-				layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-				.addGroup(layout.createSequentialGroup()
-						.addComponent(menuLabel)
-						.addGap(18, 18, 18)
-						.addComponent(addButton)
-						.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-						.addComponent(viewButton)
-						.addGap(0, 56, Short.MAX_VALUE))
-				);
-		
-		pack();
-	}
-	public static void main(String args[]) {
-
-		try {
-			for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-				if ("Nimbus".equals(info.getName())) {
-					javax.swing.UIManager.setLookAndFeel(info.getClassName());
-					break;
-				}
-			}
-		} catch (ClassNotFoundException ex) {
-			java.util.logging.Logger.getLogger(AdminMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-		} catch (InstantiationException ex) {
-			java.util.logging.Logger.getLogger(AdminMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-		} catch (IllegalAccessException ex) {
-			java.util.logging.Logger.getLogger(AdminMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-		} catch (javax.swing.UnsupportedLookAndFeelException ex) {
-			java.util.logging.Logger.getLogger(AdminMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-		}
-		//</editor-fold>
-		
-		/* Create and display the form */
-		java.awt.EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				new AdminMenu().setVisible(true);
+		JButton viewBookingsBTN = new JButton("");
+		viewBookingsBTN.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				testClient.setUsername("admin");
+				testClient.setPassword("admin");
+				testClient.logIn();
+				testClient.viewBookings();
+				pane = new bookingsListPane(testClient.getBookings());
+				pane.setVisible(true);
 			}
 		});
+		viewBookingsBTN.setIcon(new ImageIcon(AdminMenu.class.getResource("/graphics/ViewBookingsButton.jpg")));
+		viewBookingsBTN.setBounds(0, 145, 120, 40);
+		getContentPane().add(viewBookingsBTN);
+		
+		JButton button = new JButton("");
+		button.setIcon(new ImageIcon(AdminMenu.class.getResource("/graphics/DeleteBookingButton.jpg")));
+		button.setBounds(0, 186, 120, 40);
+		getContentPane().add(button);
+		
+		testClient.viewBookings();
+		pane = new bookingsListPane(testClient.getBookings());
+		//pane.setBackground(Color.GRAY);
+		pane.setBounds(141, 11, 400, 175);
+		getContentPane().add(pane);
+		pane.setVisible(true);
+		
+		JLabel backgroundImage = new JLabel("");
+		backgroundImage.setIcon(new ImageIcon(AdminMenu.class.getResource("/graphics/AdminMenu.jpg")));
+		backgroundImage.setBounds(0, 0, 558, 407);
+		getContentPane().add(backgroundImage);
+		
+		this.setSize(575,445);
+		this.setTitle("Custom JList Example");
+        this.setLocationRelativeTo(null);
+        this.setVisible(true);
 	}
 	
-	// Variables declaration - do not modify                     
-	private javax.swing.JButton addButton;
-	private javax.swing.JLabel menuLabel;
-	private javax.swing.JButton viewButton;
-	// End of variables declaration                   
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		if(e.getSource() == addButton){
-			
-		}
-		else if(e.getSource() == viewButton){
-			
+	public void addBookingsPanel(ArrayList<Booking> bookings) {
+		this.bookings = bookings;
+		listModel = new DefaultListModel<>();
+		Booking tempBook = null;
+		
+		//Insert Bookings into model
+		for(int i = 0; i > bookings.size(); i++){
+			tempBook = bookings.get(i);
+			listModel.addElement(tempBook);
 		}
 		
+		setBackground(Color.GRAY);
+		getContentPane().setLayout(null);
+		
+		//Set the list to custom listModel
+		bookingList = new JList<>(listModel);
+		//Apply custom row render to the list
+		bookingList.setCellRenderer(new bookingRow());
+		bookingList.setBackground(Color.GRAY);
+		bookingList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		bookingList.setBounds(141, 11, 400, 175);
+		getContentPane().add(bookingList);
+		bookingList.setVisible(true);
+		
 	}
+	
+	 public static void main(String[] args) {
+	        SwingUtilities.invokeLater(new Runnable() {
 
+	            @Override
+	            public void run() {
+	                new AdminMenu();
+	            }
+	        });
+	    }
 }
