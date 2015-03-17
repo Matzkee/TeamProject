@@ -15,6 +15,10 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.EventQueue;
 import java.util.ArrayList;
+import java.awt.BorderLayout;
+import javax.swing.JLabel;
+import java.awt.Font;
+import javax.swing.JSeparator;
 
 public class TableTest extends JFrame {
 
@@ -28,12 +32,14 @@ public class TableTest extends JFrame {
 	 */
 	public TableTest() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setSize(500, 300);
 		
 		testClient = new Client();
 		testClient.viewBookings();
 		
 		allBookings = testClient.getBookings();
+		
+		JPanel panel = new JPanel();
+		getContentPane().add(panel);
 		
 		//Booking bookTest = new Booking();
 		//bookTest.setCarReg("111111");
@@ -44,8 +50,29 @@ public class TableTest extends JFrame {
 		
 		JTable table = new JTable(new TableModel(allBookings));
 		table.setDefaultRenderer(Booking.class, new TableRenderer());
+		panel.setLayout(null);
 		table.setRowHeight(40);
-		add(new JScrollPane(table));
+		table.setTableHeader(null);
+		JScrollPane scrollPane = new JScrollPane(table);
+		scrollPane.setBounds(0, 30, 400, 175);
+		panel.add(scrollPane);
+		
+		JPanel headerPane = new JPanel();
+		headerPane.setBackground(Color.DARK_GRAY);
+		headerPane.setBounds(0, 0, 400, 30);
+		panel.add(headerPane);
+		headerPane.setLayout(null);
+		
+		JLabel lblHeader = new JLabel("Bookings");
+		lblHeader.setFont(new Font("Segoe UI", Font.BOLD, 20));
+		lblHeader.setForeground(Color.LIGHT_GRAY);
+		lblHeader.setBounds(5, 0, 100, 30);
+		headerPane.add(lblHeader);
+		
+		JSeparator headerSeparator = new JSeparator();
+		headerSeparator.setForeground(Color.LIGHT_GRAY);
+		headerSeparator.setBounds(100, 25, 275, 1);
+		headerPane.add(headerSeparator);
 		
 	}
 	
