@@ -4,23 +4,12 @@
  * and open the template in the editor.
  */
 package frames;
-import java.awt.Color;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.util.ArrayList;
-
-import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
-import javax.swing.JList;
-import javax.swing.ListSelectionModel;
 import javax.swing.SwingUtilities;
-
-import core.Booking;
-import core.Client;
-import javax.swing.JPanel;
-import javax.swing.JTable;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 /**
  *
@@ -29,27 +18,21 @@ import javax.swing.JTable;
 public class AdminMenu extends javax.swing.JFrame {
 
 	private static final long serialVersionUID = 1L;
-
-	private Client testClient;
+	private TableTest pane;
 	
-	private ArrayList<Booking> bookings = null;
-	private DefaultListModel<Booking> listModel;
-	private JList<Booking> bookingList;
-	private bookingsListPane pane;
 	
+	/*
+	 * Create the frame.
+	 * Constructor
+	 */
 	public AdminMenu() {
+		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		getContentPane().setLayout(null);
-		testClient = new Client();
 		
 		JButton viewBookingsBTN = new JButton("");
 		viewBookingsBTN.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				testClient.setUsername("admin");
-				testClient.setPassword("admin");
-				testClient.logIn();
-				testClient.viewBookings();
-				pane = new bookingsListPane(testClient.getBookings());
 				pane.setVisible(true);
 			}
 		});
@@ -62,12 +45,10 @@ public class AdminMenu extends javax.swing.JFrame {
 		button.setBounds(0, 186, 120, 40);
 		getContentPane().add(button);
 		
-		testClient.viewBookings();
-		pane = new bookingsListPane(testClient.getBookings());
-		//pane.setBackground(Color.GRAY);
-		pane.setBounds(141, 11, 400, 175);
+		pane = new TableTest();
+		pane.setBounds(141, 11, 400, 200);
 		getContentPane().add(pane);
-		pane.setVisible(true);
+		pane.setVisible(false);
 		
 		JLabel backgroundImage = new JLabel("");
 		backgroundImage.setIcon(new ImageIcon(AdminMenu.class.getResource("/graphics/AdminMenu.jpg")));
@@ -78,32 +59,6 @@ public class AdminMenu extends javax.swing.JFrame {
 		this.setTitle("Custom JList Example");
         this.setLocationRelativeTo(null);
         this.setVisible(true);
-	}
-	
-	public void addBookingsPanel(ArrayList<Booking> bookings) {
-		this.bookings = bookings;
-		listModel = new DefaultListModel<>();
-		Booking tempBook = null;
-		
-		//Insert Bookings into model
-		for(int i = 0; i > bookings.size(); i++){
-			tempBook = bookings.get(i);
-			listModel.addElement(tempBook);
-		}
-		
-		setBackground(Color.GRAY);
-		getContentPane().setLayout(null);
-		
-		//Set the list to custom listModel
-		bookingList = new JList<>(listModel);
-		//Apply custom row render to the list
-		bookingList.setCellRenderer(new bookingRow());
-		bookingList.setBackground(Color.GRAY);
-		bookingList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		bookingList.setBounds(141, 11, 400, 175);
-		getContentPane().add(bookingList);
-		bookingList.setVisible(true);
-		
 	}
 	
 	 public static void main(String[] args) {

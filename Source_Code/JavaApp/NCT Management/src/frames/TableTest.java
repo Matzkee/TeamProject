@@ -1,26 +1,23 @@
 package frames;
 
-import javax.swing.JFrame;
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.EventQueue;
+import java.awt.Font;
+import java.util.ArrayList;
+
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JSeparator;
 import javax.swing.JTable;
-import javax.swing.JTextPane;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.TableCellRenderer;
 
 import core.Booking;
 import core.Client;
 
-import java.awt.Color;
-import java.awt.Component;
-import java.awt.EventQueue;
-import java.util.ArrayList;
-import java.awt.BorderLayout;
-import javax.swing.JLabel;
-import java.awt.Font;
-import javax.swing.JSeparator;
-
-public class TableTest extends JFrame {
+public class TableTest extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 	private ArrayList<Booking> allBookings = new ArrayList<>();
@@ -31,36 +28,32 @@ public class TableTest extends JFrame {
 	 * Constructor
 	 */
 	public TableTest() {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBackground(Color.DARK_GRAY);
 		
 		testClient = new Client();
 		testClient.viewBookings();
 		
 		allBookings = testClient.getBookings();
 		
-		JPanel panel = new JPanel();
-		getContentPane().add(panel);
+
 		
-		//Booking bookTest = new Booking();
-		//bookTest.setCarReg("111111");
-		//bookTest.setDate("111111");
-		//bookTest.setTime("111111");
-		
-		//allBookings.add(bookTest);
+		setSize(400,200);
 		
 		JTable table = new JTable(new TableModel(allBookings));
+		table.setBackground(Color.DARK_GRAY);
 		table.setDefaultRenderer(Booking.class, new TableRenderer());
-		panel.setLayout(null);
+		setLayout(null);
 		table.setRowHeight(40);
 		table.setTableHeader(null);
-		JScrollPane scrollPane = new JScrollPane(table);
-		scrollPane.setBounds(0, 30, 400, 175);
-		panel.add(scrollPane);
+		JScrollPane tableScrollPane = new JScrollPane(table);
+		tableScrollPane.setBackground(Color.DARK_GRAY);
+		tableScrollPane.setBounds(0, 30, 400, 170);
+		add(tableScrollPane);
 		
 		JPanel headerPane = new JPanel();
 		headerPane.setBackground(Color.DARK_GRAY);
 		headerPane.setBounds(0, 0, 400, 30);
-		panel.add(headerPane);
+		add(headerPane);
 		headerPane.setLayout(null);
 		
 		JLabel lblHeader = new JLabel("Bookings");
@@ -136,7 +129,7 @@ public class TableTest extends JFrame {
 		}
 		
 	}
-	
+	/*
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -148,5 +141,5 @@ public class TableTest extends JFrame {
 				}
 			}
 		});
-	}
+	}*/
 }

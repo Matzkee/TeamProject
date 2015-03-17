@@ -2,13 +2,11 @@ package frames;
 
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.Rectangle;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSeparator;
 import javax.swing.SwingConstants;
-import javax.swing.border.BevelBorder;
 
 import core.Booking;
 
@@ -23,6 +21,7 @@ public class TableRow extends JPanel{
 	
 	/**
 	 * Create the panel.
+	 * Constructor
 	 */
 	public TableRow() {
 		setBackground(Color.DARK_GRAY);
