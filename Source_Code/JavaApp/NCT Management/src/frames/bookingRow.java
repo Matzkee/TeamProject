@@ -14,8 +14,10 @@ import javax.swing.JSeparator;
 import javax.swing.SwingConstants;
 
 import core.Booking;
+import java.awt.Dimension;
+import java.awt.Rectangle;
 
-public class bookingRow extends JPanel implements ListCellRenderer<Booking>{
+public class bookingRow extends JLabel implements ListCellRenderer<Booking>{
 	
 	// Components declaration
 	JLabel lblCarReg;
@@ -28,10 +30,9 @@ public class bookingRow extends JPanel implements ListCellRenderer<Booking>{
 	 * Create the panel.
 	 */
 	public bookingRow() {
-		setBorder(new BevelBorder(BevelBorder.LOWERED, new Color(0, 0, 0), new Color(192, 192, 192), new Color(0, 0, 0), Color.BLACK));
-		setForeground(Color.GRAY);
 		setBackground(Color.DARK_GRAY);
-		setLayout(null);
+		setOpaque(true);
+		setBounds(new Rectangle(0, 0, 400, 40));
 		
 		lblCarReg = new JLabel("Car Reg");
 		lblCarReg.setForeground(Color.LIGHT_GRAY);
@@ -52,7 +53,6 @@ public class bookingRow extends JPanel implements ListCellRenderer<Booking>{
 		add(lblTime);
 		
 		JSeparator separator_1 = new JSeparator();
-		separator_1.setBackground(Color.WHITE);
 		separator_1.setOrientation(SwingConstants.VERTICAL);
 		separator_1.setForeground(Color.GRAY);
 		separator_1.setBounds(189, 5, 1, 30);
@@ -70,6 +70,8 @@ public class bookingRow extends JPanel implements ListCellRenderer<Booking>{
 	public Component getListCellRendererComponent(
 			JList<? extends Booking> list, Booking booking, int index,
 			boolean isSelected, boolean cellHasFocus) {
+		
+		
 		
 		lblCarReg.setText(booking.getCarReg());
 		lblDate.setText(booking.getDate());

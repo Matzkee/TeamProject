@@ -1,13 +1,12 @@
 package frames;
 
-import javax.swing.DefaultListModel;
-import javax.swing.JPanel;
-import javax.swing.JList;
-import javax.swing.JScrollPane;
-
 import java.awt.Color;
 import java.util.ArrayList;
 
+import javax.swing.DefaultListModel;
+import javax.swing.JList;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.ListSelectionModel;
 
 import core.Booking;
@@ -23,8 +22,8 @@ public class bookingsListPane extends JPanel {
 	/**
 	 * Create the panel.
 	 */
-	public bookingsListPane(ArrayList<Booking> bookings) {
-		this.bookings = bookings;
+	public bookingsListPane(ArrayList<Booking> pbookings) {
+		bookings = pbookings;
 		listModel = new DefaultListModel<>();
 		Booking tempBook = null;
 		
@@ -34,6 +33,7 @@ public class bookingsListPane extends JPanel {
 				tempBook = new Booking();
 				tempBook = bookings.get(i);
 				listModel.addElement(tempBook);
+				System.out.println("Car reg: "+tempBook.getCarReg());
 			}
 		}
 		
@@ -42,15 +42,14 @@ public class bookingsListPane extends JPanel {
 		
 		//Set the list to custom listModel
 		bookingList = new JList<>(listModel);
-		bookingList.setBackground(Color.LIGHT_GRAY);
+		bookingList.setCellRenderer(new bookingRow());
 		//bookingList.setBounds(0, 0, 400, 175);
 		JScrollPane scrollPane = new JScrollPane(bookingList);
-		scrollPane.setSize(400, 175);
-		add(scrollPane);
+		scrollPane.setBounds(0, 0, 400, 175);
+		this.add(scrollPane);
 		
 		//Apply custom row render to the list
-		bookingList.setCellRenderer(new bookingRow());
-		bookingList.setBackground(Color.LIGHT_GRAY);
+		//bookingList.setBackground(Color.LIGHT_GRAY);
 		bookingList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 	}
 }
