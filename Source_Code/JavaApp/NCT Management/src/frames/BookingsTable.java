@@ -2,7 +2,6 @@ package frames;
 
 import java.awt.Color;
 import java.awt.Component;
-import java.awt.EventQueue;
 import java.awt.Font;
 import java.util.ArrayList;
 
@@ -17,7 +16,7 @@ import javax.swing.table.TableCellRenderer;
 import core.Booking;
 import core.Client;
 
-public class TableTest extends JPanel {
+public class BookingsTable extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 	private ArrayList<Booking> allBookings = new ArrayList<>();
@@ -27,15 +26,13 @@ public class TableTest extends JPanel {
 	 * Create the panel.
 	 * Constructor
 	 */
-	public TableTest() {
+	public BookingsTable() {
 		setBackground(Color.DARK_GRAY);
 		
 		testClient = new Client();
 		testClient.viewBookings();
 		
 		allBookings = testClient.getBookings();
-		
-
 		
 		setSize(400,200);
 		
@@ -106,7 +103,7 @@ public class TableTest extends JPanel {
 			return "Booking";
 		}
 		@Override
-		public Class getColumnClass(int columnIndex){
+		public Class<Booking> getColumnClass(int columnIndex){
 			return Booking.class;
 		}
 		@Override

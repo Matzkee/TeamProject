@@ -4,12 +4,13 @@
  * and open the template in the editor.
  */
 package frames;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.SwingUtilities;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 
 /**
  *
@@ -18,7 +19,7 @@ import java.awt.event.MouseEvent;
 public class AdminMenu extends javax.swing.JFrame {
 
 	private static final long serialVersionUID = 1L;
-	private TableTest pane;
+	private BookingsTable pane;
 	
 	
 	/*
@@ -45,7 +46,7 @@ public class AdminMenu extends javax.swing.JFrame {
 		button.setBounds(0, 186, 120, 40);
 		getContentPane().add(button);
 		
-		pane = new TableTest();
+		pane = new BookingsTable();
 		pane.setBounds(141, 11, 400, 200);
 		getContentPane().add(pane);
 		pane.setVisible(false);
