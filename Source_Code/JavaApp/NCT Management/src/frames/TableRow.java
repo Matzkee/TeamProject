@@ -29,19 +29,19 @@ public class TableRow extends JPanel{
 		
 		lblCarReg = new JLabel("Car Registration");
 		lblCarReg.setForeground(Color.LIGHT_GRAY);
-		lblCarReg.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+		lblCarReg.setFont(new Font("Segoe UI", Font.PLAIN, 12));
 		lblCarReg.setBounds(10, 11, 119, 14);
 		add(lblCarReg);
 		
 		lblDate = new JLabel("Date");
 		lblDate.setForeground(Color.LIGHT_GRAY);
-		lblDate.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+		lblDate.setFont(new Font("Segoe UI", Font.PLAIN, 12));
 		lblDate.setBounds(150, 11, 78, 14);
 		add(lblDate);
 		
 		lblTime = new JLabel("Time");
 		lblTime.setForeground(Color.LIGHT_GRAY);
-		lblTime.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+		lblTime.setFont(new Font("Segoe UI", Font.PLAIN, 12));
 		lblTime.setBounds(250, 11, 78, 14);
 		add(lblTime);
 		
