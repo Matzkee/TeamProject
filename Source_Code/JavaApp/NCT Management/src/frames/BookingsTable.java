@@ -3,6 +3,8 @@ package frames;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Font;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.ArrayList;
 
 import javax.swing.JLabel;
@@ -10,19 +12,21 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSeparator;
 import javax.swing.JTable;
+import javax.swing.JTextField;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.TableCellRenderer;
 
 import core.Booking;
 import core.Client;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 
 public class BookingsTable extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 	private ArrayList<Booking> allBookings = new ArrayList<>();
 	private Client testClient;
+	private JTextField txtCarReg;
+	private JTextField txtDate;
+	private JTextField txtTime;
 
 	/**
 	 * Create the panel.
@@ -37,7 +41,7 @@ public class BookingsTable extends JPanel {
 		allBookings = testClient.getBookings();
 		
 		// Panel Size
-		setSize(400,200);
+		setSize(400,380);
 		
 		// Setting up the table
 		JTable table = new JTable(new TableModel(allBookings));
@@ -46,11 +50,7 @@ public class BookingsTable extends JPanel {
 		setLayout(null);
 		table.setRowHeight(40);
 		table.setTableHeader(null);
-		table.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-			}
-		});
+		table.addMouseListener(new TableMouseListener(table,txtCarReg,txtDate,txtTime));
 		// ScrollPane for the table
 		JScrollPane tableScrollPane = new JScrollPane(table);
 		tableScrollPane.setBackground(Color.DARK_GRAY);
@@ -73,7 +73,81 @@ public class BookingsTable extends JPanel {
 		headerSeparator.setForeground(Color.LIGHT_GRAY);
 		headerSeparator.setBounds(100, 25, 275, 1);
 		headerPane.add(headerSeparator);
+		// CarReg label
+		JLabel lblCarRegistration = new JLabel("Car Registration: ");
+		lblCarRegistration.setFont(new Font("Segoe UI", Font.PLAIN, 12));
+		lblCarRegistration.setForeground(Color.WHITE);
+		lblCarRegistration.setBounds(10, 211, 99, 14);
+		add(lblCarRegistration);
+		// CarReg text field
+		txtCarReg = new JTextField();
+		txtCarReg.setFont(new Font("Segoe UI", Font.PLAIN, 12));
+		txtCarReg.setForeground(new Color(95, 95, 99));
+		txtCarReg.setBounds(119, 208, 86, 20);
+		add(txtCarReg);
+		txtCarReg.setColumns(10);
+		// Date label
+		JLabel lblDate = new JLabel("Date: ");
+		lblDate.setForeground(Color.WHITE);
+		lblDate.setBounds(10, 236, 99, 14);
+		add(lblDate);
+		// Date text field
+		txtDate = new JTextField();
+		txtDate.setBounds(119, 233, 86, 20);
+		add(txtDate);
+		txtDate.setColumns(10);
+		// Time label
+		JLabel lblTime = new JLabel("Time: ");
+		lblTime.setForeground(Color.WHITE);
+		lblTime.setBounds(10, 261, 99, 14);
+		add(lblTime);
+		// Time text field
+		txtTime = new JTextField();
+		txtTime.setBounds(119, 258, 86, 20);
+		add(txtTime);
+		txtTime.setColumns(10);
 		
+	}
+	
+	// Table Mouse Listener
+	class TableMouseListener implements MouseListener{
+		JTextField mCarReg;
+		private JTextField mDate;
+		private JTextField mTime;
+		private JTable mTable;
+		private Booking mBooking;
+		
+		public TableMouseListener(JTable bTable, JTextField bCarReg, JTextField bDate, JTextField bTime){
+			mCarReg = bCarReg;
+			mDate = bDate;
+			mTime = bTime;
+			mTable = bTable;
+		}
+		
+		@Override
+		public void mouseClicked(MouseEvent e) {
+			mBooking = new Booking();
+			int row = mTable.rowAtPoint(e.getPoint());
+			System.out.println(row);
+			mBooking = (Booking) mTable.getValueAt(row, 0);
+			System.out.println(mBooking.getCarReg());
+			
+			mCarReg.setText(mBooking.getCarReg().toString());
+			//mDate.setText(mBooking.getDate());
+			//mTime.setText(mBooking.getTime());
+		}
+		@Override
+		public void mousePressed(MouseEvent e) {
+		}
+		@Override
+		public void mouseReleased(MouseEvent e) {
+		}
+		@Override
+		public void mouseEntered(MouseEvent e) {
+		}
+		@Override
+		public void mouseExited(MouseEvent e) {
+		}
 	}
 	
 	// Table Cell Renderer

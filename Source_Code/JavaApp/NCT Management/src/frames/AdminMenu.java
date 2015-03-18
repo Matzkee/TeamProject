@@ -55,7 +55,7 @@ public class AdminMenu extends javax.swing.JFrame {
 		getContentPane().add(button);
 		// bookings panel
 		pane = new BookingsTable();
-		pane.setBounds(141, 11, 400, 200);
+		pane.setBounds(141, 11, 400, 380);
 		getContentPane().add(pane);
 		pane.setVisible(false);
 		// background image
