@@ -19,15 +19,16 @@ import javax.swing.table.TableCellRenderer;
 
 import core.Booking;
 import core.Client;
+import javax.swing.JTextField;
 
 public class BookingsTable extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 	private ArrayList<Booking> allBookings = new ArrayList<>();
 	private Client testClient;
-	private JLabel CarReg;
-	private JLabel Date;
-	private JLabel Time;
+	private JTextField txtCarReg;
+	private JTextField txtDate;
+	private JTextField txtTime;
 
 	/**
 	 * Create the panel.
@@ -93,38 +94,108 @@ public class BookingsTable extends JPanel {
 		lblTime.setForeground(Color.WHITE);
 		lblTime.setBounds(10, 261, 99, 14);
 		add(lblTime);
-		
-		CarReg = new JLabel("");
-		CarReg.setFont(new Font("Segoe UI", Font.PLAIN, 12));
-		CarReg.setForeground(Color.WHITE);
-		CarReg.setBounds(119, 212, 86, 14);
-		add(CarReg);
-		
-		Date = new JLabel("");
-		Date.setFont(new Font("Segoe UI", Font.PLAIN, 12));
-		Date.setForeground(Color.WHITE);
-		Date.setBounds(119, 236, 86, 14);
-		add(Date);
-		
-		Time = new JLabel("");
-		Time.setFont(new Font("Segoe UI", Font.PLAIN, 12));
-		Time.setForeground(Color.WHITE);
-		Time.setBounds(119, 261, 86, 14);
-		add(Time);
-		
-		// Apply table mouse listener
-		// Set at the end to allow components to be declared before put into listener
-		table.addMouseListener(new TableMouseListener(table, CarReg, Date, Time));
-		
+		// CarReg text field
+		txtCarReg = new JTextField();
+		txtCarReg.setOpaque(false);
+		txtCarReg.setEditable(false);
+		txtCarReg.setForeground(Color.WHITE);
+		txtCarReg.setFont(new Font("Segoe UI", Font.PLAIN, 12));
+		txtCarReg.setBounds(119, 209, 86, 20);
+		add(txtCarReg);
+		txtCarReg.setColumns(10);
+		// Date text field
+		txtDate = new JTextField();
+		txtDate.setOpaque(false);
+		txtDate.setForeground(Color.WHITE);
+		txtDate.setFont(new Font("Segoe UI", Font.PLAIN, 12));
+		txtDate.setEditable(false);
+		txtDate.setBounds(119, 234, 86, 20);
+		add(txtDate);
+		txtDate.setColumns(10);
+		// Time text field
+		txtTime = new JTextField();
+		txtTime.setOpaque(false);
+		txtTime.setForeground(Color.WHITE);
+		txtTime.setFont(new Font("Segoe UI", Font.PLAIN, 12));
+		txtTime.setEditable(false);
+		txtTime.setBounds(119, 259, 86, 20);
+		add(txtTime);
+		txtTime.setColumns(10);
+		// Delete Booking button
 		JButton btnDeleteBooking = new JButton("Delete Booking");
-		btnDeleteBooking.setBackground(Color.LIGHT_GRAY);
 		btnDeleteBooking.setBounds(280, 258, 110, 23);
 		btnDeleteBooking.addMouseListener(new DeleteButtonMouseListener(table, tableModel));
 		add(btnDeleteBooking);
+		// ToggleModify button
+		JButton btnEditToggle = new JButton("Toggle Edit");
+		btnEditToggle.setBounds(280, 208, 110, 23);
+		btnEditToggle.addMouseListener(new EditToggleButtonMouseListener(txtCarReg, txtDate, txtTime));
+		add(btnEditToggle);
+		// Submit Changes button
+		JButton btnSubmitChanges = new JButton("Submit Changes");
+		btnSubmitChanges.setBounds(10, 290, 195, 23);
+		add(btnSubmitChanges);
 		
-		JButton btnModifyBooking = new JButton("Modify Booking");
-		btnModifyBooking.setBounds(280, 208, 110, 23);
-		add(btnModifyBooking);
+		// Apply Table Mouse Listener
+		// Set at the end to ensure components get declared before put into listener
+		table.addMouseListener(new TableMouseListener(table,txtCarReg, txtDate, txtTime));
+		
+	}
+	
+	// Toggle Modify Button Mouse Listener
+	class EditToggleButtonMouseListener implements MouseListener{
+		private JTextField eCarReg;
+		private JTextField eDate;
+		private JTextField eTime;
+
+		public EditToggleButtonMouseListener(JTextField carReg, JTextField date, JTextField time){
+			eCarReg = carReg;
+			eDate = date;
+			eTime = time;
+		}
+		@Override
+		public void mouseClicked(MouseEvent e) {
+			if(eCarReg.isEditable()){
+				// set opaque
+				eCarReg.setOpaque(false);
+				eDate.setOpaque(false);
+				eTime.setOpaque(false);
+				// set editable
+				eCarReg.setEditable(false);
+				eDate.setEditable(false);
+				eTime.setEditable(false);
+				// set foreground
+				eCarReg.setForeground(Color.WHITE);
+				eDate.setForeground(Color.WHITE);
+				eTime.setForeground(Color.WHITE);
+			}
+			else{
+				// set opaque
+				eCarReg.setOpaque(true);
+				eDate.setOpaque(true);
+				eTime.setOpaque(true);
+				// set editable
+				eCarReg.setEditable(true);
+				eDate.setEditable(true);
+				eTime.setEditable(true);
+				// set foreground
+				eCarReg.setForeground(Color.BLACK);
+				eDate.setForeground(Color.BLACK);
+				eTime.setForeground(Color.BLACK);
+			}
+		}
+		@Override
+		public void mousePressed(MouseEvent e) {
+		}
+		@Override
+		public void mouseReleased(MouseEvent e) {
+		}
+		@Override
+		public void mouseEntered(MouseEvent e) {
+		}
+		@Override
+		public void mouseExited(MouseEvent e) {
+		}
 	}
 	
 	// Delete Button Mouse Listener
@@ -136,7 +207,6 @@ public class BookingsTable extends JPanel {
 			dTable = table;
 			dTableModel = tableModel;
 		}
-		
 		@Override
 		public void mouseClicked(MouseEvent e) {
 			if (dTable.getSelectedRow() != -1){
@@ -159,13 +229,13 @@ public class BookingsTable extends JPanel {
 	
 	// Table Mouse Listener
 	class TableMouseListener implements MouseListener{
-		private JLabel mCarReg;
-		private JLabel mDate;
-		private JLabel mTime;
+		private JTextField mCarReg;
+		private JTextField mDate;
+		private JTextField mTime;
 		private JTable mTable;
 		private Booking mBooking;
 		
-		public TableMouseListener(JTable bTable, JLabel bCarReg, JLabel bDate, JLabel bTime){
+		public TableMouseListener(JTable bTable, JTextField bCarReg, JTextField bDate, JTextField bTime){
 			mCarReg = bCarReg;
 			mDate = bDate;
 			mTime = bTime;

@@ -48,12 +48,6 @@ public class AdminMenu extends javax.swing.JFrame {
 		viewBookingsBTN.setIcon(new ImageIcon(AdminMenu.class.getResource("/graphics/ViewBookingsButton.jpg")));
 		viewBookingsBTN.setBounds(0, 145, 120, 40);
 		getContentPane().add(viewBookingsBTN);
-		
-		// deleteBookings button
-		JButton button = new JButton("");
-		button.setIcon(new ImageIcon(AdminMenu.class.getResource("/graphics/DeleteBookingButton.jpg")));
-		button.setBounds(0, 186, 120, 40);
-		getContentPane().add(button);
 		// bookings panel
 		pane = new BookingsTable();
 		pane.setBounds(141, 11, 400, 380);
