@@ -7,27 +7,27 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
 
+import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSeparator;
 import javax.swing.JTable;
-import javax.swing.JTextField;
+import javax.swing.ListSelectionModel;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.TableCellRenderer;
 
 import core.Booking;
 import core.Client;
-import javax.swing.ListSelectionModel;
 
 public class BookingsTable extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 	private ArrayList<Booking> allBookings = new ArrayList<>();
 	private Client testClient;
-	private JTextField txtCarReg;
-	private JTextField txtDate;
-	private JTextField txtTime;
+	private JLabel CarReg;
+	private JLabel Date;
+	private JLabel Time;
 
 	/**
 	 * Create the panel.
@@ -45,7 +45,8 @@ public class BookingsTable extends JPanel {
 		setSize(400,380);
 		
 		// Setting up the table
-		JTable table = new JTable(new TableModel(allBookings));
+		TableModel tableModel = new TableModel(allBookings);
+		JTable table = new JTable(tableModel);
 		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		table.setBackground(Color.DARK_GRAY);
 		table.setDefaultRenderer(Booking.class, new TableRenderer());
@@ -80,48 +81,91 @@ public class BookingsTable extends JPanel {
 		lblCarRegistration.setForeground(Color.WHITE);
 		lblCarRegistration.setBounds(10, 211, 99, 14);
 		add(lblCarRegistration);
-		// CarReg text field
-		txtCarReg = new JTextField();
-		txtCarReg.setFont(new Font("Segoe UI", Font.PLAIN, 12));
-		txtCarReg.setForeground(new Color(95, 95, 99));
-		txtCarReg.setBounds(119, 208, 86, 20);
-		add(txtCarReg);
-		txtCarReg.setColumns(10);
 		// Date label
 		JLabel lblDate = new JLabel("Date: ");
+		lblDate.setFont(new Font("Segoe UI", Font.PLAIN, 12));
 		lblDate.setForeground(Color.WHITE);
 		lblDate.setBounds(10, 236, 99, 14);
 		add(lblDate);
-		// Date text field
-		txtDate = new JTextField();
-		txtDate.setBounds(119, 233, 86, 20);
-		add(txtDate);
-		txtDate.setColumns(10);
 		// Time label
 		JLabel lblTime = new JLabel("Time: ");
+		lblTime.setFont(new Font("Segoe UI", Font.PLAIN, 12));
 		lblTime.setForeground(Color.WHITE);
 		lblTime.setBounds(10, 261, 99, 14);
 		add(lblTime);
-		// Time text field
-		txtTime = new JTextField();
-		txtTime.setBounds(119, 258, 86, 20);
-		add(txtTime);
-		txtTime.setColumns(10);
 		
-		// Add Mouse Listener to the table
-		// Set at the end so that components get declared before put into listener
-		table.addMouseListener(new TableMouseListener(table,txtCarReg,txtDate,txtTime));
+		CarReg = new JLabel("");
+		CarReg.setFont(new Font("Segoe UI", Font.PLAIN, 12));
+		CarReg.setForeground(Color.WHITE);
+		CarReg.setBounds(119, 212, 86, 14);
+		add(CarReg);
+		
+		Date = new JLabel("");
+		Date.setFont(new Font("Segoe UI", Font.PLAIN, 12));
+		Date.setForeground(Color.WHITE);
+		Date.setBounds(119, 236, 86, 14);
+		add(Date);
+		
+		Time = new JLabel("");
+		Time.setFont(new Font("Segoe UI", Font.PLAIN, 12));
+		Time.setForeground(Color.WHITE);
+		Time.setBounds(119, 261, 86, 14);
+		add(Time);
+		
+		// Apply table mouse listener
+		// Set at the end to allow components to be declared before put into listener
+		table.addMouseListener(new TableMouseListener(table, CarReg, Date, Time));
+		
+		JButton btnDeleteBooking = new JButton("Delete Booking");
+		btnDeleteBooking.setBackground(Color.LIGHT_GRAY);
+		btnDeleteBooking.setBounds(280, 258, 110, 23);
+		btnDeleteBooking.addMouseListener(new DeleteButtonMouseListener(table, tableModel));
+		add(btnDeleteBooking);
+		
+		JButton btnModifyBooking = new JButton("Modify Booking");
+		btnModifyBooking.setBounds(280, 208, 110, 23);
+		add(btnModifyBooking);
+	}
+	
+	// Delete Button Mouse Listener
+	class DeleteButtonMouseListener implements MouseListener{
+		private JTable dTable;
+		private TableModel dTableModel;
+		
+		public DeleteButtonMouseListener(JTable table, TableModel tableModel){
+			dTable = table;
+			dTableModel = tableModel;
+		}
+		
+		@Override
+		public void mouseClicked(MouseEvent e) {
+			if (dTable.getSelectedRow() != -1){
+				dTableModel.removeRow(dTable.getSelectedRow());
+			}			
+		}
+		@Override
+		public void mousePressed(MouseEvent e) {
+		}
+		@Override
+		public void mouseReleased(MouseEvent e) {
+		}
+		@Override
+		public void mouseEntered(MouseEvent e) {
+		}
+		@Override
+		public void mouseExited(MouseEvent e) {
+		}
 	}
 	
 	// Table Mouse Listener
 	class TableMouseListener implements MouseListener{
-		private JTextField mCarReg;
-		private JTextField mDate;
-		private JTextField mTime;
+		private JLabel mCarReg;
+		private JLabel mDate;
+		private JLabel mTime;
 		private JTable mTable;
 		private Booking mBooking;
 		
-		public TableMouseListener(JTable bTable, JTextField bCarReg, JTextField bDate, JTextField bTime){
+		public TableMouseListener(JTable bTable, JLabel bCarReg, JLabel bDate, JLabel bTime){
 			mCarReg = bCarReg;
 			mDate = bDate;
 			mTime = bTime;
@@ -208,6 +252,10 @@ public class BookingsTable extends JPanel {
 		public boolean isCellEditable(int columnIndex, int rowIndex){
 			return false;
 		}
-		
+		public void removeRow(int rowIndex){
+			bookings.remove(rowIndex);
+			fireTableRowsDeleted(rowIndex, rowIndex);
+			System.out.println("Deleted row: " + rowIndex);
+		}
 	}
 }

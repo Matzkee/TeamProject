@@ -27,11 +27,12 @@ public class AdminMenu extends javax.swing.JFrame {
 	 * Constructor
 	 */
 	public AdminMenu() {
+		setResizable(false);
 		
 		// Main frame
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		getContentPane().setLayout(null);
-		setSize(575,445);
+		setSize(560,435);
 		setTitle("Admin Menu");
 		setLocationRelativeTo(null);
 		setVisible(true);
