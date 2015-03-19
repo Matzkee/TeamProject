@@ -18,6 +18,7 @@ import javax.swing.table.TableCellRenderer;
 
 import core.Booking;
 import core.Client;
+import javax.swing.ListSelectionModel;
 
 public class BookingsTable extends JPanel {
 
@@ -45,6 +46,7 @@ public class BookingsTable extends JPanel {
 		
 		// Setting up the table
 		JTable table = new JTable(new TableModel(allBookings));
+		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		table.setBackground(Color.DARK_GRAY);
 		table.setDefaultRenderer(Booking.class, new TableRenderer());
 		setLayout(null);
@@ -164,7 +166,8 @@ public class BookingsTable extends JPanel {
 				Object value, boolean isSelected, boolean hasFocus, int row,
 				int column) {
 			Booking book = (Booking) value;
-			cell.setRowLabels(book);
+			cell.setRowLabels(book, isSelected, table);
+			
 			return cell;
 		}
 	}

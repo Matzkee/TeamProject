@@ -6,6 +6,7 @@ import java.awt.Font;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSeparator;
+import javax.swing.JTable;
 import javax.swing.SwingConstants;
 
 import core.Booking;
@@ -24,6 +25,7 @@ public class TableRow extends JPanel{
 	 * Constructor
 	 */
 	public TableRow() {
+		setForeground(Color.BLACK);
 		setBackground(Color.DARK_GRAY);
 		setLayout(null);
 		
@@ -57,10 +59,17 @@ public class TableRow extends JPanel{
 		separator.setBounds(139, 5, 1, 30);
 		add(separator);
 	}
-	public void setRowLabels(Booking book){
+	public void setRowLabels(Booking book, boolean isSelected, JTable table){
 		lblCarReg.setText(book.getCarReg());
 		lblDate.setText(book.getDate());
 		lblTime.setText(book.getTime());
+		
+		if(isSelected){
+			setBackground(table.getSelectionForeground());
+		}
+		else{
+			setBackground(table.getBackground());
+		}
 	}
 
 }

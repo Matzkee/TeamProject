@@ -67,13 +67,8 @@ public class Client implements ClientUi{
 	@Override
 	public void viewBookings() {
 		bookings = new ArrayList<Booking>();
-		Booking booking;
 		bookings = clientDAO.getBookings();
-		for(int i = 0; i < bookings.size(); i++)
-		{
-			booking = bookings.get(i);
-			System.out.println("Car reg: "+booking.getCarReg()+" | Date: "+booking.getDate()+" | Time: "+booking.getTime());
-		}
+		System.out.println("Loaded bookings: "+bookings.size());
 		
 	}
 
