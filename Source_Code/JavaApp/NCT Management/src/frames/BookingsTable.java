@@ -50,7 +50,6 @@ public class BookingsTable extends JPanel {
 		setLayout(null);
 		table.setRowHeight(40);
 		table.setTableHeader(null);
-		table.addMouseListener(new TableMouseListener(table,txtCarReg,txtDate,txtTime));
 		// ScrollPane for the table
 		JScrollPane tableScrollPane = new JScrollPane(table);
 		tableScrollPane.setBackground(Color.DARK_GRAY);
@@ -107,11 +106,14 @@ public class BookingsTable extends JPanel {
 		add(txtTime);
 		txtTime.setColumns(10);
 		
+		// Add Mouse Listener to the table
+		// Set at the end so that components get declared before put into listener
+		table.addMouseListener(new TableMouseListener(table,txtCarReg,txtDate,txtTime));
 	}
 	
 	// Table Mouse Listener
 	class TableMouseListener implements MouseListener{
-		JTextField mCarReg;
+		private JTextField mCarReg;
 		private JTextField mDate;
 		private JTextField mTime;
 		private JTable mTable;
@@ -128,13 +130,11 @@ public class BookingsTable extends JPanel {
 		public void mouseClicked(MouseEvent e) {
 			mBooking = new Booking();
 			int row = mTable.rowAtPoint(e.getPoint());
-			System.out.println(row);
 			mBooking = (Booking) mTable.getValueAt(row, 0);
-			System.out.println(mBooking.getCarReg());
 			
-			mCarReg.setText(mBooking.getCarReg().toString());
-			//mDate.setText(mBooking.getDate());
-			//mTime.setText(mBooking.getTime());
+			mCarReg.setText(mBooking.getCarReg());
+			mDate.setText(mBooking.getDate());
+			mTime.setText(mBooking.getTime());
 		}
 		@Override
 		public void mousePressed(MouseEvent e) {
