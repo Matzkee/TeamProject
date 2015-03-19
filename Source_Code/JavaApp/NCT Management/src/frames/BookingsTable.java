@@ -130,7 +130,6 @@ public class BookingsTable extends JPanel {
 		
 		@Override
 		public void mouseClicked(MouseEvent e) {
-			mBooking = new Booking();
 			int row = mTable.rowAtPoint(e.getPoint());
 			mBooking = (Booking) mTable.getValueAt(row, 0);
 			
