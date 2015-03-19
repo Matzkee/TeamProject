@@ -19,6 +19,7 @@ import javax.swing.table.TableCellRenderer;
 
 import core.Booking;
 import core.Client;
+
 import javax.swing.JTextField;
 
 public class BookingsTable extends JPanel {
@@ -134,6 +135,7 @@ public class BookingsTable extends JPanel {
 		// Submit Changes button
 		JButton btnSubmitChanges = new JButton("Submit Changes");
 		btnSubmitChanges.setBounds(10, 290, 195, 23);
+		btnSubmitChanges.addMouseListener(new SubmitButtonMouseListener(table, tableModel, txtCarReg, txtDate, txtTime));
 		add(btnSubmitChanges);
 		
 		// Apply Table Mouse Listener
@@ -141,6 +143,40 @@ public class BookingsTable extends JPanel {
 		table.addMouseListener(new TableMouseListener(table,txtCarReg, txtDate, txtTime));
 		
 	}
+	
+	// Submit Button Mouse Listener
+	class SubmitButtonMouseListener implements MouseListener{
+		private JTextField sCarReg;
+		private JTextField sDate;
+		private JTextField sTime;
+		private TableModel sTableModel;
+		private JTable sTable;
+		
+		public SubmitButtonMouseListener(JTable table, TableModel tableModel, JTextField carReg, JTextField date, JTextField time){
+			sTable = table;
+			sTableModel = tableModel;
+			sCarReg = carReg;
+			sDate = date;
+			sTime = time;
+		}
+		@Override
+		public void mouseClicked(MouseEvent e) {
+			sTableModel.updateRow(sTable.getSelectedRow(), sCarReg.getText(), sDate.getText(), sTime.getText());
+		}
+		@Override
+		public void mousePressed(MouseEvent e) {
+		}
+		@Override
+		public void mouseReleased(MouseEvent e) {
+		}
+		@Override
+		public void mouseEntered(MouseEvent e) {
+		}
+		@Override
+		public void mouseExited(MouseEvent e) {
+		}
+	}
+	
 	
 	// Toggle Modify Button Mouse Listener
 	class EditToggleButtonMouseListener implements MouseListener{
@@ -319,6 +355,11 @@ public class BookingsTable extends JPanel {
 			return (bookings == null) ? null : bookings.get(rowIndex);
 		}
 		@Override
+		public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
+			bookings.set(rowIndex, (Booking) aValue);
+			fireTableCellUpdated(rowIndex, 0);
+		}
+		@Override
 		public boolean isCellEditable(int columnIndex, int rowIndex){
 			return false;
 		}
@@ -326,6 +367,13 @@ public class BookingsTable extends JPanel {
 			bookings.remove(rowIndex);
 			fireTableRowsDeleted(rowIndex, rowIndex);
 			System.out.println("Deleted row: " + rowIndex);
+		}
+		public void updateRow(int rowIndex, String carReg, String date, String time){
+			Booking tempBook = bookings.get(rowIndex);
+			tempBook.setCarReg(carReg);
+			tempBook.setDate(date);
+			tempBook.setTime(time);
+			setValueAt(tempBook, rowIndex, 0);
 		}
 	}
 }
