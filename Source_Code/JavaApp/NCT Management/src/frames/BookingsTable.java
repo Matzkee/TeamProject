@@ -35,7 +35,6 @@ public class BookingsTable extends JPanel {
 	 * Constructor
 	 */
 	public BookingsTable() {
-		setOpaque(false);
 		setBackground(Color.DARK_GRAY);
 		
 		testClient = new Client();
