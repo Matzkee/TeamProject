@@ -21,21 +21,28 @@ import javax.swing.table.TableCellRenderer;
 import core.Booking;
 import core.Client;
 
-public class BookingsTable extends JPanel {
+public class BookingsTable extends JPanel implements MouseListener{
 
+	/**
+	 * Variable declaration.
+	 */
 	private static final long serialVersionUID = 1L;
 	private ArrayList<Booking> allBookings = new ArrayList<>();
 	private Client testClient;
 	private JTextField txtCarReg;
 	private JTextField txtDate;
 	private JTextField txtTime;
+	private TableModel tableModel;
+	private JTable table;
+	private final Color TRANSPARENTCOLOR = new Color(0,0,0,0);
+	private final Font TEXTFONT = new Font("Segoe UI", Font.PLAIN, 12);
 
 	/**
 	 * Create the panel.
 	 * Constructor
 	 */
 	public BookingsTable() {
-		setBackground(Color.DARK_GRAY);
+		setBackground(TRANSPARENTCOLOR);
 		
 		testClient = new Client();
 		testClient.viewBookings();
@@ -46,8 +53,8 @@ public class BookingsTable extends JPanel {
 		setSize(400,380);
 		
 		// Setting up the table
-		TableModel tableModel = new TableModel(allBookings);
-		JTable table = new JTable(tableModel);
+		tableModel = new TableModel(allBookings);
+		table = new JTable(tableModel);
 		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		table.setBackground(Color.DARK_GRAY);
 		table.setDefaultRenderer(Booking.class, new TableRenderer());
@@ -67,7 +74,7 @@ public class BookingsTable extends JPanel {
 		headerPane.setLayout(null);
 		// Label for the header panel
 		JLabel lblHeader = new JLabel("Bookings");
-		lblHeader.setFont(new Font("Segoe UI", Font.BOLD, 16));
+		lblHeader.setFont(new Font("Segoe UI", Font.PLAIN, 18));
 		lblHeader.setForeground(Color.LIGHT_GRAY);
 		lblHeader.setBounds(5, 0, 100, 30);
 		headerPane.add(lblHeader);
@@ -78,38 +85,36 @@ public class BookingsTable extends JPanel {
 		headerPane.add(headerSeparator);
 		// CarReg label
 		JLabel lblCarRegistration = new JLabel("Car Registration: ");
-		lblCarRegistration.setFont(new Font("Segoe UI", Font.PLAIN, 12));
+		lblCarRegistration.setFont(TEXTFONT);
 		lblCarRegistration.setForeground(Color.WHITE);
 		lblCarRegistration.setBounds(10, 211, 99, 14);
 		add(lblCarRegistration);
 		// Date label
 		JLabel lblDate = new JLabel("Date: ");
-		lblDate.setFont(new Font("Segoe UI", Font.PLAIN, 12));
+		lblDate.setFont(TEXTFONT);
 		lblDate.setForeground(Color.WHITE);
 		lblDate.setBounds(10, 236, 99, 14);
 		add(lblDate);
 		// Time label
 		JLabel lblTime = new JLabel("Time: ");
-		lblTime.setFont(new Font("Segoe UI", Font.PLAIN, 12));
+		lblTime.setFont(TEXTFONT);
 		lblTime.setForeground(Color.WHITE);
 		lblTime.setBounds(10, 261, 99, 14);
 		add(lblTime);
 		// CarReg text field
 		txtCarReg = new JTextField();
 		txtCarReg.setBorder(null);
-		txtCarReg.setOpaque(false);
 		txtCarReg.setEditable(false);
-		txtCarReg.setForeground(Color.WHITE);
-		txtCarReg.setFont(new Font("Segoe UI", Font.PLAIN, 12));
+		txtCarReg.setForeground(Color.BLACK);
+		txtCarReg.setFont(TEXTFONT);
 		txtCarReg.setBounds(119, 209, 86, 20);
 		add(txtCarReg);
 		txtCarReg.setColumns(10);
 		// Date text field
 		txtDate = new JTextField();
 		txtDate.setBorder(null);
-		txtDate.setOpaque(false);
-		txtDate.setForeground(Color.WHITE);
-		txtDate.setFont(new Font("Segoe UI", Font.PLAIN, 12));
+		txtDate.setForeground(Color.BLACK);
+		txtDate.setFont(TEXTFONT);
 		txtDate.setEditable(false);
 		txtDate.setBounds(119, 234, 86, 20);
 		add(txtDate);
@@ -117,9 +122,8 @@ public class BookingsTable extends JPanel {
 		// Time text field
 		txtTime = new JTextField();
 		txtTime.setBorder(null);
-		txtTime.setOpaque(false);
-		txtTime.setForeground(Color.WHITE);
-		txtTime.setFont(new Font("Segoe UI", Font.PLAIN, 12));
+		txtTime.setForeground(Color.BLACK);
+		txtTime.setFont(TEXTFONT);
 		txtTime.setEditable(false);
 		txtTime.setBounds(119, 259, 86, 20);
 		add(txtTime);
@@ -127,143 +131,66 @@ public class BookingsTable extends JPanel {
 		// Delete Booking button
 		JButton btnDeleteBooking = new JButton("Delete Booking");
 		btnDeleteBooking.setBounds(280, 258, 110, 23);
-		btnDeleteBooking.addMouseListener(new DeleteButtonMouseListener(table, tableModel));
+		btnDeleteBooking.addMouseListener(this);
 		add(btnDeleteBooking);
 		// ToggleModify button
 		JButton btnEditToggle = new JButton("Toggle Edit");
 		btnEditToggle.setBounds(280, 208, 110, 23);
-		btnEditToggle.addMouseListener(new EditToggleButtonMouseListener(txtCarReg, txtDate, txtTime));
+		btnEditToggle.addMouseListener(this);
 		add(btnEditToggle);
 		// Submit Changes button
 		JButton btnSubmitChanges = new JButton("Submit Changes");
 		btnSubmitChanges.setBounds(10, 290, 195, 23);
-		btnSubmitChanges.addMouseListener(new SubmitButtonMouseListener(table, tableModel, txtCarReg, txtDate, txtTime));
+		btnSubmitChanges.addMouseListener(this);
 		add(btnSubmitChanges);
 		
 		// Apply Table Mouse Listener
 		// Set at the end to ensure components get declared before put into listener
 		table.addMouseListener(new TableMouseListener(table,txtCarReg, txtDate, txtTime));
 	}
-
-	// Submit Button Mouse Listener
-	class SubmitButtonMouseListener implements MouseListener{
-		private JTextField sCarReg;
-		private JTextField sDate;
-		private JTextField sTime;
-		private TableModel sTableModel;
-		private JTable sTable;
-		
-		public SubmitButtonMouseListener(JTable table, TableModel tableModel, JTextField carReg, JTextField date, JTextField time){
-			sTable = table;
-			sTableModel = tableModel;
-			sCarReg = carReg;
-			sDate = date;
-			sTime = time;
-		}
-		@Override
-		public void mouseClicked(MouseEvent e) {
-			if(sTable.getSelectedRow() != -1){
-				sTableModel.updateRow(sTable.getSelectedRow(), sCarReg.getText(), sDate.getText(), sTime.getText());
-			}
-		}
-		@Override
-		public void mousePressed(MouseEvent e) {
-		}
-		@Override
-		public void mouseReleased(MouseEvent e) {
-		}
-		@Override
-		public void mouseEntered(MouseEvent e) {
-		}
-		@Override
-		public void mouseExited(MouseEvent e) {
+	
+	
+	@Override
+	public void mouseClicked(MouseEvent e) {
+		JButton button = (JButton) e.getSource();
+		switch(button.getText()){
+			case "Delete Booking":
+				if (table.getSelectedRow() != -1){
+					tableModel.removeRow(table.getSelectedRow());
+				}
+			break;
+			case "Toggle Edit":
+				if(txtCarReg.isEditable()){
+					// set editable
+					txtCarReg.setEditable(false);
+					txtDate.setEditable(false);
+					txtTime.setEditable(false);
+				}
+				else{
+					// set editable
+					txtCarReg.setEditable(true);
+					txtDate.setEditable(true);
+					txtTime.setEditable(true);
+				}
+			break;
+			case "Submit Changes":
+				if(table.getSelectedRow() != -1){
+					tableModel.updateRow(table.getSelectedRow(), txtCarReg.getText(), txtDate.getText(), txtTime.getText());
+				}
+			break;
 		}
 	}
-	
-	
-	// Toggle Modify Button Mouse Listener
-	class EditToggleButtonMouseListener implements MouseListener{
-		private JTextField eCarReg;
-		private JTextField eDate;
-		private JTextField eTime;
-
-		public EditToggleButtonMouseListener(JTextField carReg, JTextField date, JTextField time){
-			eCarReg = carReg;
-			eDate = date;
-			eTime = time;
-		}
-		@Override
-		public void mouseClicked(MouseEvent e) {
-			if(eCarReg.isEditable()){
-				// set opaque
-				eCarReg.setOpaque(false);
-				eDate.setOpaque(false);
-				eTime.setOpaque(false);
-				// set editable
-				eCarReg.setEditable(false);
-				eDate.setEditable(false);
-				eTime.setEditable(false);
-				// set foreground
-				eCarReg.setForeground(Color.WHITE);
-				eDate.setForeground(Color.WHITE);
-				eTime.setForeground(Color.WHITE);
-			}
-			else{
-				// set opaque
-				eCarReg.setOpaque(true);
-				eDate.setOpaque(true);
-				eTime.setOpaque(true);
-				// set editable
-				eCarReg.setEditable(true);
-				eDate.setEditable(true);
-				eTime.setEditable(true);
-				// set foreground
-				eCarReg.setForeground(Color.BLACK);
-				eDate.setForeground(Color.BLACK);
-				eTime.setForeground(Color.BLACK);
-			}
-		}
-		@Override
-		public void mousePressed(MouseEvent e) {
-		}
-		@Override
-		public void mouseReleased(MouseEvent e) {
-		}
-		@Override
-		public void mouseEntered(MouseEvent e) {
-		}
-		@Override
-		public void mouseExited(MouseEvent e) {
-		}
+	@Override
+	public void mousePressed(MouseEvent e) {
 	}
-	
-	// Delete Button Mouse Listener
-	class DeleteButtonMouseListener implements MouseListener{
-		private JTable dTable;
-		private TableModel dTableModel;
-		
-		public DeleteButtonMouseListener(JTable table, TableModel tableModel){
-			dTable = table;
-			dTableModel = tableModel;
-		}
-		@Override
-		public void mouseClicked(MouseEvent e) {
-			if (dTable.getSelectedRow() != -1){
-				dTableModel.removeRow(dTable.getSelectedRow());
-			}			
-		}
-		@Override
-		public void mousePressed(MouseEvent e) {
-		}
-		@Override
-		public void mouseReleased(MouseEvent e) {
-		}
-		@Override
-		public void mouseEntered(MouseEvent e) {
-		}
-		@Override
-		public void mouseExited(MouseEvent e) {
-		}
+	@Override
+	public void mouseReleased(MouseEvent e) {
+	}
+	@Override
+	public void mouseEntered(MouseEvent e) {
+	}
+	@Override
+	public void mouseExited(MouseEvent e) {
 	}
 	
 	// Table Mouse Listener

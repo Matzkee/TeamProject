@@ -13,7 +13,15 @@ import javax.swing.JPanel;
 
 public class AdminMenu_v2 extends JFrame implements MouseListener{
 	private static final long serialVersionUID = 1L;
+	
+	/**
+	 * Variable declaration.
+	 */
 	private JPanel contentPane;
+	private final Color HIGHLIGHTCOLOR = new Color(214,137,4);
+	private final Color AMBIENTCOLOR = Color.LIGHT_GRAY;
+	private final Font TEXTFONT = new Font("Segoe UI", Font.PLAIN, 20);
+	private BookingsTable bookingPane;
 
 
 	/**
@@ -29,25 +37,30 @@ public class AdminMenu_v2 extends JFrame implements MouseListener{
 		contentPane.setLayout(null);
 		
 		JLabel lblHome = new JLabel("HOME");
-		lblHome.setFont(new Font("Segoe UI", Font.PLAIN, 20));
-		lblHome.setForeground(Color.LIGHT_GRAY);
+		lblHome.setFont(TEXTFONT);
+		lblHome.setForeground(AMBIENTCOLOR);
 		lblHome.setBounds(30, 0, 100, 30);
 		lblHome.addMouseListener(this);
 		contentPane.add(lblHome);
 		
 		JLabel lblBookings = new JLabel("BOOKINGS");
-		lblBookings.setForeground(Color.LIGHT_GRAY);
-		lblBookings.setFont(new Font("Segoe UI", Font.PLAIN, 20));
+		lblBookings.setForeground(AMBIENTCOLOR);
+		lblBookings.setFont(TEXTFONT);
 		lblBookings.setBounds(140, 0, 100, 30);
 		lblBookings.addMouseListener(this);
 		contentPane.add(lblBookings);
 		
 		JLabel lblLogOut = new JLabel("LOG OUT");
-		lblLogOut.setForeground(Color.LIGHT_GRAY);
-		lblLogOut.setFont(new Font("Segoe UI", Font.PLAIN, 20));
+		lblLogOut.setForeground(AMBIENTCOLOR);
+		lblLogOut.setFont(TEXTFONT);
 		lblLogOut.setBounds(300, 0, 100, 30);
 		lblLogOut.addMouseListener(this);
 		contentPane.add(lblLogOut);
+		
+		bookingPane = new BookingsTable();
+		bookingPane.setBounds(10, 50, 450, 400);
+		contentPane.add(bookingPane);
+		bookingPane.setVisible(false);
 		
 		JLabel background = new JLabel("");
 		background.setIcon(new ImageIcon(AdminMenu_v2.class.getResource("/graphics/AdminMenu_v2.jpg")));
@@ -80,10 +93,10 @@ public class AdminMenu_v2 extends JFrame implements MouseListener{
 		JLabel button = (JLabel) e.getSource();
 		switch(button.getText()){
 			case "HOME":
-				
+				bookingPane.setVisible(false);
 			break;
 			case "BOOKINGS":
-				
+				bookingPane.setVisible(true);
 			break;
 			case "LOG OUT":
 				
@@ -99,8 +112,32 @@ public class AdminMenu_v2 extends JFrame implements MouseListener{
 	}
 	@Override
 	public void mouseEntered(MouseEvent e) {
+		JLabel button = (JLabel) e.getSource();
+		switch(button.getText()){
+			case "HOME":
+				button.setForeground(HIGHLIGHTCOLOR);
+			break;
+			case "BOOKINGS":
+				button.setForeground(HIGHLIGHTCOLOR);
+			break;
+			case "LOG OUT":
+				button.setForeground(HIGHLIGHTCOLOR);
+			break;
+		}
 	}
 	@Override
 	public void mouseExited(MouseEvent e) {
+		JLabel button = (JLabel) e.getSource();
+		switch(button.getText()){
+			case "HOME":
+				button.setForeground(AMBIENTCOLOR);
+			break;
+			case "BOOKINGS":
+				button.setForeground(AMBIENTCOLOR);
+			break;
+			case "LOG OUT":
+				button.setForeground(AMBIENTCOLOR);
+			break;
+		}
 	}
 }
