@@ -13,14 +13,13 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSeparator;
 import javax.swing.JTable;
+import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.TableCellRenderer;
 
 import core.Booking;
 import core.Client;
-
-import javax.swing.JTextField;
 
 public class BookingsTable extends JPanel {
 
@@ -36,6 +35,7 @@ public class BookingsTable extends JPanel {
 	 * Constructor
 	 */
 	public BookingsTable() {
+		setOpaque(false);
 		setBackground(Color.DARK_GRAY);
 		
 		testClient = new Client();
@@ -97,6 +97,7 @@ public class BookingsTable extends JPanel {
 		add(lblTime);
 		// CarReg text field
 		txtCarReg = new JTextField();
+		txtCarReg.setBorder(null);
 		txtCarReg.setOpaque(false);
 		txtCarReg.setEditable(false);
 		txtCarReg.setForeground(Color.WHITE);
@@ -106,6 +107,7 @@ public class BookingsTable extends JPanel {
 		txtCarReg.setColumns(10);
 		// Date text field
 		txtDate = new JTextField();
+		txtDate.setBorder(null);
 		txtDate.setOpaque(false);
 		txtDate.setForeground(Color.WHITE);
 		txtDate.setFont(new Font("Segoe UI", Font.PLAIN, 12));
@@ -115,6 +117,7 @@ public class BookingsTable extends JPanel {
 		txtDate.setColumns(10);
 		// Time text field
 		txtTime = new JTextField();
+		txtTime.setBorder(null);
 		txtTime.setOpaque(false);
 		txtTime.setForeground(Color.WHITE);
 		txtTime.setFont(new Font("Segoe UI", Font.PLAIN, 12));
@@ -141,9 +144,8 @@ public class BookingsTable extends JPanel {
 		// Apply Table Mouse Listener
 		// Set at the end to ensure components get declared before put into listener
 		table.addMouseListener(new TableMouseListener(table,txtCarReg, txtDate, txtTime));
-		
 	}
-	
+
 	// Submit Button Mouse Listener
 	class SubmitButtonMouseListener implements MouseListener{
 		private JTextField sCarReg;
@@ -161,7 +163,9 @@ public class BookingsTable extends JPanel {
 		}
 		@Override
 		public void mouseClicked(MouseEvent e) {
-			sTableModel.updateRow(sTable.getSelectedRow(), sCarReg.getText(), sDate.getText(), sTime.getText());
+			if(sTable.getSelectedRow() != -1){
+				sTableModel.updateRow(sTable.getSelectedRow(), sCarReg.getText(), sDate.getText(), sTime.getText());
+			}
 		}
 		@Override
 		public void mousePressed(MouseEvent e) {

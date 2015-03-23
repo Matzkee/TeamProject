@@ -32,7 +32,7 @@ public class AdminMenu extends javax.swing.JFrame {
 		// Main frame
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		getContentPane().setLayout(null);
-		setSize(560,435);
+		setSize(800,550);
 		setTitle("Admin Menu");
 		setLocationRelativeTo(null);
 		setVisible(true);
