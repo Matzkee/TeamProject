@@ -42,7 +42,8 @@ public class BookingsTable extends JPanel implements MouseListener{
 	 * Constructor
 	 */
 	public BookingsTable() {
-		setBackground(TRANSPARENTCOLOR);
+		//setBackground(TRANSPARENTCOLOR);
+		setOpaque(false);
 		
 		testClient = new Client();
 		testClient.viewBookings();
@@ -68,7 +69,7 @@ public class BookingsTable extends JPanel implements MouseListener{
 		add(tableScrollPane);
 		// Header Panel
 		JPanel headerPane = new JPanel();
-		headerPane.setBackground(Color.DARK_GRAY);
+		headerPane.setOpaque(false);
 		headerPane.setBounds(0, 0, 400, 30);
 		add(headerPane);
 		headerPane.setLayout(null);

@@ -18,10 +18,14 @@ public class AdminMenu_v2 extends JFrame implements MouseListener{
 	 * Variable declaration.
 	 */
 	private JPanel contentPane;
+	private JLabel lblHome;
+	private JLabel lblBookings;
+	private JLabel lblLogOut;
 	private final Color HIGHLIGHTCOLOR = new Color(214,137,4);
 	private final Color AMBIENTCOLOR = Color.LIGHT_GRAY;
 	private final Font TEXTFONT = new Font("Segoe UI", Font.PLAIN, 20);
 	private BookingsTable bookingPane;
+	private JLabel label;
 
 
 	/**
@@ -29,28 +33,30 @@ public class AdminMenu_v2 extends JFrame implements MouseListener{
 	 */
 	public AdminMenu_v2() {
 		// Frame Settings
-		setSize(815,590);
+		setTitle("NCT Management");
+		setResizable(false);
+		setSize(805,580);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		// Content Panel
 		contentPane = new JPanel();
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JLabel lblHome = new JLabel("HOME");
+		lblHome = new JLabel("HOME");
 		lblHome.setFont(TEXTFONT);
 		lblHome.setForeground(AMBIENTCOLOR);
 		lblHome.setBounds(30, 0, 100, 30);
 		lblHome.addMouseListener(this);
 		contentPane.add(lblHome);
 		
-		JLabel lblBookings = new JLabel("BOOKINGS");
+		lblBookings = new JLabel("BOOKINGS");
 		lblBookings.setForeground(AMBIENTCOLOR);
 		lblBookings.setFont(TEXTFONT);
 		lblBookings.setBounds(140, 0, 100, 30);
 		lblBookings.addMouseListener(this);
 		contentPane.add(lblBookings);
 		
-		JLabel lblLogOut = new JLabel("LOG OUT");
+		lblLogOut = new JLabel("LOG OUT");
 		lblLogOut.setForeground(AMBIENTCOLOR);
 		lblLogOut.setFont(TEXTFONT);
 		lblLogOut.setBounds(300, 0, 100, 30);
@@ -61,6 +67,11 @@ public class AdminMenu_v2 extends JFrame implements MouseListener{
 		bookingPane.setBounds(10, 50, 450, 400);
 		contentPane.add(bookingPane);
 		bookingPane.setVisible(false);
+		
+		label = new JLabel("");
+		label.setIcon(new ImageIcon(AdminMenu_v2.class.getResource("/graphics/gravityLogo3.png")));
+		label.setBounds(700, 5, 100, 38);
+		contentPane.add(label);
 		
 		JLabel background = new JLabel("");
 		background.setIcon(new ImageIcon(AdminMenu_v2.class.getResource("/graphics/AdminMenu_v2.jpg")));
@@ -99,7 +110,7 @@ public class AdminMenu_v2 extends JFrame implements MouseListener{
 				bookingPane.setVisible(true);
 			break;
 			case "LOG OUT":
-				
+				bookingPane.setVisible(false);
 			break;
 		}
 		System.out.println("Clicked: "+button.getText());

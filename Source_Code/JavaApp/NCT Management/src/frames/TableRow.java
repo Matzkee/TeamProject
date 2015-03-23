@@ -26,7 +26,7 @@ public class TableRow extends JPanel{
 	 */
 	public TableRow() {
 		setForeground(Color.BLACK);
-		setBackground(new Color(0,0,0,10));
+		setBackground(Color.DARK_GRAY);
 		setLayout(null);
 		
 		lblCarReg = new JLabel("Car Registration");
