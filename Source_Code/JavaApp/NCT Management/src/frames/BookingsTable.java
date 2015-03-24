@@ -3,10 +3,13 @@ package frames;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Font;
+import java.awt.Image;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
 
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -36,6 +39,8 @@ public class BookingsTable extends JPanel implements MouseListener{
 	private JTable table;
 	private final Color TRANSPARENTCOLOR = new Color(0,0,0,0);
 	private final Font TEXTFONT = new Font("Segoe UI", Font.PLAIN, 12);
+	private ImageIcon editImage = new ImageIcon(BookingsTable.class.getResource("/graphics/edit_propertyy.png"));
+	private ImageIcon deleteImage = new ImageIcon(BookingsTable.class.getResource("/graphics/deleteIcon.png"));
 
 	/**
 	 * Create the panel.
@@ -148,6 +153,16 @@ public class BookingsTable extends JPanel implements MouseListener{
 		// Apply Table Mouse Listener
 		// Set at the end to ensure components get declared before put into listener
 		table.addMouseListener(new TableMouseListener(table,txtCarReg, txtDate, txtTime));
+		
+		JLabel label = new JLabel("");
+		label.setBounds(350, 329, 40, 40);
+		label.setIcon(new ImageIcon(editImage.getImage().getScaledInstance(40, 40, Image.SCALE_DEFAULT)));
+		add(label);
+		
+		JLabel label2 = new JLabel("");
+		label2.setBounds(294, 329, 40, 40);
+		label.setIcon(new ImageIcon(deleteImage.getImage().getScaledInstance(40, 40, Image.SCALE_DEFAULT)));
+		add(label2);
 	}
 	
 	
