@@ -2,8 +2,11 @@ package frames;
 
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.Graphics;
 import java.awt.Image;
+import java.awt.Rectangle;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
@@ -11,13 +14,16 @@ import java.util.ArrayList;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
 import javax.swing.JSeparator;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
+import javax.swing.plaf.basic.BasicScrollBarUI;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.TableCellRenderer;
 
@@ -62,14 +68,14 @@ public class BookingsTable extends JPanel implements MouseListener{
 		tableModel = new TableModel(allBookings);
 		table = new JTable(tableModel);
 		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		table.setBackground(Color.DARK_GRAY);
 		table.setDefaultRenderer(Booking.class, new TableRenderer());
 		setLayout(null);
 		table.setRowHeight(40);
 		table.setTableHeader(null);
 		// ScrollPane for the table
 		JScrollPane tableScrollPane = new JScrollPane(table);
-		tableScrollPane.setBackground(Color.DARK_GRAY);
+		tableScrollPane.setVerticalScrollBar(new MyScrollBar());
+		tableScrollPane.setOpaque(false);
 		tableScrollPane.setBounds(0, 30, 400, 170);
 		add(tableScrollPane);
 		// Header Panel
@@ -161,10 +167,54 @@ public class BookingsTable extends JPanel implements MouseListener{
 		
 		JLabel label2 = new JLabel("");
 		label2.setBounds(294, 329, 40, 40);
-		label.setIcon(new ImageIcon(deleteImage.getImage().getScaledInstance(40, 40, Image.SCALE_DEFAULT)));
+		label2.setIcon(new ImageIcon(deleteImage.getImage().getScaledInstance(40, 40, Image.SCALE_DEFAULT)));
 		add(label2);
 	}
 	
+	class MyScrollBarUI extends BasicScrollBarUI{
+
+		//@Override
+		//protected Dimension getMinimumThumbSize() {
+		//	return new Dimension(10,20);
+		//}
+		//@Override
+		//protected Dimension getMaximumThumbSize() {
+		//	return new Dimension(10,40);
+		//}
+		//@Override
+		//protected void setThumbBounds(int x, int y, int width, int height) {
+		//	super.setThumbBounds(x, y, 10, 10);
+		//}
+		//@Override
+		//protected Rectangle getThumbBounds() {
+		//	return new Rectangle(super.getThumbBounds().x,super.getThumbBounds().y,super.getThumbBounds().width,super.getThumbBounds().height);
+		//}
+		@Override
+		protected void paintTrack(Graphics g, JComponent c,
+				Rectangle trackBounds) {
+			g.setColor(Color.LIGHT_GRAY);
+			g.fillRect(trackBounds.width/2, trackBounds.y, 3, trackBounds.height);
+		}
+		@Override
+		protected void paintThumb(Graphics g, JComponent c,
+				Rectangle thumbBounds) {
+			if(thumbBounds.isEmpty() || !scrollbar.isEnabled())     {
+		          return;
+		      }
+			g.translate(thumbBounds.x, thumbBounds.y);
+			g.setColor(Color.DARK_GRAY);
+			g.fillRect(0, 0, thumbBounds.width, thumbBounds.height);
+			g.translate(-thumbBounds.x, -thumbBounds.y);
+		}
+	}
+	
+	class MyScrollBar extends JScrollBar{
+		private static final long serialVersionUID = 1L;
+		public MyScrollBar(){
+			super();
+			setUI(new MyScrollBarUI());
+		}
+	}
 	
 	@Override
 	public void mouseClicked(MouseEvent e) {

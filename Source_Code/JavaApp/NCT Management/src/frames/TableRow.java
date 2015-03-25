@@ -2,6 +2,10 @@ package frames;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.GradientPaint;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Rectangle;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -25,8 +29,8 @@ public class TableRow extends JPanel{
 	 * Constructor
 	 */
 	public TableRow() {
-		setForeground(Color.BLACK);
-		setBackground(Color.DARK_GRAY);
+		//setForeground(Color.BLACK);
+		//setBackground(Color.DARK_GRAY);
 		setLayout(null);
 		
 		lblCarReg = new JLabel("Car Registration");
@@ -70,6 +74,15 @@ public class TableRow extends JPanel{
 		else{
 			setBackground(table.getBackground());
 		}
+	}
+	@Override
+	public void paintComponent(Graphics g) {
+		Graphics2D g2 = (Graphics2D) g;
+		Rectangle r = new Rectangle(0, 0, getWidth(), getHeight());
+		GradientPaint gradient = new GradientPaint(30, 0, Color.BLACK, 40, 30, Color.DARK_GRAY, true);
+		g2.setPaint(gradient);
+		g2.fill(r);
+		//super.paint(g);
 	}
 
 }
