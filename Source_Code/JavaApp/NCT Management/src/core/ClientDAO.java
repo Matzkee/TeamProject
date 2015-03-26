@@ -46,15 +46,12 @@ public class ClientDAO implements DaoUi{
 			// Get a connection to the database
 			this.conn = DriverManager.getConnection("jdbc:mysql://83.212.127.2:3306/NCT", "user", "TeamGravity123");
 			//Prepare statement
-			query = "SELECT * FROM Booking WHERE DATEDIFF(BDate,curdate()) < 50";
+			query = "SELECT * FROM Booking WHERE DATEDIFF(BDate,curdate()) < 30";
 			this.ps = conn.prepareStatement(query);
 			//Execute Query
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()){
-				booking = new Booking();
-				booking.setCarReg(rs.getString(2));
-				booking.setDate(rs.getString(3));
-				booking.setTime(rs.getString(4));
+				booking = new Booking(rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5));
 				bookings.add(booking);
 				count += 1;
 			}

@@ -3,11 +3,18 @@ package core;
 public class Booking {
 
 	// Variables
-	private String time;
 	private String carReg;
 	private String date;
+	private String time;
 	private String garage;
-	private TestResults test;
+	
+	//Constructor
+	public Booking(String carReg, String date, String time, String garage){
+		this.carReg = carReg;
+		this.date = date;
+		this.time = time;
+		this.garage = garage;
+	}
 	
 	
 	// Getters & Setters
@@ -35,17 +42,4 @@ public class Booking {
 	public void setGarage(String garage) {
 		this.garage = garage;
 	}
-	
-	// Booking Methods
-	public TestResults getTest(){
-		return this.test;
-	}
-	public void setTest(int alignment, int suspension, int brakes, int eEmission, int headLights){
-		this.test.setTestAlignment(alignment);
-		this.test.setTestSuspension(suspension);
-		this.test.setTestBrakes(brakes);
-		this.test.setTestEEmission(eEmission);
-		this.test.setTestHeadLights(headLights);
-	}
-	
 }

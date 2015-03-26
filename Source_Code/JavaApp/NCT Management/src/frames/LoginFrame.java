@@ -3,12 +3,26 @@ package frames;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.JFrame;
+
 import core.Client;
 
 @SuppressWarnings("serial")
-public class TestFrame extends javax.swing.JFrame {
+public class LoginFrame extends JFrame {
 
-    public TestFrame() {
+	// Variables declaration - do not modify                     
+	private javax.swing.JTextField jTextField1;
+	private javax.swing.JTextField jTextField2;
+	private javax.swing.JLabel logo;
+	private javax.swing.JLabel passwordLabel;
+	private javax.swing.JButton submitButton;
+	private javax.swing.JLabel successLabel;
+	private javax.swing.JLabel usernameLabel;
+	
+	private AdminMenu adminMenu;
+	// End of variables declaration                   
+
+	public LoginFrame() {
         initComponents();
     }
                          
@@ -42,14 +56,22 @@ public class TestFrame extends javax.swing.JFrame {
 				if(testClient.logIn() == true)
 				{
 					successLabel.setText("Login successful");
+					
+					adminMenu = new AdminMenu();
+					try {
+						Thread.sleep(2000);
+					} catch (InterruptedException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+					adminMenu.setVisible(true);
+					dispose();
 				}
 				else
 				{
 					successLabel.setText("Login failed");
 				}
-				
 			}
-        	
         });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -99,38 +121,12 @@ public class TestFrame extends javax.swing.JFrame {
      
 
     public static void main(String args[]) {
-        
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(TestFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(TestFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(TestFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(TestFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new TestFrame().setVisible(true);
+                new LoginFrame().setVisible(true);
             }
         });
     }
 
-    // Variables declaration - do not modify                     
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JLabel logo;
-    private javax.swing.JLabel passwordLabel;
-    private javax.swing.JButton submitButton;
-    private javax.swing.JLabel successLabel;
-    private javax.swing.JLabel usernameLabel;
-    // End of variables declaration                   
 }

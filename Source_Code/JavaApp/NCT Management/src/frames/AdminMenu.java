@@ -1,97 +1,73 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package frames;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.SwingUtilities;
 
-import javax.swing.JFrame;
+/**
+ *
+ * @author Mateusz Pietraszewski
+ */
+public class AdminMenu extends javax.swing.JFrame {
 
-@SuppressWarnings("serial")
-public class AdminMenu extends JFrame implements ActionListener{
-
+	private static final long serialVersionUID = 1L;
+	private BookingsTable pane;
+	
+	
+	/*
+	 * Create the frame.
+	 * Constructor
+	 */
 	public AdminMenu() {
-		initComponents();
-	}
-	                        
-	private void initComponents() {
+		setResizable(false);
 		
-		menuLabel = new javax.swing.JLabel();
-		addButton = new javax.swing.JButton();
-		viewButton = new javax.swing.JButton();
+		// Main frame
+		setDefaultCloseOperation(EXIT_ON_CLOSE);
+		getContentPane().setLayout(null);
+		setSize(800,550);
+		setTitle("Admin Menu");
+		setLocationRelativeTo(null);
+		setVisible(true);
 		
-		setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-		
-		menuLabel.setText("Admin Menu");
-		
-		addButton.setText("Add Booking");
-		
-		viewButton.setText("View Bookings");
-		
-		javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-		getContentPane().setLayout(layout);
-		layout.setHorizontalGroup(
-				layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-				.addGroup(layout.createSequentialGroup()
-						.addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-								.addComponent(menuLabel)
-								.addComponent(addButton)
-								.addComponent(viewButton))
-								.addGap(0, 128, Short.MAX_VALUE))
-				);
-		layout.setVerticalGroup(
-				layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-				.addGroup(layout.createSequentialGroup()
-						.addComponent(menuLabel)
-						.addGap(18, 18, 18)
-						.addComponent(addButton)
-						.addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-						.addComponent(viewButton)
-						.addGap(0, 56, Short.MAX_VALUE))
-				);
-		
-		pack();
-	}
-	public static void main(String args[]) {
-
-		try {
-			for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-				if ("Nimbus".equals(info.getName())) {
-					javax.swing.UIManager.setLookAndFeel(info.getClassName());
-					break;
-				}
-			}
-		} catch (ClassNotFoundException ex) {
-			java.util.logging.Logger.getLogger(AdminMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-		} catch (InstantiationException ex) {
-			java.util.logging.Logger.getLogger(AdminMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-		} catch (IllegalAccessException ex) {
-			java.util.logging.Logger.getLogger(AdminMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-		} catch (javax.swing.UnsupportedLookAndFeelException ex) {
-			java.util.logging.Logger.getLogger(AdminMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-		}
-		//</editor-fold>
-		
-		/* Create and display the form */
-		java.awt.EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				new AdminMenu().setVisible(true);
+		// viewBookings button
+		JButton viewBookingsBTN = new JButton("");
+		viewBookingsBTN.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				pane.setVisible(true);
 			}
 		});
-	}
-	
-	// Variables declaration - do not modify                     
-	private javax.swing.JButton addButton;
-	private javax.swing.JLabel menuLabel;
-	private javax.swing.JButton viewButton;
-	// End of variables declaration                   
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		if(e.getSource() == addButton){
-			
-		}
-		else if(e.getSource() == viewButton){
-			
-		}
+		viewBookingsBTN.setIcon(new ImageIcon(AdminMenu.class.getResource("/graphics/ViewBookingsButton.jpg")));
+		viewBookingsBTN.setBounds(0, 145, 120, 40);
+		getContentPane().add(viewBookingsBTN);
+		// bookings panel
+		pane = new BookingsTable();
+		pane.setBounds(141, 11, 400, 380);
+		getContentPane().add(pane);
+		pane.setVisible(false);
+		// background image
+		JLabel backgroundImage = new JLabel("");
+		backgroundImage.setIcon(new ImageIcon(AdminMenu.class.getResource("/graphics/AdminMenu.jpg")));
+		backgroundImage.setBounds(0, 0, 558, 407);
+		getContentPane().add(backgroundImage);
 		
 	}
+	
+	 public static void main(String[] args) {
+	        SwingUtilities.invokeLater(new Runnable() {
 
+	            @Override
+	            public void run() {
+	                new AdminMenu();
+	            }
+	        });
+	    }
 }
