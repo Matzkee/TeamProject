@@ -172,28 +172,11 @@ public class BookingsTable extends JPanel implements MouseListener{
 	}
 	
 	class MyScrollBarUI extends BasicScrollBarUI{
-
-		//@Override
-		//protected Dimension getMinimumThumbSize() {
-		//	return new Dimension(10,20);
-		//}
-		//@Override
-		//protected Dimension getMaximumThumbSize() {
-		//	return new Dimension(10,40);
-		//}
-		//@Override
-		//protected void setThumbBounds(int x, int y, int width, int height) {
-		//	super.setThumbBounds(x, y, 10, 10);
-		//}
-		//@Override
-		//protected Rectangle getThumbBounds() {
-		//	return new Rectangle(super.getThumbBounds().x,super.getThumbBounds().y,super.getThumbBounds().width,super.getThumbBounds().height);
-		//}
 		@Override
 		protected void paintTrack(Graphics g, JComponent c,
 				Rectangle trackBounds) {
 			g.setColor(Color.LIGHT_GRAY);
-			g.fillRect(trackBounds.width/2, trackBounds.y, 3, trackBounds.height);
+			g.fillRect(trackBounds.x, trackBounds.y, trackBounds.width, trackBounds.height);
 		}
 		@Override
 		protected void paintThumb(Graphics g, JComponent c,
@@ -203,8 +186,8 @@ public class BookingsTable extends JPanel implements MouseListener{
 		      }
 			g.translate(thumbBounds.x, thumbBounds.y);
 			g.setColor(Color.DARK_GRAY);
+			//g.fillRoundRect(0, 0, thumbBounds.width, thumbBounds.height, 2, 2);
 			g.fillRect(0, 0, thumbBounds.width, thumbBounds.height);
-			g.translate(-thumbBounds.x, -thumbBounds.y);
 		}
 	}
 	
