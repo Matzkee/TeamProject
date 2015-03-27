@@ -35,7 +35,7 @@ public class AdminMenu_v2 extends JFrame implements MouseListener{
 		// Frame Settings
 		setTitle("NCT Management");
 		setResizable(false);
-		setSize(805,580);
+		setSize(805,575);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		// Content Panel
 		contentPane = new JPanel();
