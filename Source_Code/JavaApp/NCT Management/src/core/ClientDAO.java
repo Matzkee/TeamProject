@@ -191,10 +191,11 @@ public class ClientDAO implements DaoUi{
 	
 	// Interface MEthods
 	@Override
-	public boolean verifyUsername(String uname, String pass) {
+	public int verifyUsername(String uname, String pass) {
 		
 		// Temporary variables
 		String query;
+		int userType = 0;
 		int count = 0;
 		//query the database for the user with these credentials 
 		try{
@@ -211,6 +212,7 @@ public class ClientDAO implements DaoUi{
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()){
 				count += 1;
+				userType = rs.getInt(2);
 				System.out.println("Found user in database ");
 			}
 			ps.close();
@@ -236,15 +238,15 @@ public class ClientDAO implements DaoUi{
 		// Check if the user was found
 		if(count == 1){
 			System.out.println("Found user within database");
-			return true;
+			return userType;
 			}
 		else if (count > 1){
 			System.out.println("Duplicate users within database");
-			return false;
+			return userType;
 		}
 		else{
 			System.out.println("Username and password do not match");
-			return false;
+			return userType;
 			}
 	}
 	@Override

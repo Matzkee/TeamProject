@@ -19,7 +19,7 @@ public class LoginFrame extends JFrame {
 	private javax.swing.JLabel successLabel;
 	private javax.swing.JLabel usernameLabel;
 	
-	private AdminMenu adminMenu;
+	private AdminMenu_v2 adminMenu;
 	// End of variables declaration                   
 
 	public LoginFrame() {
@@ -53,19 +53,16 @@ public class LoginFrame extends JFrame {
 				Client testClient = new Client();
 		    	testClient.setUsername(jTextField1.getText());
 				testClient.setPassword(jTextField2.getText());
-				if(testClient.logIn() == true)
+				if(testClient.logIn() == 1)
 				{
-					successLabel.setText("Login successful");
+					successLabel.setText("Admin Login successful");
 					
-					adminMenu = new AdminMenu();
-					try {
-						Thread.sleep(2000);
-					} catch (InterruptedException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-					}
+					adminMenu = new AdminMenu_v2();
 					adminMenu.setVisible(true);
 					dispose();
+				}
+				else if(testClient.logIn() == 2){
+					successLabel.setText("Mechanic Login successful");
 				}
 				else
 				{
