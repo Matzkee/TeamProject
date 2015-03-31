@@ -10,6 +10,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import java.awt.Dimension;
 
 public class AdminMenu_v2 extends JFrame implements MouseListener{
 	private static final long serialVersionUID = 1L;
@@ -35,11 +36,11 @@ public class AdminMenu_v2 extends JFrame implements MouseListener{
 		// Frame Settings
 		setTitle("NCT Management");
 		setResizable(false);
-		setSize(805,575);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		// Content Panel
 		contentPane = new JPanel();
 		setContentPane(contentPane);
+		contentPane.setPreferredSize(new Dimension(800, 550));
 		contentPane.setLayout(null);
 		
 		lblHome = new JLabel("HOME");
@@ -74,9 +75,11 @@ public class AdminMenu_v2 extends JFrame implements MouseListener{
 		contentPane.add(label);
 		
 		JLabel background = new JLabel("");
-		background.setIcon(new ImageIcon(AdminMenu_v2.class.getResource("/graphics/AdminMenu_v2.jpg")));
+		background.setIcon(new ImageIcon(AdminMenu_v2.class.getResource("/graphics/AdminMenu.jpg")));
 		background.setBounds(0, 0, 800, 550);
 		contentPane.add(background);
+		
+		pack();
 	}
 	
 	
