@@ -62,11 +62,12 @@ public class BookingsTable extends JPanel implements MouseListener{
 		allBookings = testClient.getBookings();
 		
 		// Panel Size
-		setSize(400,380);
+		setSize(800,400);
 		
 		// Setting up the table
 		tableModel = new TableModel(allBookings);
 		table = new JTable(tableModel);
+		table.setOpaque(false);
 		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		table.setDefaultRenderer(Booking.class, new TableRenderer());
 		setLayout(null);
@@ -74,44 +75,28 @@ public class BookingsTable extends JPanel implements MouseListener{
 		table.setTableHeader(null);
 		// ScrollPane for the table
 		JScrollPane tableScrollPane = new JScrollPane(table);
-		tableScrollPane.setVerticalScrollBar(new MyScrollBar());
+		tableScrollPane.setBorder(null);
+		tableScrollPane.getViewport().setOpaque(false);
 		tableScrollPane.setOpaque(false);
-		tableScrollPane.setBounds(0, 30, 400, 170);
+		tableScrollPane.setBounds(390, 25, 400, 350);
 		add(tableScrollPane);
-		// Header Panel
-		JPanel headerPane = new JPanel();
-		headerPane.setOpaque(false);
-		headerPane.setBounds(0, 0, 400, 30);
-		add(headerPane);
-		headerPane.setLayout(null);
-		// Label for the header panel
-		JLabel lblHeader = new JLabel("Bookings");
-		lblHeader.setFont(new Font("Segoe UI", Font.PLAIN, 18));
-		lblHeader.setForeground(Color.LIGHT_GRAY);
-		lblHeader.setBounds(5, 0, 100, 30);
-		headerPane.add(lblHeader);
-		// Separator inside header panel
-		JSeparator headerSeparator = new JSeparator();
-		headerSeparator.setForeground(Color.LIGHT_GRAY);
-		headerSeparator.setBounds(100, 25, 275, 1);
-		headerPane.add(headerSeparator);
 		// CarReg label
 		JLabel lblCarRegistration = new JLabel("Car Registration: ");
 		lblCarRegistration.setFont(TEXTFONT);
 		lblCarRegistration.setForeground(Color.WHITE);
-		lblCarRegistration.setBounds(10, 211, 99, 14);
+		lblCarRegistration.setBounds(10, 70, 99, 14);
 		add(lblCarRegistration);
 		// Date label
 		JLabel lblDate = new JLabel("Date: ");
 		lblDate.setFont(TEXTFONT);
 		lblDate.setForeground(Color.WHITE);
-		lblDate.setBounds(10, 236, 99, 14);
+		lblDate.setBounds(10, 95, 99, 14);
 		add(lblDate);
 		// Time label
 		JLabel lblTime = new JLabel("Time: ");
 		lblTime.setFont(TEXTFONT);
 		lblTime.setForeground(Color.WHITE);
-		lblTime.setBounds(10, 261, 99, 14);
+		lblTime.setBounds(10, 120, 99, 14);
 		add(lblTime);
 		// CarReg text field
 		txtCarReg = new JTextField();
@@ -142,17 +127,17 @@ public class BookingsTable extends JPanel implements MouseListener{
 		txtTime.setColumns(10);
 		// Delete Booking button
 		JButton btnDeleteBooking = new JButton("Delete Booking");
-		btnDeleteBooking.setBounds(280, 258, 110, 23);
+		btnDeleteBooking.setBounds(10, 312, 110, 23);
 		btnDeleteBooking.addMouseListener(this);
 		add(btnDeleteBooking);
 		// ToggleModify button
 		JButton btnEditToggle = new JButton("Toggle Edit");
-		btnEditToggle.setBounds(280, 208, 110, 23);
+		btnEditToggle.setBounds(10, 278, 110, 23);
 		btnEditToggle.addMouseListener(this);
 		add(btnEditToggle);
 		// Submit Changes button
 		JButton btnSubmitChanges = new JButton("Submit Changes");
-		btnSubmitChanges.setBounds(10, 290, 195, 23);
+		btnSubmitChanges.setBounds(10, 346, 195, 23);
 		btnSubmitChanges.addMouseListener(this);
 		add(btnSubmitChanges);
 		
@@ -169,34 +154,6 @@ public class BookingsTable extends JPanel implements MouseListener{
 		label2.setBounds(294, 329, 40, 40);
 		label2.setIcon(new ImageIcon(deleteImage.getImage().getScaledInstance(40, 40, Image.SCALE_DEFAULT)));
 		add(label2);
-	}
-	
-	class MyScrollBarUI extends BasicScrollBarUI{
-		@Override
-		protected void paintTrack(Graphics g, JComponent c,
-				Rectangle trackBounds) {
-			g.setColor(Color.LIGHT_GRAY);
-			g.fillRect(trackBounds.x, trackBounds.y, trackBounds.width, trackBounds.height);
-		}
-		@Override
-		protected void paintThumb(Graphics g, JComponent c,
-				Rectangle thumbBounds) {
-			if(thumbBounds.isEmpty() || !scrollbar.isEnabled())     {
-		          return;
-		      }
-			g.translate(thumbBounds.x, thumbBounds.y);
-			g.setColor(Color.DARK_GRAY);
-			//g.fillRoundRect(0, 0, thumbBounds.width, thumbBounds.height, 2, 2);
-			g.fillRect(0, 0, thumbBounds.width, thumbBounds.height);
-		}
-	}
-	
-	class MyScrollBar extends JScrollBar{
-		private static final long serialVersionUID = 1L;
-		public MyScrollBar(){
-			super();
-			setUI(new MyScrollBarUI());
-		}
 	}
 	
 	@Override

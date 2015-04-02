@@ -53,13 +53,13 @@ public class TableRow extends JPanel{
 		
 		JSeparator separator_1 = new JSeparator();
 		separator_1.setOrientation(SwingConstants.VERTICAL);
-		separator_1.setForeground(Color.GRAY);
+		separator_1.setForeground(Color.LIGHT_GRAY);
 		separator_1.setBounds(239, 5, 1, 30);
 		add(separator_1);
 		
 		JSeparator separator = new JSeparator();
 		separator.setOrientation(SwingConstants.VERTICAL);
-		separator.setForeground(Color.GRAY);
+		separator.setForeground(Color.LIGHT_GRAY);
 		separator.setBounds(139, 5, 1, 30);
 		add(separator);
 	}
@@ -69,20 +69,13 @@ public class TableRow extends JPanel{
 		lblTime.setText(book.getTime());
 		
 		if(isSelected){
-			setBackground(table.getSelectionForeground());
+			//setBackground(table.getSelectionForeground());
+			setOpaque(true);
 		}
 		else{
-			setBackground(table.getBackground());
+			//setBackground(table.getBackground());
+			setOpaque(false);
 		}
-	}
-	@Override
-	public void paintComponent(Graphics g) {
-		Graphics2D g2 = (Graphics2D) g;
-		Rectangle r = new Rectangle(0, 0, getWidth(), getHeight());
-		GradientPaint gradient = new GradientPaint(30, 0, Color.BLACK, 40, 30, Color.DARK_GRAY, true);
-		g2.setPaint(gradient);
-		g2.fill(r);
-		//super.paint(g);
 	}
 
 }

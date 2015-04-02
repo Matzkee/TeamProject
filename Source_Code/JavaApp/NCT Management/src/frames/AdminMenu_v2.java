@@ -26,7 +26,6 @@ public class AdminMenu_v2 extends JFrame implements MouseListener{
 	private final Color AMBIENTCOLOR = Color.LIGHT_GRAY;
 	private final Font TEXTFONT = new Font("Segoe UI", Font.PLAIN, 20);
 	private BookingsTable bookingPane;
-	private JLabel label;
 
 
 	/**
@@ -65,14 +64,9 @@ public class AdminMenu_v2 extends JFrame implements MouseListener{
 		contentPane.add(lblLogOut);
 		
 		bookingPane = new BookingsTable();
-		bookingPane.setBounds(10, 50, 450, 400);
+		bookingPane.setBounds(0, 50, 800, 400);
 		contentPane.add(bookingPane);
 		bookingPane.setVisible(false);
-		
-		label = new JLabel("");
-		label.setIcon(new ImageIcon(AdminMenu_v2.class.getResource("/graphics/gravityLogo3.png")));
-		label.setBounds(700, 5, 100, 38);
-		contentPane.add(label);
 		
 		JLabel background = new JLabel("");
 		background.setIcon(new ImageIcon(AdminMenu_v2.class.getResource("/graphics/AdminMenu.jpg")));
