@@ -43,10 +43,17 @@ public class BookingsTable extends JPanel implements MouseListener{
 	private JTextField txtTime;
 	private TableModel tableModel;
 	private JTable table;
-	private final Color TRANSPARENTCOLOR = new Color(0,0,0,0);
 	private final Font TEXTFONT = new Font("Segoe UI", Font.PLAIN, 12);
+	
+	// Image for buttons + scaling
 	private ImageIcon editImage = new ImageIcon(BookingsTable.class.getResource("/graphics/edit_propertyy.png"));
 	private ImageIcon deleteImage = new ImageIcon(BookingsTable.class.getResource("/graphics/deleteIcon.png"));
+	private ImageIcon submitImage = new ImageIcon(BookingsTable.class.getResource("/graphics/submitB.png"));
+	private final int buttonW = 40, buttonH = 40;
+	private ImageIcon editB = new ImageIcon(editImage.getImage().getScaledInstance(buttonW, buttonH, Image.SCALE_DEFAULT));
+	private ImageIcon deleteB = new ImageIcon(deleteImage.getImage().getScaledInstance(buttonW, buttonH, Image.SCALE_DEFAULT));
+	private ImageIcon submitB = new ImageIcon(submitImage.getImage().getScaledInstance(buttonW, buttonH, Image.SCALE_DEFAULT));
+
 
 	/**
 	 * Create the panel.
@@ -78,7 +85,7 @@ public class BookingsTable extends JPanel implements MouseListener{
 		tableScrollPane.setBorder(null);
 		tableScrollPane.getViewport().setOpaque(false);
 		tableScrollPane.setOpaque(false);
-		tableScrollPane.setBounds(390, 25, 400, 350);
+		tableScrollPane.setBounds(390, 25, 400, 300);
 		add(tableScrollPane);
 		// CarReg label
 		JLabel lblCarRegistration = new JLabel("Car Registration: ");
@@ -146,14 +153,19 @@ public class BookingsTable extends JPanel implements MouseListener{
 		table.addMouseListener(new TableMouseListener(table,txtCarReg, txtDate, txtTime));
 		
 		JLabel label = new JLabel("");
-		label.setBounds(350, 329, 40, 40);
-		label.setIcon(new ImageIcon(editImage.getImage().getScaledInstance(40, 40, Image.SCALE_DEFAULT)));
+		label.setBounds(294, 278, 40, 40);
+		label.setIcon(editB);
 		add(label);
 		
 		JLabel label2 = new JLabel("");
 		label2.setBounds(294, 329, 40, 40);
-		label2.setIcon(new ImageIcon(deleteImage.getImage().getScaledInstance(40, 40, Image.SCALE_DEFAULT)));
+		label2.setIcon(deleteB);
 		add(label2);
+		
+		JLabel label_1 = new JLabel("");
+		label_1.setBounds(294, 227, 40, 40);
+		label_1.setIcon(submitB);
+		add(label_1);
 	}
 	
 	@Override

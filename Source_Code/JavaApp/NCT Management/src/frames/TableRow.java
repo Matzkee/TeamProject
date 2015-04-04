@@ -17,6 +17,24 @@ import core.Booking;
 
 public class TableRow extends JPanel{
 
+	private boolean isHighlighted = false;
+	
+	@Override
+	protected void paintComponent(Graphics g) {
+		super.paintComponent(g);
+		Graphics2D g2d = (Graphics2D) g;
+		GradientPaint gp;
+		if(isHighlighted){
+			gp = new GradientPaint(getWidth()/2,getHeight(),new Color(250,150,25,100),
+					getWidth()/2,getHeight()/3,new Color(0,0,0,0));			
+		}
+		else{
+			gp = new GradientPaint(getWidth()/2,getHeight(),new Color(255,255,255,50),
+					getWidth()/2,getHeight()-10,new Color(0,0,0,0));
+		}
+		g2d.setPaint(gp);
+		g2d.fillRect(0, 0, getWidth(), getHeight());
+	}
 	private static final long serialVersionUID = 1L;
 	
 	// Components declaration
@@ -32,6 +50,7 @@ public class TableRow extends JPanel{
 		//setForeground(Color.BLACK);
 		//setBackground(Color.DARK_GRAY);
 		setLayout(null);
+		setOpaque(false);
 		
 		lblCarReg = new JLabel("Car Registration");
 		lblCarReg.setForeground(Color.LIGHT_GRAY);
@@ -69,12 +88,12 @@ public class TableRow extends JPanel{
 		lblTime.setText(book.getTime());
 		
 		if(isSelected){
-			//setBackground(table.getSelectionForeground());
-			setOpaque(true);
+			isHighlighted = true;
+			repaint();
 		}
 		else{
-			//setBackground(table.getBackground());
-			setOpaque(false);
+			isHighlighted = false;
+			repaint();
 		}
 	}
 
