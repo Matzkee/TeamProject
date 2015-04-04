@@ -19,6 +19,8 @@ public class TableRow extends JPanel{
 
 	private boolean isHighlighted = false;
 	
+	
+	// Paint Component -- mostly used for gradient highlight
 	@Override
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
