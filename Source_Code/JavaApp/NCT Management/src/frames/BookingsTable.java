@@ -28,6 +28,9 @@ import core.Client;
 
 public class BookingsTable extends JPanel implements MouseListener{
 
+	/*
+	 * Custom gradient paint for JText boxes
+	 */
 	@Override
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
@@ -84,6 +87,7 @@ public class BookingsTable extends JPanel implements MouseListener{
 	 */
 	public BookingsTable() {
 		setOpaque(false);
+		addMouseListener(this);
 		isCarRegEditToggled = false;
 		isDateEditToggled = false;
 		isTimeEditToggled = false;
@@ -110,8 +114,6 @@ public class BookingsTable extends JPanel implements MouseListener{
 		table.setTableHeader(null);
 		// ScrollPane for the table
 		JScrollPane tableScrollPane = new JScrollPane(table);
-		tableScrollPane.setAlignmentY(Component.TOP_ALIGNMENT);
-		tableScrollPane.setAlignmentX(Component.LEFT_ALIGNMENT);
 		tableScrollPane.setBorder(new EmptyBorder(0, 0, 0, 0));
 		tableScrollPane.getViewport().setOpaque(false);
 		tableScrollPane.setOpaque(false);
@@ -202,6 +204,17 @@ public class BookingsTable extends JPanel implements MouseListener{
 		table.addMouseListener(new TableMouseListener(table, txtCarReg, txtDate, txtTime));
 	}
 	
+	public void toggleFields(boolean carReg, boolean date, boolean time){
+		txtCarReg.setEditable(carReg);
+		txtDate.setEditable(date);
+		txtTime.setEditable(time);
+	}
+	public void toggleFieldPaints(boolean carReg, boolean date, boolean time){
+		isCarRegEditToggled = carReg;
+		isDateEditToggled = date;
+		isTimeEditToggled = time;
+	}
+	
 	@Override
 	public void mouseClicked(MouseEvent e) {
 	}
@@ -209,7 +222,12 @@ public class BookingsTable extends JPanel implements MouseListener{
 	public void mousePressed(MouseEvent e) {
 		Object o = e.getSource();
 		
-		if(o.equals(btnDelete)){
+		if(o.equals(this)){
+			if (table.getSelectedRow() != -1){
+				table.clearSelection();
+			}
+		}
+		else if(o.equals(btnDelete)){
 			if (table.getSelectedRow() != -1){
 				tableModel.removeRow(table.getSelectedRow());
 			}
@@ -218,21 +236,14 @@ public class BookingsTable extends JPanel implements MouseListener{
 			if (table.getSelectedRow() != -1){
 				if(txtCarReg.isEditable()){
 					// set editable
-					txtCarReg.setEditable(false);
-					txtDate.setEditable(false);
-					txtTime.setEditable(false);
-					isCarRegEditToggled = false;
-					isDateEditToggled = false;
+					toggleFields(false, false, false);
+					toggleFieldPaints(false, false, false);
 					repaint();
 				}
 				else{
 					// set editable
-					txtCarReg.setEditable(true);
-					txtDate.setEditable(false);
-					txtTime.setEditable(false);
-					isCarRegEditToggled = true;
-					isTimeEditToggled = false;
-					isDateEditToggled = false;
+					toggleFields(true, false, false);
+					toggleFieldPaints(true, false, false);
 					repaint();
 				}
 			}
@@ -241,22 +252,14 @@ public class BookingsTable extends JPanel implements MouseListener{
 			if (table.getSelectedRow() != -1){
 				if(txtDate.isEditable()){
 					// set editable
-					txtCarReg.setEditable(false);
-					txtDate.setEditable(false);
-					txtTime.setEditable(false);
-					isCarRegEditToggled = false;
-					isTimeEditToggled = false;
-					isDateEditToggled = false;
+					toggleFields(false, false, false);
+					toggleFieldPaints(false, false, false);
 					repaint();
 				}
 				else{
 					// set editable
-					txtCarReg.setEditable(false);
-					txtDate.setEditable(true);
-					txtTime.setEditable(false);
-					isCarRegEditToggled = false;
-					isTimeEditToggled = false;
-					isDateEditToggled = true;
+					toggleFields(false, true, false);
+					toggleFieldPaints(false, true, false);
 					repaint();
 				}
 			}
@@ -265,22 +268,14 @@ public class BookingsTable extends JPanel implements MouseListener{
 			if (table.getSelectedRow() != -1){
 				if(txtTime.isEditable()){
 					// set editable
-					txtCarReg.setEditable(false);
-					txtDate.setEditable(false);
-					txtTime.setEditable(false);
-					isCarRegEditToggled = false;
-					isDateEditToggled = false;
-					isTimeEditToggled = false;
+					toggleFields(false, false, false);
+					toggleFieldPaints(false, false, false);
 					repaint();
 				}
 				else{
 					// set editable
-					txtCarReg.setEditable(false);
-					txtDate.setEditable(false);
-					txtTime.setEditable(true);
-					isCarRegEditToggled = false;
-					isDateEditToggled = false;
-					isTimeEditToggled = true;
+					toggleFields(false, false, true);
+					toggleFieldPaints(false, false, true);
 					repaint();
 				}
 			}
