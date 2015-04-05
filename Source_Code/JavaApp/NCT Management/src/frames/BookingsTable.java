@@ -4,6 +4,9 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Cursor;
 import java.awt.Font;
+import java.awt.GradientPaint;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -26,6 +29,24 @@ import core.Client;
 
 public class BookingsTable extends JPanel implements MouseListener{
 
+	@Override
+	protected void paintComponent(Graphics g) {
+		super.paintComponent(g);
+		Graphics2D g2d = (Graphics2D) g;
+		GradientPaint gp;
+		if(isEditToggled){
+			gp = new GradientPaint(getWidth()/2,getHeight(),new Color(250,150,25,50),
+					getWidth()/2,getHeight()/2,new Color(0,0,0,0));
+		}
+		else{
+			gp = new GradientPaint(txtCarReg.getX()+(txtCarReg.getWidth()/2),txtCarReg.getY()+txtCarReg.getHeight(),new Color(255,255,255,50),
+					txtCarReg.getX()+(txtCarReg.getWidth()/2),txtCarReg.getY()+(txtCarReg.getHeight()/2),new Color(0,0,0,0));
+		}
+		g2d.setPaint(gp);
+		g2d.fillRect(txtCarReg.getX(), txtCarReg.getY(), txtCarReg.getWidth(), txtCarReg.getHeight());
+	}
+
+
 	/**
 	 * Variable declaration.
 	 */
@@ -33,10 +54,12 @@ public class BookingsTable extends JPanel implements MouseListener{
 	private ArrayList<Booking> allBookings = new ArrayList<>();
 	private Client testClient;
 	private JTextField txtCarReg, txtDate, txtTime;
-	private JLabel lblR, lblD, lblT, btnDelete, btnEdit, btnSubmit;
+	private JLabel btnDelete, btnEdit, btnSubmit;
 	private TableModel tableModel;
 	private JTable table;
-	private final Font TEXTFONT = new Font("Segoe UI", Font.PLAIN, 12);
+	private boolean isEditToggled = false;
+	/* Text Font */
+	private final Font TEXTFONT = new Font("Segoe UI", Font.PLAIN, 13);
 	
 	// Image for buttons + scaling
 	private ImageIcon editImage = new ImageIcon(BookingsTable.class.getResource("/graphics/edit_propertyy.png"));
@@ -53,7 +76,6 @@ public class BookingsTable extends JPanel implements MouseListener{
 	 * Constructor
 	 */
 	public BookingsTable() {
-		//setBackground(TRANSPARENTCOLOR);
 		setOpaque(false);
 		
 		testClient = new Client();
@@ -89,45 +111,48 @@ public class BookingsTable extends JPanel implements MouseListener{
 		JLabel lblCarRegistration = new JLabel("Car Registration: ");
 		lblCarRegistration.setFont(TEXTFONT);
 		lblCarRegistration.setForeground(Color.LIGHT_GRAY);
-		lblCarRegistration.setBounds(10, 70, 99, 14);
+		lblCarRegistration.setBounds(10, 70, 110, 20);
 		add(lblCarRegistration);
 		// Date label
 		JLabel lblDate = new JLabel("Date: ");
 		lblDate.setFont(TEXTFONT);
 		lblDate.setForeground(Color.LIGHT_GRAY);
-		lblDate.setBounds(10, 95, 99, 14);
+		lblDate.setBounds(10, 100, 110, 20);
 		add(lblDate);
 		// Time label
 		JLabel lblTime = new JLabel("Time: ");
 		lblTime.setFont(TEXTFONT);
 		lblTime.setForeground(Color.LIGHT_GRAY);
-		lblTime.setBounds(10, 120, 99, 14);
+		lblTime.setBounds(10, 130, 110, 20);
 		add(lblTime);
 		// CarReg text field
 		txtCarReg = new JTextField();
 		txtCarReg.setBorder(null);
+		txtCarReg.setOpaque(false);
 		txtCarReg.setEditable(false);
-		txtCarReg.setForeground(Color.BLACK);
+		txtCarReg.setForeground(Color.LIGHT_GRAY);
 		txtCarReg.setFont(TEXTFONT);
-		txtCarReg.setBounds(10, 227, 86, 20);
+		txtCarReg.setBounds(130, 70, 100, 20);
 		add(txtCarReg);
 		txtCarReg.setColumns(10);
 		// Date text field
 		txtDate = new JTextField();
 		txtDate.setBorder(null);
-		txtDate.setForeground(Color.BLACK);
+		txtDate.setOpaque(false);
+		txtDate.setForeground(Color.LIGHT_GRAY);
 		txtDate.setFont(TEXTFONT);
 		txtDate.setEditable(false);
-		txtDate.setBounds(10, 278, 86, 20);
+		txtDate.setBounds(130, 100, 100, 20);
 		add(txtDate);
 		txtDate.setColumns(10);
 		// Time text field
 		txtTime = new JTextField();
 		txtTime.setBorder(null);
-		txtTime.setForeground(Color.BLACK);
+		txtTime.setOpaque(false);
+		txtTime.setForeground(Color.LIGHT_GRAY);
 		txtTime.setFont(TEXTFONT);
 		txtTime.setEditable(false);
-		txtTime.setBounds(10, 329, 86, 20);
+		txtTime.setBounds(130, 130, 100, 20);
 		add(txtTime);
 		txtTime.setColumns(10);
 		
@@ -150,57 +175,13 @@ public class BookingsTable extends JPanel implements MouseListener{
 		btnSubmit.addMouseListener(this);
 		add(btnSubmit);
 		
-		lblR = new JLabel("");
-		lblR.setFont(TEXTFONT);
-		lblR.setForeground(Color.LIGHT_GRAY);
-		lblR.setBounds(120, 70, 100, 14);
-		add(lblR);
 		
-		lblD = new JLabel("");
-		lblD.setFont(TEXTFONT);
-		lblD.setForeground(Color.LIGHT_GRAY);
-		lblD.setBounds(120, 95, 100, 14);
-		add(lblD);
-		
-		lblT = new JLabel("");
-		lblT.setFont(TEXTFONT);
-		lblT.setForeground(Color.LIGHT_GRAY);
-		lblT.setBounds(120, 120, 100, 14);
-		add(lblT);
-		
-		// Apply Table Mouse Listener
-		// Set at the end to ensure components get declared before put into listener
-		table.addMouseListener(new TableMouseListener(table,lblR, lblD, lblT));
+		// Assign mouse listener to table
+		table.addMouseListener(new TableMouseListener(table, txtCarReg, txtDate, txtTime));
 	}
 	
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		Object o = e.getSource();
-		
-		if(o.equals(btnDelete)){
-			if (table.getSelectedRow() != -1){
-				tableModel.removeRow(table.getSelectedRow());
-			}
-		}
-		else if(o.equals(btnEdit)){
-			if(txtCarReg.isEditable()){
-				// set editable
-				txtCarReg.setEditable(false);
-				txtDate.setEditable(false);
-				txtTime.setEditable(false);
-			}
-			else{
-				// set editable
-				txtCarReg.setEditable(true);
-				txtDate.setEditable(true);
-				txtTime.setEditable(true);
-			}
-		}
-		else if(o.equals(btnSubmit)){
-			if(table.getSelectedRow() != -1){
-				tableModel.updateRow(table.getSelectedRow(), txtCarReg.getText(), txtDate.getText(), txtTime.getText());
-			}
-		}
 	}
 	@Override
 	public void mousePressed(MouseEvent e) {
@@ -217,12 +198,16 @@ public class BookingsTable extends JPanel implements MouseListener{
 				txtCarReg.setEditable(false);
 				txtDate.setEditable(false);
 				txtTime.setEditable(false);
+				isEditToggled = true;
+				repaint();
 			}
 			else{
 				// set editable
 				txtCarReg.setEditable(true);
 				txtDate.setEditable(true);
 				txtTime.setEditable(true);
+				isEditToggled = false;
+				repaint();
 			}
 		}
 		else if(o.equals(btnSubmit)){
@@ -243,11 +228,11 @@ public class BookingsTable extends JPanel implements MouseListener{
 	
 	// Table Mouse Listener
 	class TableMouseListener implements MouseListener{
-		private JLabel mCarReg, mDate, mTime;
+		private JTextField mCarReg, mDate, mTime;
 		private JTable mTable;
 		private Booking mBooking;
 		
-		public TableMouseListener(JTable bTable, JLabel bCarReg, JLabel bDate, JLabel bTime){
+		public TableMouseListener(JTable bTable, JTextField bCarReg, JTextField bDate, JTextField bTime){
 			mCarReg = bCarReg;
 			mDate = bDate;
 			mTime = bTime;
@@ -256,14 +241,14 @@ public class BookingsTable extends JPanel implements MouseListener{
 		
 		@Override
 		public void mouseClicked(MouseEvent e) {
+		}
+		@Override
+		public void mousePressed(MouseEvent e) {
 			int row = mTable.rowAtPoint(e.getPoint());
 			mBooking = (Booking) mTable.getValueAt(row, 0);
 			mCarReg.setText(mBooking.getCarReg());
 			mDate.setText(mBooking.getDate());
 			mTime.setText(mBooking.getTime());
-		}
-		@Override
-		public void mousePressed(MouseEvent e) {
 		}
 		@Override
 		public void mouseReleased(MouseEvent e) {
