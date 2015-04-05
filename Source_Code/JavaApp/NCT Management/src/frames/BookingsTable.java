@@ -41,21 +41,13 @@ public class BookingsTable extends JPanel implements MouseListener{
 					txtDate.getX()+(txtDate.getWidth()/2),txtDate.getY()+(txtDate.getHeight()/4),new Color(0,0,0,0));
 			gp3 = new GradientPaint(txtTime.getX()+(txtTime.getWidth()/2),txtTime.getY()+txtTime.getHeight(),new Color(255,255,255,50),
 					txtTime.getX()+(txtTime.getWidth()/2),txtTime.getY()+(txtTime.getHeight()/4),new Color(0,0,0,0));
+			g2d.setPaint(gp);
+			g2d.fillRect(txtCarReg.getX(), txtCarReg.getY(), txtCarReg.getWidth(), txtCarReg.getHeight());
+			g2d.setPaint(gp2);
+			g2d.fillRect(txtDate.getX(), txtDate.getY(), txtDate.getWidth(), txtDate.getHeight());
+			g2d.setPaint(gp3);
+			g2d.fillRect(txtTime.getX(), txtTime.getY(), txtTime.getWidth(), txtTime.getHeight());
 		}
-		else{
-			gp = new GradientPaint(txtCarReg.getX()+(txtCarReg.getWidth()/2),txtCarReg.getY()+txtCarReg.getHeight(),new Color(255,255,255,50),
-					txtCarReg.getX()+(txtCarReg.getWidth()/2),txtCarReg.getY()+(txtCarReg.getHeight()/2),new Color(0,0,0,0));
-			gp2 = new GradientPaint(txtDate.getX()+(txtDate.getWidth()/2),txtDate.getY()+txtDate.getHeight(),new Color(255,255,255,50),
-					txtDate.getX()+(txtDate.getWidth()/2),txtDate.getY()+(txtDate.getHeight()/2),new Color(0,0,0,0));
-			gp3 = new GradientPaint(txtTime.getX()+(txtTime.getWidth()/2),txtTime.getY()+txtTime.getHeight(),new Color(255,255,255,50),
-					txtTime.getX()+(txtTime.getWidth()/2),txtTime.getY()+(txtTime.getHeight()/2),new Color(0,0,0,0));
-		}
-		g2d.setPaint(gp);
-		g2d.fillRect(txtCarReg.getX(), txtCarReg.getY(), txtCarReg.getWidth(), txtCarReg.getHeight());
-		g2d.setPaint(gp2);
-		g2d.fillRect(txtDate.getX(), txtDate.getY(), txtDate.getWidth(), txtDate.getHeight());
-		g2d.setPaint(gp3);
-		g2d.fillRect(txtTime.getX(), txtTime.getY(), txtTime.getWidth(), txtTime.getHeight());
 	}
 
 
@@ -69,7 +61,7 @@ public class BookingsTable extends JPanel implements MouseListener{
 	private JLabel btnDelete, btnEdit, btnSubmit;
 	private TableModel tableModel;
 	private JTable table;
-	private boolean isEditToggled = false;
+	private boolean isEditToggled;
 	/* Text Font */
 	private final Font TEXTFONT = new Font("Segoe UI", Font.PLAIN, 13);
 	
@@ -89,6 +81,7 @@ public class BookingsTable extends JPanel implements MouseListener{
 	 */
 	public BookingsTable() {
 		setOpaque(false);
+		isEditToggled = false;
 		
 		testClient = new Client();
 		testClient.viewBookings();
@@ -210,7 +203,7 @@ public class BookingsTable extends JPanel implements MouseListener{
 				txtCarReg.setEditable(false);
 				txtDate.setEditable(false);
 				txtTime.setEditable(false);
-				isEditToggled = true;
+				isEditToggled = false;
 				repaint();
 			}
 			else{
@@ -218,7 +211,7 @@ public class BookingsTable extends JPanel implements MouseListener{
 				txtCarReg.setEditable(true);
 				txtDate.setEditable(true);
 				txtTime.setEditable(true);
-				isEditToggled = false;
+				isEditToggled = true;
 				repaint();
 			}
 		}
