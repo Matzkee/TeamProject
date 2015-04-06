@@ -28,36 +28,6 @@ import core.Booking;
 import core.Client;
 
 public class BookingsTable extends JPanel implements MouseListener{
-
-	/*
-	 * Custom gradient paint for JText boxes
-	 */
-	@Override
-	protected void paintComponent(Graphics g) {
-		super.paintComponent(g);
-		Graphics2D g2d = (Graphics2D) g;
-		GradientPaint gp, gp2, gp3;
-		gp = new GradientPaint(txtCarReg.getX()+(txtCarReg.getWidth()/2),txtCarReg.getY()+txtCarReg.getHeight(),new Color(255,255,255,50),
-				txtCarReg.getX()+(txtCarReg.getWidth()/2),txtCarReg.getY()+(txtCarReg.getHeight()/4),new Color(0,0,0,0));
-		gp2 = new GradientPaint(txtDate.getX()+(txtDate.getWidth()/2),txtDate.getY()+txtDate.getHeight(),new Color(255,255,255,50),
-				txtDate.getX()+(txtDate.getWidth()/2),txtDate.getY()+(txtDate.getHeight()/4),new Color(0,0,0,0));
-		gp3 = new GradientPaint(txtTime.getX()+(txtTime.getWidth()/2),txtTime.getY()+txtTime.getHeight(),new Color(255,255,255,50),
-				txtTime.getX()+(txtTime.getWidth()/2),txtTime.getY()+(txtTime.getHeight()/4),new Color(0,0,0,0));
-		if(isCarRegEditToggled){
-			g2d.setPaint(gp);
-			g2d.fillRect(txtCarReg.getX(), txtCarReg.getY(), txtCarReg.getWidth(), txtCarReg.getHeight());
-		}
-		else if(isDateEditToggled){
-			g2d.setPaint(gp2);
-			g2d.fillRect(txtDate.getX(), txtDate.getY(), txtDate.getWidth(), txtDate.getHeight());			
-		}
-		else if(isTimeEditToggled){
-			g2d.setPaint(gp3);
-			g2d.fillRect(txtTime.getX(), txtTime.getY(), txtTime.getWidth(), txtTime.getHeight());			
-		}
-	}
-
-
 	/**
 	 * Variable declaration.
 	 */
@@ -83,12 +53,19 @@ public class BookingsTable extends JPanel implements MouseListener{
 	private ImageIcon deleteImage = new ImageIcon(BookingsTable.class.getResource("/graphics/imgDelete.png"));
 	private ImageIcon submitImage = new ImageIcon(BookingsTable.class.getResource("/graphics/imgSubmit.png"));
 	private ImageIcon addImage = new ImageIcon(BookingsTable.class.getResource("/graphics/imgAdd.png"));
+	private ImageIcon editImageHover = new ImageIcon(BookingsTable.class.getResource("/graphics/imgEditHover.png"));
+	private ImageIcon deleteImageHover = new ImageIcon(BookingsTable.class.getResource("/graphics/imgDeleteHover.png"));
+	private ImageIcon submitImageHover = new ImageIcon(BookingsTable.class.getResource("/graphics/imgSubmitHover.png"));
+	private ImageIcon addImageHover = new ImageIcon(BookingsTable.class.getResource("/graphics/imgAddHover.png"));
 	private final int buttonW = 40, buttonH = 40;
 	private ImageIcon addB = new ImageIcon(addImage.getImage().getScaledInstance(buttonW, buttonH, Image.SCALE_DEFAULT));
 	private ImageIcon editB = new ImageIcon(editImage.getImage().getScaledInstance(buttonW-20, buttonH-20, Image.SCALE_DEFAULT));
 	private ImageIcon deleteB = new ImageIcon(deleteImage.getImage().getScaledInstance(buttonW, buttonH, Image.SCALE_DEFAULT));
 	private ImageIcon submitB = new ImageIcon(submitImage.getImage().getScaledInstance(buttonW, buttonH, Image.SCALE_DEFAULT));
-
+	private ImageIcon addBHover = new ImageIcon(addImageHover.getImage().getScaledInstance(buttonW, buttonH, Image.SCALE_DEFAULT));
+	private ImageIcon editBHover = new ImageIcon(editImageHover.getImage().getScaledInstance(buttonW-20, buttonH-20, Image.SCALE_DEFAULT));
+	private ImageIcon deleteBHover = new ImageIcon(deleteImageHover.getImage().getScaledInstance(buttonW, buttonH, Image.SCALE_DEFAULT));
+	private ImageIcon submitBHover = new ImageIcon(submitImageHover.getImage().getScaledInstance(buttonW, buttonH, Image.SCALE_DEFAULT));
 
 	/**
 	 * Create the panel.
@@ -153,7 +130,7 @@ public class BookingsTable extends JPanel implements MouseListener{
 		systemInfo = new JLabel("",SwingConstants.RIGHT);
 		systemInfo.setFont(SMALLTEXTFONT);
 		systemInfo.setForeground(Color.LIGHT_GRAY);
-		systemInfo.setBounds(550,388,250,12);
+		systemInfo.setBounds(530,388,250,12);
 		add(systemInfo);
 		// CarReg label
 		lblCarRegistration = new JLabel("Car Registration: ");
@@ -174,26 +151,26 @@ public class BookingsTable extends JPanel implements MouseListener{
 		lblTime.setBounds(10, 130, 110, 20);
 		add(lblTime);
 		// Info: edit
-		lblEdit = new JLabel("Edit");
+		lblEdit = new JLabel("Edit", SwingConstants.CENTER);
 		lblEdit.setBounds(240, 55, 20, 14);
 		lblEdit.setForeground(Color.LIGHT_GRAY);
 		lblEdit.setFont(SMALLTEXTFONT);
 		add(lblEdit);
 		// Info: submit
-		lblSubmit = new JLabel("Submit");
-		lblSubmit.setBounds(63, 155, 32, 14);
+		lblSubmit = new JLabel("Submit", SwingConstants.CENTER);
+		lblSubmit.setBounds(300, 70, 40, 14);
 		lblSubmit.setForeground(Color.LIGHT_GRAY);
 		lblSubmit.setFont(SMALLTEXTFONT);
 		add(lblSubmit);
 		// Info: delete
-		lblDelete = new JLabel("Delete");
-		lblDelete.setBounds(115, 155, 32, 14);
+		lblDelete = new JLabel("Delete", SwingConstants.CENTER);
+		lblDelete.setBounds(300, 205, 40, 14);
 		lblDelete.setForeground(Color.LIGHT_GRAY);
 		lblDelete.setFont(SMALLTEXTFONT);
 		add(lblDelete);
 		// Info: new
-		lblNew = new JLabel("New");
-		lblNew.setBounds(20, 155, 32, 12);
+		lblNew = new JLabel("New",SwingConstants.CENTER);
+		lblNew.setBounds(10, 155, 40, 12);
 		lblNew.setForeground(Color.LIGHT_GRAY);
 		lblNew.setFont(SMALLTEXTFONT);
 		add(lblNew);
@@ -253,13 +230,13 @@ public class BookingsTable extends JPanel implements MouseListener{
 		add(btnEditTime);
 		// Button: delete booking
 		btnDelete = new JLabel("");
-		btnDelete.setBounds(110, 170, 40, 40);
+		btnDelete.setBounds(300, 220, 40, 40);
 		btnDelete.setIcon(deleteB);
 		btnDelete.addMouseListener(this);
 		add(btnDelete);
 		// Button: submit changes
 		btnSubmit = new JLabel("");
-		btnSubmit.setBounds(60, 170, 40, 40);
+		btnSubmit.setBounds(300, 80, 40, 40);
 		btnSubmit.setIcon(submitB);
 		btnSubmit.addMouseListener(this);
 		add(btnSubmit);
@@ -287,25 +264,67 @@ public class BookingsTable extends JPanel implements MouseListener{
 		txtTime.setText("");
 	}
 	
+	/*
+	 * Custom gradient paint for JText boxes
+	 */
+	@Override
+	protected void paintComponent(Graphics g) {
+		super.paintComponent(g);
+		Graphics2D g2d = (Graphics2D) g;
+		GradientPaint gp, gp2, gp3;
+		gp = new GradientPaint(txtCarReg.getX()+(txtCarReg.getWidth()/2),txtCarReg.getY()+txtCarReg.getHeight(),new Color(255,255,255,50),
+				txtCarReg.getX()+(txtCarReg.getWidth()/2),txtCarReg.getY()+(txtCarReg.getHeight()/4),new Color(0,0,0,0));
+		gp2 = new GradientPaint(txtDate.getX()+(txtDate.getWidth()/2),txtDate.getY()+txtDate.getHeight(),new Color(255,255,255,50),
+				txtDate.getX()+(txtDate.getWidth()/2),txtDate.getY()+(txtDate.getHeight()/4),new Color(0,0,0,0));
+		gp3 = new GradientPaint(txtTime.getX()+(txtTime.getWidth()/2),txtTime.getY()+txtTime.getHeight(),new Color(255,255,255,50),
+				txtTime.getX()+(txtTime.getWidth()/2),txtTime.getY()+(txtTime.getHeight()/4),new Color(0,0,0,0));
+		if(isCarRegEditToggled){
+			g2d.setPaint(gp);
+			g2d.fillRect(txtCarReg.getX(), txtCarReg.getY(), txtCarReg.getWidth(), txtCarReg.getHeight());
+		}
+		else if(isDateEditToggled){
+			g2d.setPaint(gp2);
+			g2d.fillRect(txtDate.getX(), txtDate.getY(), txtDate.getWidth(), txtDate.getHeight());			
+		}
+		else if(isTimeEditToggled){
+			g2d.setPaint(gp3);
+			g2d.fillRect(txtTime.getX(), txtTime.getY(), txtTime.getWidth(), txtTime.getHeight());			
+		}
+	}
+	
 	@Override
 	public void mouseClicked(MouseEvent e) {
+		Object o = e.getSource();
+		if(o.equals(this)){
+			// Double click event
+			// Clear systemInfo text
+			if(e.getClickCount() == 2 && !e.isConsumed()){
+				e.consume();
+				systemInfo.setText("");
+			}
+		}
 	}
 	@Override
 	public void mousePressed(MouseEvent e) {
 		Object o = e.getSource();
 		// Case: JPanel, main booking panel
 		if(o.equals(this)){
+			systemInfo.setText("Main Panel");
 			if (table.getSelectedRow() != -1){
 				table.clearSelection();
 			}
 		}
 		// Case: Add booking button
 		else if(o.equals(btnAdd)){
+			systemInfo.setText("Add new booking");
+			btnAdd.setIcon(addBHover);
 			newBookingPane.setVisible(true);
 		}
 		// Case: Delete Button
 		else if(o.equals(btnDelete)){
 			if (table.getSelectedRow() != -1){
+				systemInfo.setText("Successfully deleted booking!");
+				btnDelete.setIcon(deleteBHover);
 				tableModel.removeRow(table.getSelectedRow());
 				toggleFields(false, false, false);
 				toggleFieldPaints(false, false, false);
@@ -315,13 +334,15 @@ public class BookingsTable extends JPanel implements MouseListener{
 		// Case: Car Registration edit button
 		else if(o.equals(btnEditCarReg)){
 			if (table.getSelectedRow() != -1){
+				btnEditCarReg.setIcon(editBHover);
 				if(txtCarReg.isEditable()){
-					// set editable
+					// set not editable
 					toggleFields(false, false, false);
 					toggleFieldPaints(false, false, false);
 					repaint();
 				}
 				else{
+					systemInfo.setText("Toggled editable car reg");
 					// set editable
 					toggleFields(true, false, false);
 					toggleFieldPaints(true, false, false);
@@ -332,13 +353,15 @@ public class BookingsTable extends JPanel implements MouseListener{
 		// Case: Date edit button
 		else if(o.equals(btnEditDate)){
 			if (table.getSelectedRow() != -1){
+				btnEditDate.setIcon(editBHover);
 				if(txtDate.isEditable()){
-					// set editable
+					// set not editable
 					toggleFields(false, false, false);
 					toggleFieldPaints(false, false, false);
 					repaint();
 				}
 				else{
+					systemInfo.setText("Toggled editable date");
 					// set editable
 					toggleFields(false, true, false);
 					toggleFieldPaints(false, true, false);
@@ -349,13 +372,15 @@ public class BookingsTable extends JPanel implements MouseListener{
 		// Case: Time edit button
 		else if(o.equals(btnEditTime)){
 			if (table.getSelectedRow() != -1){
+				btnEditTime.setIcon(editBHover);
 				if(txtTime.isEditable()){
-					// set editable
+					// set not editable
 					toggleFields(false, false, false);
 					toggleFieldPaints(false, false, false);
 					repaint();
 				}
 				else{
+					systemInfo.setText("Toggled editable time");
 					// set editable
 					toggleFields(false, false, true);
 					toggleFieldPaints(false, false, true);
@@ -366,12 +391,41 @@ public class BookingsTable extends JPanel implements MouseListener{
 		// Case: Submit button
 		else if(o.equals(btnSubmit)){
 			if(table.getSelectedRow() != -1){
+				btnSubmit.setIcon(submitBHover);
+				systemInfo.setText("Successfully submited changes!");
 				tableModel.updateRow(table.getSelectedRow(), txtCarReg.getText(), txtDate.getText(), txtTime.getText());
 			}
 		}
 	}
 	@Override
 	public void mouseReleased(MouseEvent e) {
+		Object o = e.getSource();
+		// Case: Add booking button
+		if(o.equals(btnAdd)){
+			btnAdd.setIcon(addB);
+		}
+		// Case: Delete Button
+		else if(o.equals(btnDelete)){
+			if (table.getSelectedRow() != -1){
+				btnDelete.setIcon(deleteB);
+			}
+		}
+		// Case: Car Registration edit button
+		else if(o.equals(btnEditCarReg)){
+			btnEditCarReg.setIcon(editB);
+		}
+		// Case: Date edit button
+		else if(o.equals(btnEditDate)){
+			btnEditDate.setIcon(editB);
+		}
+		// Case: Time edit button
+		else if(o.equals(btnEditTime)){
+			btnEditTime.setIcon(editB);
+		}
+		// Case: Submit button
+		else if(o.equals(btnSubmit)){
+			btnSubmit.setIcon(submitB);
+		}
 	}
 	@Override
 	public void mouseEntered(MouseEvent e) {
@@ -398,6 +452,7 @@ public class BookingsTable extends JPanel implements MouseListener{
 		}
 		@Override
 		public void mousePressed(MouseEvent e) {
+			systemInfo.setText("Booking Table");
 			int row = mTable.rowAtPoint(e.getPoint());
 			mBooking = (Booking) mTable.getValueAt(row, 0);
 			mCarReg.setText(mBooking.getCarReg());
