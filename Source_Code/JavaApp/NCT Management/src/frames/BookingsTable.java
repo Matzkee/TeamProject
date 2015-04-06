@@ -19,6 +19,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
+import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.TableCellRenderer;
@@ -66,8 +67,11 @@ public class BookingsTable extends JPanel implements MouseListener{
 	private JTextField txtCarReg, txtDate, txtTime;
 	private JLabel btnDelete, btnEditCarReg, btnEditDate, btnEditTime, btnSubmit, btnAdd;
 	private JLabel lblSubmit, lblDelete, lblNew;
+	private JLabel lblCarRegistration, lblDate, lblTime, lblEdit;
+	private JLabel systemInfo;
 	private TableModel tableModel;
 	private JTable table;
+	private JScrollPane tableScrollPane;
 	private BookingCreationPane newBookingPane;
 	private boolean isCarRegEditToggled, isDateEditToggled, isTimeEditToggled;
 	/* Text Font */
@@ -91,8 +95,12 @@ public class BookingsTable extends JPanel implements MouseListener{
 	 * Constructor
 	 */
 	public BookingsTable() {
+		// Main Panel Settings
+		setSize(800,400);
+		setLayout(null);
 		setOpaque(false);
 		addMouseListener(this);
+		
 		isCarRegEditToggled = false;
 		isDateEditToggled = false;
 		isTimeEditToggled = false;
@@ -102,9 +110,23 @@ public class BookingsTable extends JPanel implements MouseListener{
 		
 		allBookings = testClient.getBookings();
 		
-		// Panel Size
-		setSize(800,400);
+		showTable();
+		showLabels();
+		showTextFields();
+		showButtons();
 		
+		// Booking Creation Panel
+		newBookingPane = new BookingCreationPane();
+		newBookingPane.setBounds(10, 220, 250, 120);
+		add(newBookingPane);
+		newBookingPane.setVisible(false);
+		
+		// Assign mouse listener to table
+		// Set at the end for other components to be initialised first
+		table.addMouseListener(new TableMouseListener(table, txtCarReg, txtDate, txtTime));
+	}
+	
+	public void showTable(){
 		// Setting up the table
 		tableModel = new TableModel(allBookings);
 		table = new JTable(tableModel);
@@ -114,34 +136,70 @@ public class BookingsTable extends JPanel implements MouseListener{
 		table.setOpaque(false);
 		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		table.setDefaultRenderer(Booking.class, new TableRenderer());
-		setLayout(null);
 		table.setRowHeight(40);
 		table.setTableHeader(null);
 		// ScrollPane for the table
-		JScrollPane tableScrollPane = new JScrollPane(table);
+		tableScrollPane = new JScrollPane(table);
 		tableScrollPane.setBorder(new EmptyBorder(0, 0, 0, 0));
 		tableScrollPane.getViewport().setOpaque(false);
 		tableScrollPane.setOpaque(false);
 		tableScrollPane.setBounds(390, 25, 400, 300);
 		add(tableScrollPane);
+	}
+	
+	public void showLabels(){
+		// System Label
+		// Any relevant & useful info 
+		systemInfo = new JLabel("",SwingConstants.RIGHT);
+		systemInfo.setFont(SMALLTEXTFONT);
+		systemInfo.setForeground(Color.LIGHT_GRAY);
+		systemInfo.setBounds(550,388,250,12);
+		add(systemInfo);
 		// CarReg label
-		JLabel lblCarRegistration = new JLabel("Car Registration: ");
+		lblCarRegistration = new JLabel("Car Registration: ");
 		lblCarRegistration.setFont(TEXTFONT);
 		lblCarRegistration.setForeground(Color.LIGHT_GRAY);
 		lblCarRegistration.setBounds(10, 70, 110, 20);
 		add(lblCarRegistration);
 		// Date label
-		JLabel lblDate = new JLabel("Date: ");
+		lblDate = new JLabel("Date: ");
 		lblDate.setFont(TEXTFONT);
 		lblDate.setForeground(Color.LIGHT_GRAY);
 		lblDate.setBounds(10, 100, 110, 20);
 		add(lblDate);
 		// Time label
-		JLabel lblTime = new JLabel("Time: ");
+		lblTime = new JLabel("Time: ");
 		lblTime.setFont(TEXTFONT);
 		lblTime.setForeground(Color.LIGHT_GRAY);
 		lblTime.setBounds(10, 130, 110, 20);
 		add(lblTime);
+		// Info: edit
+		lblEdit = new JLabel("Edit");
+		lblEdit.setBounds(240, 55, 20, 14);
+		lblEdit.setForeground(Color.LIGHT_GRAY);
+		lblEdit.setFont(SMALLTEXTFONT);
+		add(lblEdit);
+		// Info: submit
+		lblSubmit = new JLabel("Submit");
+		lblSubmit.setBounds(63, 155, 32, 14);
+		lblSubmit.setForeground(Color.LIGHT_GRAY);
+		lblSubmit.setFont(SMALLTEXTFONT);
+		add(lblSubmit);
+		// Info: delete
+		lblDelete = new JLabel("Delete");
+		lblDelete.setBounds(115, 155, 32, 14);
+		lblDelete.setForeground(Color.LIGHT_GRAY);
+		lblDelete.setFont(SMALLTEXTFONT);
+		add(lblDelete);
+		// Info: new
+		lblNew = new JLabel("New");
+		lblNew.setBounds(20, 155, 32, 12);
+		lblNew.setForeground(Color.LIGHT_GRAY);
+		lblNew.setFont(SMALLTEXTFONT);
+		add(lblNew);
+	}
+	
+	public void showTextFields(){
 		// CarReg text field
 		txtCarReg = new JTextField();
 		txtCarReg.setBorder(null);
@@ -172,76 +230,45 @@ public class BookingsTable extends JPanel implements MouseListener{
 		txtTime.setBounds(130, 130, 100, 20);
 		add(txtTime);
 		txtTime.setColumns(10);
-		
-		
+	}
+	
+	public void showButtons(){
+		// Button: edit car registration
 		btnEditCarReg = new JLabel("");
 		btnEditCarReg.setBounds(240, 70, 20, 20);
 		btnEditCarReg.setIcon(editB);
 		btnEditCarReg.addMouseListener(this);
 		add(btnEditCarReg);
-		
+		// Button: edit date
 		btnEditDate = new JLabel("");
 		btnEditDate.setBounds(240, 100, 20, 20);
 		btnEditDate.setIcon(editB);
 		btnEditDate.addMouseListener(this);
 		add(btnEditDate);
-		
+		// Button: edit time
 		btnEditTime = new JLabel("");
 		btnEditTime.setBounds(240, 130, 20, 20);
 		btnEditTime.setIcon(editB);
 		btnEditTime.addMouseListener(this);
 		add(btnEditTime);
-		
+		// Button: delete booking
 		btnDelete = new JLabel("");
 		btnDelete.setBounds(110, 170, 40, 40);
 		btnDelete.setIcon(deleteB);
 		btnDelete.addMouseListener(this);
 		add(btnDelete);
-		
+		// Button: submit changes
 		btnSubmit = new JLabel("");
 		btnSubmit.setBounds(60, 170, 40, 40);
 		btnSubmit.setIcon(submitB);
 		btnSubmit.addMouseListener(this);
 		add(btnSubmit);
-		
+		// Button: add new booking
 		btnAdd = new JLabel("");
 		btnAdd.setBounds(10, 170, 40, 40);
 		btnAdd.setIcon(addB);
 		btnAdd.addMouseListener(this);
 		add(btnAdd);
-		
-		JLabel lblEdit = new JLabel("Edit");
-		lblEdit.setBounds(240, 55, 20, 14);
-		lblEdit.setForeground(Color.LIGHT_GRAY);
-		lblEdit.setFont(SMALLTEXTFONT);
-		add(lblEdit);
-		
-		lblSubmit = new JLabel("Submit");
-		lblSubmit.setBounds(63, 155, 32, 14);
-		lblSubmit.setForeground(Color.LIGHT_GRAY);
-		lblSubmit.setFont(SMALLTEXTFONT);
-		add(lblSubmit);
-		
-		lblDelete = new JLabel("Delete");
-		lblDelete.setBounds(115, 155, 32, 14);
-		lblDelete.setForeground(Color.LIGHT_GRAY);
-		lblDelete.setFont(SMALLTEXTFONT);
-		add(lblDelete);
-			
-		lblNew = new JLabel("New");
-		lblNew.setBounds(20, 155, 32, 12);
-		lblNew.setForeground(Color.LIGHT_GRAY);
-		lblNew.setFont(SMALLTEXTFONT);
-		add(lblNew);
-		
-		// Booking Creation Panel
-		newBookingPane = new BookingCreationPane();
-		newBookingPane.setBounds(10, 220, 250, 120);
-		add(newBookingPane);
-		newBookingPane.setVisible(false);
-		
-		// Assign mouse listener to table
-		table.addMouseListener(new TableMouseListener(table, txtCarReg, txtDate, txtTime));
 	}
 	
 	public void toggleFields(boolean carReg, boolean date, boolean time){
