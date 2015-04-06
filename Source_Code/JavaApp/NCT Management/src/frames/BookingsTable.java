@@ -64,21 +64,26 @@ public class BookingsTable extends JPanel implements MouseListener{
 	private ArrayList<Booking> allBookings = new ArrayList<>();
 	private Client testClient;
 	private JTextField txtCarReg, txtDate, txtTime;
-	private JLabel btnDelete, btnEditCarReg, btnEditDate, btnEditTime, btnSubmit;
+	private JLabel btnDelete, btnEditCarReg, btnEditDate, btnEditTime, btnSubmit, btnAdd;
+	private JLabel lblSubmit, lblDelete;
 	private TableModel tableModel;
 	private JTable table;
 	private boolean isCarRegEditToggled, isDateEditToggled, isTimeEditToggled;
 	/* Text Font */
 	private final Font TEXTFONT = new Font("Segoe UI", Font.PLAIN, 13);
+	private final Font SMALLTEXTFONT = new Font("Segoe UI", Font.PLAIN, 10);
 	
 	// Image for buttons + scaling
-	private ImageIcon editImage = new ImageIcon(BookingsTable.class.getResource("/graphics/edit_propertyy.png"));
-	private ImageIcon deleteImage = new ImageIcon(BookingsTable.class.getResource("/graphics/deleteIcon.png"));
-	private ImageIcon submitImage = new ImageIcon(BookingsTable.class.getResource("/graphics/submitB.png"));
+	private ImageIcon editImage = new ImageIcon(BookingsTable.class.getResource("/graphics/imgEdit.png"));
+	private ImageIcon deleteImage = new ImageIcon(BookingsTable.class.getResource("/graphics/imgDelete.png"));
+	private ImageIcon submitImage = new ImageIcon(BookingsTable.class.getResource("/graphics/imgSubmit.png"));
+	private ImageIcon addImage = new ImageIcon(BookingsTable.class.getResource("/graphics/imgAdd.png"));
 	private final int buttonW = 40, buttonH = 40;
+	private ImageIcon addB = new ImageIcon(addImage.getImage().getScaledInstance(buttonW, buttonH, Image.SCALE_DEFAULT));
 	private ImageIcon editB = new ImageIcon(editImage.getImage().getScaledInstance(buttonW-20, buttonH-20, Image.SCALE_DEFAULT));
 	private ImageIcon deleteB = new ImageIcon(deleteImage.getImage().getScaledInstance(buttonW, buttonH, Image.SCALE_DEFAULT));
 	private ImageIcon submitB = new ImageIcon(submitImage.getImage().getScaledInstance(buttonW, buttonH, Image.SCALE_DEFAULT));
+	private JLabel lblNew;
 
 
 	/**
@@ -188,17 +193,45 @@ public class BookingsTable extends JPanel implements MouseListener{
 		add(btnEditTime);
 		
 		btnDelete = new JLabel("");
-		btnDelete.setBounds(330, 70, 40, 40);
+		btnDelete.setBounds(110, 170, 40, 40);
 		btnDelete.setIcon(deleteB);
 		btnDelete.addMouseListener(this);
 		add(btnDelete);
 		
 		btnSubmit = new JLabel("");
-		btnSubmit.setBounds(275, 70, 40, 40);
+		btnSubmit.setBounds(60, 170, 40, 40);
 		btnSubmit.setIcon(submitB);
 		btnSubmit.addMouseListener(this);
 		add(btnSubmit);
 		
+		JLabel lblEdit = new JLabel("Edit");
+		lblEdit.setBounds(240, 55, 20, 14);
+		lblEdit.setForeground(Color.LIGHT_GRAY);
+		lblEdit.setFont(SMALLTEXTFONT);
+		add(lblEdit);
+		
+		lblSubmit = new JLabel("Submit");
+		lblSubmit.setBounds(63, 155, 32, 14);
+		lblSubmit.setForeground(Color.LIGHT_GRAY);
+		lblSubmit.setFont(SMALLTEXTFONT);
+		add(lblSubmit);
+		
+		lblDelete = new JLabel("Delete");
+		lblDelete.setBounds(115, 155, 32, 14);
+		lblDelete.setForeground(Color.LIGHT_GRAY);
+		lblDelete.setFont(SMALLTEXTFONT);
+		add(lblDelete);
+			
+		btnAdd = new JLabel("");
+		btnAdd.setBounds(10, 170, 40, 40);
+		btnAdd.setIcon(addB);
+		add(btnAdd);
+		
+		lblNew = new JLabel("New");
+		lblNew.setBounds(20, 155, 32, 12);
+		lblNew.setForeground(Color.LIGHT_GRAY);
+		lblNew.setFont(SMALLTEXTFONT);
+		add(lblNew);
 		
 		// Assign mouse listener to table
 		table.addMouseListener(new TableMouseListener(table, txtCarReg, txtDate, txtTime));
