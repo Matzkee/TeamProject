@@ -1,7 +1,6 @@
 package frames;
 
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Cursor;
 import java.awt.Font;
 import java.awt.GradientPaint;
@@ -21,8 +20,10 @@ import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
-import javax.swing.table.AbstractTableModel;
-import javax.swing.table.TableCellRenderer;
+
+import components.TableModel;
+import components.TableMouseListener;
+import components.TableRenderer;
 
 import core.Booking;
 import core.Client;
@@ -32,6 +33,7 @@ public class BookingsTable extends JPanel implements MouseListener{
 	 * Variable declaration.
 	 */
 	private static final long serialVersionUID = 1L;
+	private String garageId = "1";
 	private ArrayList<Booking> allBookings = new ArrayList<>();
 	private Client testClient;
 	private JTextField txtCarReg, txtDate, txtTime;
@@ -93,14 +95,14 @@ public class BookingsTable extends JPanel implements MouseListener{
 		showButtons();
 		
 		// Booking Creation Panel
-		newBookingPane = new BookingCreationPane();
+		newBookingPane = new BookingCreationPane(table, garageId);
 		newBookingPane.setBounds(10, 220, 250, 120);
 		add(newBookingPane);
 		newBookingPane.setVisible(false);
 		
 		// Assign mouse listener to table
 		// Set at the end for other components to be initialised first
-		table.addMouseListener(new TableMouseListener(table, txtCarReg, txtDate, txtTime));
+		table.addMouseListener(new TableMouseListener(table, txtCarReg, txtDate, txtTime, systemInfo));
 	}
 	
 	public void showTable(){
@@ -432,117 +434,5 @@ public class BookingsTable extends JPanel implements MouseListener{
 	}
 	@Override
 	public void mouseExited(MouseEvent e) {
-	}
-	
-	// Table Mouse Listener
-	class TableMouseListener implements MouseListener{
-		private JTextField mCarReg, mDate, mTime;
-		private JTable mTable;
-		private Booking mBooking;
-		
-		public TableMouseListener(JTable bTable, JTextField bCarReg, JTextField bDate, JTextField bTime){
-			mCarReg = bCarReg;
-			mDate = bDate;
-			mTime = bTime;
-			mTable = bTable;
-		}
-		
-		@Override
-		public void mouseClicked(MouseEvent e) {
-		}
-		@Override
-		public void mousePressed(MouseEvent e) {
-			systemInfo.setText("Booking Table");
-			int row = mTable.rowAtPoint(e.getPoint());
-			mBooking = (Booking) mTable.getValueAt(row, 0);
-			mCarReg.setText(mBooking.getCarReg());
-			mDate.setText(mBooking.getDate());
-			mTime.setText(mBooking.getTime());
-		}
-		@Override
-		public void mouseReleased(MouseEvent e) {
-		}
-		@Override
-		public void mouseEntered(MouseEvent e) {
-		}
-		@Override
-		public void mouseExited(MouseEvent e) {
-		}
-	}
-	
-	// Table Cell Renderer
-	// renders each cell
-	class TableRenderer implements TableCellRenderer{
-		TableRow cell;
-		
-		// Constructor
-		public TableRenderer(){
-			cell = new TableRow();
-		}
-		@Override
-		public Component getTableCellRendererComponent(JTable table,
-				Object value, boolean isSelected, boolean hasFocus, int row,
-				int column) {
-			Booking book = (Booking) value;
-			cell.setRowLabels(book, isSelected, table);
-			
-			return cell;
-		}
-	}
-	
-	
-	// Table Model
-	// contains all info from Booking classes
-	class TableModel extends AbstractTableModel{
-
-		private static final long serialVersionUID = 1L;
-		private ArrayList<Booking> bookings = new ArrayList<>();
-		
-		public TableModel(ArrayList<Booking> newBookings){
-			bookings = newBookings;
-		}
-		
-		// Override methods from AbstractTableModel
-		@Override
-		public String getColumnName(int columnIndex){
-			return "Booking";
-		}
-		@Override
-		public Class<Booking> getColumnClass(int columnIndex){
-			return Booking.class;
-		}
-		@Override
-		public int getRowCount() {
-			return (bookings == null) ? null : bookings.size();
-		}
-		@Override
-		public int getColumnCount() {
-			return 1;
-		}
-		@Override
-		public Object getValueAt(int rowIndex, int columnIndex) {
-			return (bookings == null) ? null : bookings.get(rowIndex);
-		}
-		@Override
-		public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
-			bookings.set(rowIndex, (Booking) aValue);
-			fireTableCellUpdated(rowIndex, 0);
-		}
-		@Override
-		public boolean isCellEditable(int columnIndex, int rowIndex){
-			return false;
-		}
-		public void removeRow(int rowIndex){
-			bookings.remove(rowIndex);
-			fireTableRowsDeleted(rowIndex, rowIndex);
-			System.out.println("Deleted row: " + rowIndex);
-		}
-		public void updateRow(int rowIndex, String carReg, String date, String time){
-			Booking tempBook = bookings.get(rowIndex);
-			tempBook.setCarReg(carReg);
-			tempBook.setDate(date);
-			tempBook.setTime(time);
-			setValueAt(tempBook, rowIndex, 0);
-		}
 	}
 }

@@ -12,8 +12,11 @@ import java.awt.event.MouseListener;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.JSeparator;
+
+import components.TableModel;
 
 public class BookingCreationPane extends JPanel implements MouseListener{
 	
@@ -51,6 +54,9 @@ public class BookingCreationPane extends JPanel implements MouseListener{
 	private JLabel btnSubmit;
 	private JTextField txtNewCarReg, txtNewDate, txtNewTime;
 	private final Font TEXTFONT = new Font("Segoe UI", Font.PLAIN, 13);
+	private JTable table;
+	private TableModel model;
+	private String garageId;
 	
 	// Image for button & scaling
 	private final int buttonW = 40, buttonH = 40;
@@ -62,10 +68,14 @@ public class BookingCreationPane extends JPanel implements MouseListener{
 	/**
 	 * Create the panel.
 	 */
-	public BookingCreationPane() {
+	public BookingCreationPane(JTable mytable, String garage) {
 		setOpaque(false);
 		setSize(250, 120);
 		setLayout(null);
+		
+		table = mytable;
+		model = (TableModel) table.getModel();
+		garageId = garage;
 		
 		lblNewBooking = new JLabel("New Booking");
 		lblNewBooking.setRequestFocusEnabled(false);
@@ -124,7 +134,15 @@ public class BookingCreationPane extends JPanel implements MouseListener{
 		btnSubmit = new JLabel("");
 		btnSubmit.setBounds(205, 55, 40, 40);
 		btnSubmit.setIcon(submitB);
+		btnSubmit.addMouseListener(this);
 		add(btnSubmit);
+	}
+	
+	public void dispose(){
+		txtNewCarReg.setText("");
+		txtNewDate.setText("");
+		txtNewTime.setText("");
+		this.setVisible(false);
 	}
 
 	@Override
@@ -141,6 +159,8 @@ public class BookingCreationPane extends JPanel implements MouseListener{
 		Object o = e.getSource();
 		if(o.equals(btnSubmit)){
 			btnSubmit.setIcon(submitBHover);
+			model.addRow(txtNewCarReg.getText(), txtNewDate.getText(), txtNewTime.getText(), garageId);
+			dispose();
 		}
 	}
 	@Override
