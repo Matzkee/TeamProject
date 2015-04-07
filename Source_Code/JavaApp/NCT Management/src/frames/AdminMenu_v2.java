@@ -23,6 +23,7 @@ public class AdminMenu_v2 extends JFrame implements MouseListener{
 	private JLabel lblBookings;
 	private JLabel lblLogOut;
 	private final Color HIGHLIGHTCOLOR = new Color(214,137,4);
+	private final Color HOVERCOLOR = Color.LIGHT_GRAY;
 	private final Color AMBIENTCOLOR = Color.GRAY;
 	private final Font TEXTFONT = new Font("Segoe UI", Font.PLAIN, 20);
 	private BookingsTable bookingPane;
@@ -99,38 +100,53 @@ public class AdminMenu_v2 extends JFrame implements MouseListener{
 	// Interface methods
 	@Override
 	public void mouseClicked(MouseEvent e) {
+	}
+	@Override
+	public void mousePressed(MouseEvent e) {
 		JLabel button = (JLabel) e.getSource();
 		switch(button.getText()){
 			case "HOME":
 				bookingPane.setVisible(false);
+				button.setForeground(HIGHLIGHTCOLOR);
 			break;
 			case "BOOKINGS":
 				bookingPane.setVisible(true);
+				button.setForeground(HIGHLIGHTCOLOR);
 			break;
 			case "LOG OUT":
 				bookingPane.setVisible(false);
+				button.setForeground(HIGHLIGHTCOLOR);
 			break;
 		}
 		System.out.println("Clicked: "+button.getText());
 	}
 	@Override
-	public void mousePressed(MouseEvent e) {
-	}
-	@Override
 	public void mouseReleased(MouseEvent e) {
+		JLabel button = (JLabel) e.getSource();
+		switch(button.getText()){
+			case "HOME":
+				button.setForeground(AMBIENTCOLOR);
+			break;
+			case "BOOKINGS":
+				button.setForeground(AMBIENTCOLOR);
+			break;
+			case "LOG OUT":
+				button.setForeground(AMBIENTCOLOR);
+			break;
+		}
 	}
 	@Override
 	public void mouseEntered(MouseEvent e) {
 		JLabel button = (JLabel) e.getSource();
 		switch(button.getText()){
 			case "HOME":
-				button.setForeground(HIGHLIGHTCOLOR);
+				button.setForeground(HOVERCOLOR);
 			break;
 			case "BOOKINGS":
-				button.setForeground(HIGHLIGHTCOLOR);
+				button.setForeground(HOVERCOLOR);
 			break;
 			case "LOG OUT":
-				button.setForeground(HIGHLIGHTCOLOR);
+				button.setForeground(HOVERCOLOR);
 			break;
 		}
 	}

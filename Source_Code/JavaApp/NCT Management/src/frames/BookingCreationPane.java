@@ -5,13 +5,17 @@ import java.awt.Font;
 import java.awt.GradientPaint;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Image;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
+import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.JSeparator;
 
-public class BookingCreationPane extends JPanel {
+public class BookingCreationPane extends JPanel implements MouseListener{
 	
 	/*
 	 * Gradient Overlay
@@ -44,8 +48,16 @@ public class BookingCreationPane extends JPanel {
 	 */
 	private static final long serialVersionUID = 1L;
 	private JLabel lblNewBooking, lblNewCarReg, lblNewDate, lblNewTime;
+	private JLabel btnSubmit;
 	private JTextField txtNewCarReg, txtNewDate, txtNewTime;
 	private final Font TEXTFONT = new Font("Segoe UI", Font.PLAIN, 13);
+	
+	// Image for button & scaling
+	private final int buttonW = 40, buttonH = 40;
+	private ImageIcon submitImage = new ImageIcon(BookingsTable.class.getResource("/graphics/imgSubmit.png"));
+	private ImageIcon submitImageHover = new ImageIcon(BookingsTable.class.getResource("/graphics/imgSubmitHover.png"));
+	private ImageIcon submitB = new ImageIcon(submitImage.getImage().getScaledInstance(buttonW, buttonH, Image.SCALE_DEFAULT));
+	private ImageIcon submitBHover = new ImageIcon(submitImageHover.getImage().getScaledInstance(buttonW, buttonH, Image.SCALE_DEFAULT));
 	
 	/**
 	 * Create the panel.
@@ -108,5 +120,34 @@ public class BookingCreationPane extends JPanel {
 		separator.setBounds(10, 25, 230, 1);
 		separator.setForeground(Color.LIGHT_GRAY);
 		add(separator);
+		
+		btnSubmit = new JLabel("");
+		btnSubmit.setBounds(205, 55, 40, 40);
+		btnSubmit.setIcon(submitB);
+		add(btnSubmit);
+	}
+
+	@Override
+	public void mouseClicked(MouseEvent e) {
+	}
+	@Override
+	public void mouseEntered(MouseEvent e) {
+	}
+	@Override
+	public void mouseExited(MouseEvent e) {
+	}
+	@Override
+	public void mousePressed(MouseEvent e) {
+		Object o = e.getSource();
+		if(o.equals(btnSubmit)){
+			btnSubmit.setIcon(submitBHover);
+		}
+	}
+	@Override
+	public void mouseReleased(MouseEvent e) {
+		Object o = e.getSource();
+		if(o.equals(btnSubmit)){
+			btnSubmit.setIcon(submitB);
+		}
 	}
 }
