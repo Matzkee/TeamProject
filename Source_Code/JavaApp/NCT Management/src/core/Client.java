@@ -63,9 +63,10 @@ public class Client implements ClientUi{
 
 	// Interface Methods
 	@Override
-	public void createBooking() {
-		// TODO Auto-generated method stub
-		
+	public boolean createBooking(String carReg, String date, String time, int garage) {
+		boolean success;
+		success = clientDAO.addBooking(carReg, date, time, garage);
+		return success;
 	}
 
 	@Override
@@ -77,9 +78,12 @@ public class Client implements ClientUi{
 	}
 
 	@Override
-	public void modifyBooking(String RegNo) {
-		// TODO Auto-generated method stub
-		
+	public boolean modifyBooking(String RegNo) {
+		boolean success;
+		// Implement: query String
+		String query = "";
+		success = clientDAO.executeUpdate(query);
+		return success;
 	}
 
 	@Override

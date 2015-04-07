@@ -1,6 +1,7 @@
 package core;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -188,7 +189,53 @@ public class ClientDAO implements DaoUi{
 			return users;
 		}
 	}
-	
+	public boolean addBooking(String carReg, String date, String time, int garage){
+		//query the database for the user with these credentials 
+		String query = "";
+		try{
+			// Load the database driver
+			Class.forName( "com.mysql.jdbc.Driver" );
+			// Get a connection to the database
+			this.conn = DriverManager.getConnection("jdbc:mysql://83.212.127.2:3306/NCT", "user", "TeamGravity123");
+			//Prepare statement
+			
+			//Prepare statement
+			query = "INSERT INTO Booking (BDate,BTime,Car_Reg,Garage_Id) VALUES (?,?,?,?)";
+			this.ps = conn.prepareStatement(query);
+			ps.setString(1, date);
+			ps.setString(2, time);
+			//Implement date parsing
+			//Date ddate = new Date();
+			ps.setString(2, carReg);
+			ps.setInt(4, garage);
+			
+			ps.executeUpdate(query);
+			
+			ps.close();
+			stmt.close();
+			conn.close();
+			return true;
+		}
+		catch(SQLException e){
+			
+			//Temporary System message
+			System.out.println( "SQL Exception:" ) ;
+			
+			// Loop through the SQL Exceptions
+			while( e != null ){
+				System.out.println( "State  : " + e.getSQLState()  ) ;
+				System.out.println( "Message: " + e.getMessage()   ) ;
+				System.out.println( "Error  : " + e.getErrorCode() ) ;
+				
+				e = e.getNextException() ;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		
+		return false;
+	}
 	// Interface MEthods
 	@Override
 	public int[] verifyUsername(String uname, String pass) {

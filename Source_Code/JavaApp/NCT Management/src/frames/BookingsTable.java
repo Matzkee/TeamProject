@@ -35,7 +35,7 @@ public class BookingsTable extends JPanel implements MouseListener{
 	private static final long serialVersionUID = 1L;
 	private int garageId = 1;
 	private ArrayList<Booking> allBookings = new ArrayList<>();
-	private Client testClient;
+	private Client mainClient;
 	private JTextField txtCarReg, txtDate, txtTime;
 	private JLabel btnDelete, btnEditCarReg, btnEditDate, btnEditTime, btnSubmit, btnAdd;
 	private JLabel lblSubmit, lblDelete, lblNew;
@@ -73,7 +73,7 @@ public class BookingsTable extends JPanel implements MouseListener{
 	 * Create the panel.
 	 * Constructor
 	 */
-	public BookingsTable(int garage) {
+	public BookingsTable(int garage, Client programClient) {
 		garageId = garage;
 		// Main Panel Settings
 		setSize(800,400);
@@ -85,10 +85,10 @@ public class BookingsTable extends JPanel implements MouseListener{
 		isDateEditToggled = false;
 		isTimeEditToggled = false;
 		
-		testClient = new Client();
-		testClient.viewBookings();
+		mainClient = programClient;
+		mainClient.viewBookings();
 		
-		allBookings = testClient.getBookings();
+		allBookings = mainClient.getBookings();
 		
 		showTable();
 		showLabels();
@@ -96,7 +96,7 @@ public class BookingsTable extends JPanel implements MouseListener{
 		showButtons();
 		
 		// Booking Creation Panel
-		newBookingPane = new BookingCreationPane(table, garageId);
+		newBookingPane = new BookingCreationPane(table, garageId, mainClient);
 		newBookingPane.setBounds(10, 220, 250, 120);
 		add(newBookingPane);
 		newBookingPane.setVisible(false);

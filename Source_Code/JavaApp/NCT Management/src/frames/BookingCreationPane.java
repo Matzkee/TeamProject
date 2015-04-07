@@ -17,6 +17,7 @@ import javax.swing.JTextField;
 import javax.swing.JSeparator;
 
 import components.TableModel;
+import core.Client;
 
 public class BookingCreationPane extends JPanel implements MouseListener{
 	
@@ -57,6 +58,7 @@ public class BookingCreationPane extends JPanel implements MouseListener{
 	private JTable table;
 	private TableModel model;
 	private int garageId;
+	private Client mainClient;
 	
 	// Image for button & scaling
 	private final int buttonW = 40, buttonH = 40;
@@ -68,7 +70,7 @@ public class BookingCreationPane extends JPanel implements MouseListener{
 	/**
 	 * Create the panel.
 	 */
-	public BookingCreationPane(JTable mytable, int garage) {
+	public BookingCreationPane(JTable mytable, int garage, Client programClient) {
 		setOpaque(false);
 		setSize(250, 120);
 		setLayout(null);
@@ -76,6 +78,7 @@ public class BookingCreationPane extends JPanel implements MouseListener{
 		table = mytable;
 		model = (TableModel) table.getModel();
 		garageId = garage;
+		mainClient = programClient;
 		
 		lblNewBooking = new JLabel("New Booking");
 		lblNewBooking.setRequestFocusEnabled(false);
@@ -159,8 +162,10 @@ public class BookingCreationPane extends JPanel implements MouseListener{
 		Object o = e.getSource();
 		if(o.equals(btnSubmit)){
 			btnSubmit.setIcon(submitBHover);
-			model.addRow(txtNewCarReg.getText(), txtNewDate.getText(), txtNewTime.getText(), garageId);
-			dispose();
+			if(mainClient.createBooking(txtNewCarReg.getText(), txtNewDate.getText(), txtNewTime.getText(), garageId) != false){
+				model.addRow(txtNewCarReg.getText(), txtNewDate.getText(), txtNewTime.getText(), garageId);				
+				dispose();
+			}
 		}
 	}
 	@Override

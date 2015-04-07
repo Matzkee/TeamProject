@@ -103,39 +103,6 @@ public class Login extends JFrame implements MouseListener{
 		pack();
 	}
 	
-	// Custom text field showing hints
-	class HintTextField extends JTextField implements FocusListener{
-		private static final long serialVersionUID = 1L;
-		private final String hint;
-		private boolean showingHint;
-
-		public HintTextField(final String hint) {
-		    super(hint);
-		    this.hint = hint;
-		    this.showingHint = true;
-		    super.addFocusListener(this);
-		}
-		@Override
-		public void focusGained(FocusEvent e) {
-			if(this.getText().isEmpty()) {
-				super.setForeground(Color.BLACK);
-				super.setText("");
-				showingHint = false;
-		    }
-		}
-		@Override
-		public void focusLost(FocusEvent e) {
-		    if(this.getText().isEmpty()) {
-		    	super.setForeground(Color.GRAY);
-		    	super.setText(hint);
-		    	showingHint = true;
-		    }
-		}
-		@Override
-		public String getText() {
-		    return showingHint ? "" : super.getText();
-		}
-	}
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
@@ -154,7 +121,7 @@ public class Login extends JFrame implements MouseListener{
 			{
 				lblSuccess.setText("Login Successful");
 				
-				adminMenu = new AdminMenu(user[1]);
+				adminMenu = new AdminMenu(user[1], client);
 				adminMenu.setVisible(true);
 				dispose();
 			}
@@ -186,6 +153,40 @@ public class Login extends JFrame implements MouseListener{
 	public void mouseExited(MouseEvent e) {
 		if(e.getSource().equals(btnSubmit)){
 			btnSubmit.setIcon(btnStatic);
+		}
+	}
+	
+	// Custom text field showing hints
+	class HintTextField extends JTextField implements FocusListener{
+		private static final long serialVersionUID = 1L;
+		private final String hint;
+		private boolean showingHint;
+		
+		public HintTextField(final String hint) {
+			super(hint);
+			this.hint = hint;
+			this.showingHint = true;
+			super.addFocusListener(this);
+		}
+		@Override
+		public void focusGained(FocusEvent e) {
+			if(this.getText().isEmpty()) {
+				super.setForeground(Color.BLACK);
+				super.setText("");
+				showingHint = false;
+			}
+		}
+		@Override
+		public void focusLost(FocusEvent e) {
+			if(this.getText().isEmpty()) {
+				super.setForeground(Color.GRAY);
+				super.setText(hint);
+				showingHint = true;
+			}
+		}
+		@Override
+		public String getText() {
+			return showingHint ? "" : super.getText();
 		}
 	}
 }
