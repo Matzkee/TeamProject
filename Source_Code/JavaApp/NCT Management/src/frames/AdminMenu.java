@@ -12,7 +12,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import java.awt.Dimension;
 
-public class AdminMenu_v2 extends JFrame implements MouseListener{
+public class AdminMenu extends JFrame implements MouseListener{
 	private static final long serialVersionUID = 1L;
 	
 	/**
@@ -22,6 +22,7 @@ public class AdminMenu_v2 extends JFrame implements MouseListener{
 	private JLabel lblHome;
 	private JLabel lblBookings;
 	private JLabel lblLogOut;
+	private int garageId;
 	private final Color HIGHLIGHTCOLOR = new Color(214,137,4);
 	private final Color HOVERCOLOR = Color.LIGHT_GRAY;
 	private final Color AMBIENTCOLOR = Color.GRAY;
@@ -32,7 +33,8 @@ public class AdminMenu_v2 extends JFrame implements MouseListener{
 	/**
 	 * Create the frame.
 	 */
-	public AdminMenu_v2() {
+	public AdminMenu(int garage) {
+		garageId = garage;
 		// Frame Settings
 		setTitle("NCT Management");
 		setResizable(false);
@@ -65,13 +67,13 @@ public class AdminMenu_v2 extends JFrame implements MouseListener{
 		lblLogOut.addMouseListener(this);
 		contentPane.add(lblLogOut);
 		
-		bookingPane = new BookingsTable();
+		bookingPane = new BookingsTable(garageId);
 		bookingPane.setBounds(0, 50, 800, 400);
 		contentPane.add(bookingPane);
 		bookingPane.setVisible(false);
 		
 		JLabel background = new JLabel("");
-		background.setIcon(new ImageIcon(AdminMenu_v2.class.getResource("/graphics/AdminMenu.jpg")));
+		background.setIcon(new ImageIcon(AdminMenu.class.getResource("/graphics/AdminMenu.jpg")));
 		background.setBounds(0, 0, 800, 550);
 		contentPane.add(background);
 		
@@ -86,7 +88,7 @@ public class AdminMenu_v2 extends JFrame implements MouseListener{
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					AdminMenu_v2 frame = new AdminMenu_v2();
+					AdminMenu frame = new AdminMenu(1);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();

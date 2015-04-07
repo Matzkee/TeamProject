@@ -56,7 +56,7 @@ public class BookingCreationPane extends JPanel implements MouseListener{
 	private final Font TEXTFONT = new Font("Segoe UI", Font.PLAIN, 13);
 	private JTable table;
 	private TableModel model;
-	private String garageId;
+	private int garageId;
 	
 	// Image for button & scaling
 	private final int buttonW = 40, buttonH = 40;
@@ -68,7 +68,7 @@ public class BookingCreationPane extends JPanel implements MouseListener{
 	/**
 	 * Create the panel.
 	 */
-	public BookingCreationPane(JTable mytable, String garage) {
+	public BookingCreationPane(JTable mytable, int garage) {
 		setOpaque(false);
 		setSize(250, 120);
 		setLayout(null);

@@ -46,12 +46,12 @@ public class ClientDAO implements DaoUi{
 			// Get a connection to the database
 			this.conn = DriverManager.getConnection("jdbc:mysql://83.212.127.2:3306/NCT", "user", "TeamGravity123");
 			//Prepare statement
-			query = "SELECT * FROM Booking WHERE DATEDIFF(BDate,curdate()) < 30";
+			query = "SELECT * FROM Booking WHERE DATEDIFF(BDate,curdate()) < 30 ORDER BY BDate";
 			this.ps = conn.prepareStatement(query);
 			//Execute Query
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()){
-				booking = new Booking(rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5));
+				booking = new Booking(rs.getString(2), rs.getString(3), rs.getString(4), rs.getInt(5));
 				bookings.add(booking);
 				count += 1;
 			}
@@ -191,11 +191,11 @@ public class ClientDAO implements DaoUi{
 	
 	// Interface MEthods
 	@Override
-	public int verifyUsername(String uname, String pass) {
+	public int[] verifyUsername(String uname, String pass) {
 		
 		// Temporary variables
 		String query;
-		int userType = 0;
+		int[] user = {0,0};
 		int count = 0;
 		//query the database for the user with these credentials 
 		try{
@@ -212,7 +212,8 @@ public class ClientDAO implements DaoUi{
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()){
 				count += 1;
-				userType = rs.getInt(2);
+				user[0] = rs.getInt(2);
+				user[1] = rs.getInt(6);
 				System.out.println("Found user in database ");
 			}
 			ps.close();
@@ -238,15 +239,15 @@ public class ClientDAO implements DaoUi{
 		// Check if the user was found
 		if(count == 1){
 			System.out.println("Found user within database");
-			return userType;
+			return user;
 			}
 		else if (count > 1){
 			System.out.println("Duplicate users within database");
-			return userType;
+			return user;
 		}
 		else{
 			System.out.println("Username and password do not match");
-			return userType;
+			return user;
 			}
 	}
 	@Override

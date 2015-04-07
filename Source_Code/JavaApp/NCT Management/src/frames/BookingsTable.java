@@ -33,7 +33,7 @@ public class BookingsTable extends JPanel implements MouseListener{
 	 * Variable declaration.
 	 */
 	private static final long serialVersionUID = 1L;
-	private String garageId = "1";
+	private int garageId = 1;
 	private ArrayList<Booking> allBookings = new ArrayList<>();
 	private Client testClient;
 	private JTextField txtCarReg, txtDate, txtTime;
@@ -73,7 +73,8 @@ public class BookingsTable extends JPanel implements MouseListener{
 	 * Create the panel.
 	 * Constructor
 	 */
-	public BookingsTable() {
+	public BookingsTable(int garage) {
+		garageId = garage;
 		// Main Panel Settings
 		setSize(800,400);
 		setLayout(null);

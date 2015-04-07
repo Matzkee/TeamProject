@@ -34,7 +34,7 @@ public class Login extends JFrame implements MouseListener{
 	private ImageIcon btnClick = new ImageIcon(Login.class.getResource("/graphics/LoginBtnClick.png"));
 	private JLabel lblSuccess;
 	private Client client;
-	private AdminMenu_v2 adminMenu;
+	private AdminMenu adminMenu;
 
 	/**
 	 * Launch the application.
@@ -143,22 +143,23 @@ public class Login extends JFrame implements MouseListener{
 			contentPane.requestFocusInWindow();
 		}
 		else if(e.getSource().equals(btnSubmit)){
+			int[] user = client.logIn();
 			char[] pass = null;
 			client.setUsername(txtUsername.getText());
 			pass = txtPassword.getPassword();
 			String newPass = new String(pass);
 			client.setPassword(newPass);
-			// Case: Admin
-			if(client.logIn() == 1)
+			// Case: Administrator
+			if(user[0] == 1)
 			{
 				lblSuccess.setText("Login Successful");
 				
-				adminMenu = new AdminMenu_v2();
+				adminMenu = new AdminMenu(user[1]);
 				adminMenu.setVisible(true);
 				dispose();
 			}
 			// Case: Mechanic
-			else if(client.logIn() == 2){
+			else if(user[0] == 2){
 				lblSuccess.setText("Login Successful");
 			}
 			else{

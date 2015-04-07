@@ -47,7 +47,7 @@ public class TableModel extends AbstractTableModel{
 	public boolean isCellEditable(int columnIndex, int rowIndex){
 		return false;
 	}
-	public void addRow(String carReg, String date, String time, String garageId){
+	public void addRow(String carReg, String date, String time, int garageId){
 		Booking tempBook = new Booking(carReg, date, time, garageId);
 		bookings.add(tempBook);
 		fireTableDataChanged();

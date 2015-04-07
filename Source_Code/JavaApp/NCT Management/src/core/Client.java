@@ -33,20 +33,20 @@ public class Client implements ClientUi{
 	}
 	
 	//Client Methods
-	public int logIn(){
-		int success;
+	public int[] logIn(){
+		int[] success;
 		success = clientDAO.verifyUsername(username, password);
 		
-		if (success == 1){
-			System.out.println("Admin Login Successful!" + success);
+		if (success[0] == 1){
+			System.out.println("Admin Login Successful!" + success[0]);
 			return success;
 		}
-		else if(success == 2){
-			System.out.println("Mechanic Login Successful!" + success);
+		else if(success[0] == 2){
+			System.out.println("Mechanic Login Successful!" + success[0]);
 			return success;
 		}
 		else{
-			System.out.println("Login Failed!" + success);
+			System.out.println("Login Failed!" + success[0]);
 			return success;
 		}
 	}

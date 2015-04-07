@@ -6,10 +6,10 @@ public class Booking {
 	private String carReg;
 	private String date;
 	private String time;
-	private String garage;
+	private int garage;
 	
 	//Constructor
-	public Booking(String carReg, String date, String time, String garage){
+	public Booking(String carReg, String date, String time, int garage){
 		this.carReg = carReg;
 		this.date = date;
 		this.time = time;
@@ -36,10 +36,10 @@ public class Booking {
 	public void setDate(String date) {
 		this.date = date;
 	}
-	public String getGarage() {
+	public int getGarage() {
 		return garage;
 	}
-	public void setGarage(String garage) {
+	public void setGarage(int garage) {
 		this.garage = garage;
 	}
 }
