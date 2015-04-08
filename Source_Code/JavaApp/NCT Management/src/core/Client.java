@@ -8,7 +8,7 @@ public class Client implements ClientUi{
 	private String username;
 	private String password;
 	
-	private TestResults testResults;
+	private ArrayList<TestResults> testResults;
 	private ArrayList<Booking> bookings;
 	
 	private ClientDAO clientDAO = null;
@@ -60,6 +60,9 @@ public class Client implements ClientUi{
 	public ArrayList<Booking> getBookings(){
 		return this.bookings;
 	}
+	public ArrayList<TestResults> getTestResults(){
+		return this.testResults;
+	}
 
 	// Interface Methods
 	@Override
@@ -94,18 +97,22 @@ public class Client implements ClientUi{
 	}
 
 	@Override
-	public void viewTestResults(String RegNo) {
-		testResults = new TestResults();
+	public boolean viewTestResults(String RegNo) {
+		testResults = new ArrayList<TestResults>();
 		testResults = clientDAO.getTestResults(RegNo);
-		System.out.println("Alignment: "+testResults.getTestAlignment()+" | Suspension: "+testResults.getTestSuspension()+
-				" | Brakes: "+testResults.getTestBrakes()+" | Exhause Emission: "+testResults.getTestEEmission()+
-				" | Head Lights: "+testResults.getTestHeadLights());
+		if(testResults != null){
+			return true;
+		}
+		else{
+			return false;
+		}
 	}
 
 	@Override
-	public void modifyTestResults(String RegNo) {
-		// TODO Auto-generated method stub
-		
+	public boolean modifyTestResults(String query) {
+		boolean success;
+		success = clientDAO.executeUpdate(query);
+		return success;
 	}
 	
 }

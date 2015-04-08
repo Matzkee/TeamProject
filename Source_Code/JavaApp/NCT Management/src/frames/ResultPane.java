@@ -3,6 +3,7 @@ package frames;
 import javax.swing.JPanel;
 
 import core.Client;
+import core.TestResults;
 
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
@@ -13,12 +14,20 @@ import java.awt.Image;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
+import javax.swing.JScrollPane;
+
+import java.awt.Component;
+import java.util.ArrayList;
+
+import javax.swing.border.EmptyBorder;
+
 public class ResultPane extends JPanel implements MouseListener{
 	
 	/*
 	 * Variable declaration
 	 */
 	private static final long serialVersionUID = 1L;
+	private ArrayList<TestResults> tests;
 	private Client mainClient;
 	private JTextField txtCarReg;
 	JLabel btnSubmit;
@@ -35,6 +44,7 @@ public class ResultPane extends JPanel implements MouseListener{
 	 */
 	public ResultPane(Client c) {
 		mainClient = c;
+		mainClient.viewTestResults(txtCarReg.getText());
 		
 		setSize(800,400);
 		setOpaque(false);
@@ -42,27 +52,33 @@ public class ResultPane extends JPanel implements MouseListener{
 		
 		JLabel lblSearch = new JLabel("Search");
 		lblSearch.setForeground(Color.LIGHT_GRAY);
-		lblSearch.setBounds(10, 11, 46, 14);
+		lblSearch.setBounds(10, 25, 46, 14);
 		add(lblSearch);
 		
 		JLabel lblInfo = new JLabel("Enter a valid Registration number to view previous test results");
 		lblInfo.setForeground(Color.LIGHT_GRAY);
-		lblInfo.setBounds(10, 40, 300, 14);
+		lblInfo.setBounds(10, 60, 300, 14);
 		add(lblInfo);
 		
 		txtCarReg = new JTextField();
 		txtCarReg.setForeground(Color.LIGHT_GRAY);
 		txtCarReg.setBorder(null);
 		txtCarReg.setOpaque(false);
-		txtCarReg.setBounds(10, 65, 100, 20);
+		txtCarReg.setBounds(10, 90, 100, 20);
 		add(txtCarReg);
 		txtCarReg.setColumns(10);
 		
 		JLabel btnSubmit = new JLabel("");
-		btnSubmit.setBounds(140, 65, 40, 40);
+		btnSubmit.setBounds(140, 80, 40, 40);
 		btnSubmit.setIcon(submitB);
 		btnSubmit.addMouseListener(this);
 		add(btnSubmit);
+		
+		JScrollPane tableScrollPane = new JScrollPane((Component) null);
+		tableScrollPane.setOpaque(false);
+		tableScrollPane.setBorder(new EmptyBorder(0, 0, 0, 0));
+		tableScrollPane.setBounds(390, 25, 400, 300);
+		add(tableScrollPane);
 	}
 
 	@Override

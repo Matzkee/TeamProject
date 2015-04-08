@@ -6,7 +6,7 @@ public interface ClientUi {
 	public void viewBookings();
 	public boolean modifyBooking(String RegNo);
 	public boolean cancelBooking(String query);
-	public void viewTestResults(String RegNo);
-	public void modifyTestResults(String RegNo);
+	public boolean viewTestResults(String RegNo);
+	public boolean modifyTestResults(String RegNo);
 
 }

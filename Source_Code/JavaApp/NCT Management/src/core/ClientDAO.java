@@ -12,7 +12,7 @@ public class ClientDAO implements DaoUi{
 
 	//Variables
 	private ArrayList<Booking> bookings;
-	private TestResults tests;
+	private ArrayList<TestResults> tests;
 	private ArrayList<User> users;
 	
 	public Connection conn;
@@ -26,7 +26,7 @@ public class ClientDAO implements DaoUi{
 		this.stmt = null;
 		this.rs = null;
 		bookings = new ArrayList<Booking>();
-		tests = new TestResults();
+		tests = new ArrayList<TestResults>();
 		users = new ArrayList<User>();
 	}
 	
@@ -85,7 +85,7 @@ public class ClientDAO implements DaoUi{
 		}
 		
 	}
-	public TestResults getTestResults(String RegNo){
+	public ArrayList<TestResults> getTestResults(String RegNo){
 		// Temporary variables
 		String query;
 		int count = 0;
@@ -102,12 +102,14 @@ public class ClientDAO implements DaoUi{
 			//Execute Query
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()){
-				tests = new TestResults();
-				tests.setTestAlignment(rs.getInt(3));
-				tests.setTestSuspension(rs.getInt(4));
-				tests.setTestBrakes(rs.getInt(5));
-				tests.setTestEEmission(rs.getInt(6));
-				tests.setTestHeadLights(rs.getInt(7));
+				TestResults tempTest;
+				tempTest = new TestResults();
+				tempTest.setTestAlignment(rs.getInt(3));
+				tempTest.setTestSuspension(rs.getInt(4));
+				tempTest.setTestBrakes(rs.getInt(5));
+				tempTest.setTestEEmission(rs.getInt(6));
+				tempTest.setTestHeadLights(rs.getInt(7));
+				tests.add(tempTest);
 				count += 1;
 			}
 			ps.close();
