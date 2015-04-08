@@ -6,15 +6,20 @@ import java.awt.GradientPaint;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.ArrayList;
 
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
+import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JSeparator;
 import javax.swing.JTable;
 import javax.swing.JTextField;
-import javax.swing.JSeparator;
 
 import components.TableModel;
 import core.Client;
@@ -34,16 +39,12 @@ public class BookingCreationPane extends JPanel implements MouseListener{
 		
 		GradientPaint gp = new GradientPaint(txtNewCarReg.getX()+(txtNewCarReg.getWidth()/2),txtNewCarReg.getY()+txtNewCarReg.getHeight(),new Color(255,255,255,50),
 				txtNewCarReg.getX()+(txtNewCarReg.getWidth()/2),txtNewCarReg.getY()+(txtNewCarReg.getHeight()/4),new Color(0,0,0,0));
-		GradientPaint gp2 = new GradientPaint(txtNewDate.getX()+(txtNewDate.getWidth()/2),txtNewDate.getY()+txtNewDate.getHeight(),new Color(255,255,255,50),
-				txtNewDate.getX()+(txtNewDate.getWidth()/2),txtNewDate.getY()+(txtNewDate.getHeight()/4),new Color(0,0,0,0));
-		GradientPaint gp3 = new GradientPaint(txtNewTime.getX()+(txtNewTime.getWidth()/2),txtNewTime.getY()+txtNewTime.getHeight(),new Color(255,255,255,50),
+		GradientPaint gp2 = new GradientPaint(txtNewTime.getX()+(txtNewTime.getWidth()/2),txtNewTime.getY()+txtNewTime.getHeight(),new Color(255,255,255,50),
 				txtNewTime.getX()+(txtNewTime.getWidth()/2),txtNewTime.getY()+(txtNewTime.getHeight()/4),new Color(0,0,0,0));
 		
 		g2d.setPaint(gp);
 		g2d.fillRect(txtNewCarReg.getX(), txtNewCarReg.getY(), txtNewCarReg.getWidth(), txtNewCarReg.getHeight());
 		g2d.setPaint(gp2);
-		g2d.fillRect(txtNewDate.getX(), txtNewDate.getY(), txtNewDate.getWidth(), txtNewDate.getHeight());
-		g2d.setPaint(gp3);
 		g2d.fillRect(txtNewTime.getX(), txtNewTime.getY(), txtNewTime.getWidth(), txtNewTime.getHeight());
 	}
 
@@ -53,8 +54,10 @@ public class BookingCreationPane extends JPanel implements MouseListener{
 	private static final long serialVersionUID = 1L;
 	private JLabel lblNewBooking, lblNewCarReg, lblNewDate, lblNewTime;
 	private JLabel btnSubmit;
-	private JTextField txtNewCarReg, txtNewDate, txtNewTime;
-	private final Font TEXTFONT = new Font("Segoe UI", Font.PLAIN, 13);
+	private JLabel lblDate;
+	private JComboBox<Object> cBoxDay, cBoxMonth, cBoxYear;
+	private JTextField txtNewCarReg, txtNewTime;
+	private final Font TEXTFONT = new Font("Segoe UI", Font.PLAIN, 12);
 	private JTable table;
 	private TableModel model;
 	private int garageId;
@@ -72,7 +75,7 @@ public class BookingCreationPane extends JPanel implements MouseListener{
 	 */
 	public BookingCreationPane(JTable mytable, int garage, Client programClient) {
 		setOpaque(false);
-		setSize(250, 120);
+		setSize(250, 150);
 		setLayout(null);
 		
 		table = mytable;
@@ -88,19 +91,19 @@ public class BookingCreationPane extends JPanel implements MouseListener{
 		add(lblNewBooking);
 		
 		lblNewCarReg = new JLabel("Car Reg: ");
-		lblNewCarReg.setBounds(10, 40, 70, 15);
+		lblNewCarReg.setBounds(10, 40, 50, 15);
 		lblNewCarReg.setForeground(Color.LIGHT_GRAY);
 		lblNewCarReg.setFont(TEXTFONT);
 		add(lblNewCarReg);
 		
 		lblNewDate = new JLabel("Date: ");
-		lblNewDate.setBounds(10, 65, 70, 15);
+		lblNewDate.setBounds(10, 65, 50, 15);
 		lblNewDate.setForeground(Color.LIGHT_GRAY);
 		lblNewDate.setFont(TEXTFONT);
 		add(lblNewDate);
 		
 		lblNewTime = new JLabel("Time: ");
-		lblNewTime.setBounds(10, 90, 70, 15);
+		lblNewTime.setBounds(10, 115, 50, 15);
 		lblNewTime.setForeground(Color.LIGHT_GRAY);
 		lblNewTime.setFont(TEXTFONT);
 		add(lblNewTime);
@@ -109,24 +112,16 @@ public class BookingCreationPane extends JPanel implements MouseListener{
 		txtNewCarReg.setBorder(null);
 		txtNewCarReg.setOpaque(false);
 		txtNewCarReg.setForeground(Color.LIGHT_GRAY);
-		txtNewCarReg.setBounds(90, 40, 100, 20);
+		txtNewCarReg.setBounds(65, 40, 100, 15);
 		add(txtNewCarReg);
 		txtNewCarReg.setColumns(10);
-		
-		txtNewDate = new JTextField();
-		txtNewDate.setBorder(null);
-		txtNewDate.setOpaque(false);
-		txtNewDate.setForeground(Color.LIGHT_GRAY);
-		txtNewDate.setColumns(10);
-		txtNewDate.setBounds(90, 65, 100, 20);
-		add(txtNewDate);
 		
 		txtNewTime = new JTextField();
 		txtNewTime.setBorder(null);
 		txtNewTime.setOpaque(false);
 		txtNewTime.setForeground(Color.LIGHT_GRAY);
 		txtNewTime.setColumns(10);
-		txtNewTime.setBounds(90, 90, 100, 20);
+		txtNewTime.setBounds(65, 115, 100, 15);
 		add(txtNewTime);
 		
 		JSeparator separator = new JSeparator();
@@ -135,17 +130,102 @@ public class BookingCreationPane extends JPanel implements MouseListener{
 		add(separator);
 		
 		btnSubmit = new JLabel("");
-		btnSubmit.setBounds(205, 55, 40, 40);
+		btnSubmit.setBounds(205, 75, 40, 40);
 		btnSubmit.setIcon(submitB);
 		btnSubmit.addMouseListener(this);
 		add(btnSubmit);
+		
+		String[] days = {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31"};	
+		cBoxDay = new JComboBox<Object>(days);
+		cBoxDay.setBounds(10, 85, 40, 20);
+		cBoxDay.setFont(TEXTFONT);
+		cBoxDay.addItemListener(new ItemListener(){
+			@Override
+			public void itemStateChanged(ItemEvent e) {
+				setDate();
+			}
+		});
+		add(cBoxDay);
+		
+		String[] months = {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
+		cBoxMonth = new JComboBox<Object>(months);
+		cBoxMonth.setBounds(55, 85, 80, 20);
+		cBoxMonth.setFont(TEXTFONT);
+		cBoxMonth.addItemListener(new ItemListener(){
+			@Override
+			public void itemStateChanged(ItemEvent e) {
+				setCorrectDays(cBoxMonth.getSelectedItem().toString());
+				setDate();
+			}
+		});
+		add(cBoxMonth);
+		
+		String[] years = {"2015", "2016", "2017"};
+		cBoxYear = new JComboBox<Object>(years);
+		cBoxYear.setBounds(140, 85, 50, 20);
+		cBoxYear.setFont(TEXTFONT);
+		cBoxYear.addItemListener(new ItemListener(){
+			@Override
+			public void itemStateChanged(ItemEvent e) {
+				setDate();
+			}
+		});
+		add(cBoxYear);
+		
+		lblDate = new JLabel("");
+		lblDate.setBounds(65, 65, 100, 15);
+		lblDate.setForeground(Color.LIGHT_GRAY);
+		lblDate.setFont(TEXTFONT);
+		add(lblDate);
+		
+		setDate();
 	}
 	
 	public void dispose(){
 		txtNewCarReg.setText("");
-		txtNewDate.setText("");
+		lblDate.setText("");
 		txtNewTime.setText("");
 		this.setVisible(false);
+	}
+	public void setDate(){
+		String date = "";
+		String newMonth = "";
+		switch(cBoxMonth.getSelectedItem().toString()){
+		case "January": newMonth = "01"; break;
+		case "February": newMonth = "02"; break;
+		case "March": newMonth = "03"; break;
+		case "April": newMonth = "04"; break;
+		case "May": newMonth = "05"; break;
+		case "June": newMonth = "06"; break;
+		case "July": newMonth = "07"; break;
+		case "August": newMonth = "08"; break;
+		case "September": newMonth = "09"; break;
+		case "October": newMonth = "10"; break;
+		case "November": newMonth = "11"; break;
+		case "December": newMonth = "12"; break;
+		}
+		date = cBoxYear.getSelectedItem().toString()+"-"+newMonth.toString()+"-"+cBoxDay.getSelectedItem().toString();
+		lblDate.setText(date);
+	}
+	public void setCorrectDays(String month){
+		ArrayList<String> days;
+		if(month.equals("February")){
+			days = createDays(28);
+		}
+		else if(month.equals("April") || month.equals("June") || month.equals("September") || month.equals("November")){
+			days = createDays(30);
+		}
+		else{
+			days = createDays(31);
+		}
+		cBoxDay.setModel(new DefaultComboBoxModel<Object>(days.toArray()));
+	}
+	public ArrayList<String> createDays(int num){
+		ArrayList<String> days = new ArrayList<String>();
+		for(int i = 0; i < num; i++){
+			days.add(""+(i+1));
+		}
+		return days;
 	}
 
 	@Override
@@ -162,10 +242,10 @@ public class BookingCreationPane extends JPanel implements MouseListener{
 		Object o = e.getSource();
 		if(o.equals(btnSubmit)){
 			btnSubmit.setIcon(submitBHover);
-			if(mainClient.createBooking(txtNewCarReg.getText(), txtNewDate.getText(), txtNewTime.getText(), garageId) != false){
-				model.addRow(txtNewCarReg.getText(), txtNewDate.getText(), txtNewTime.getText(), garageId);				
-				dispose();
-			}
+			//if(mainClient.createBooking(txtNewCarReg.getText(), lblDate.getText(), txtNewTime.getText(), garageId) != false){
+			//	model.addRow(txtNewCarReg.getText(), lblDate.getText(), txtNewTime.getText(), garageId);				
+			//	dispose();
+			//}
 		}
 	}
 	@Override

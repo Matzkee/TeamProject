@@ -1,7 +1,6 @@
 package core;
 
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -206,7 +205,7 @@ public class ClientDAO implements DaoUi{
 			ps.setString(2, time);
 			//Implement date parsing
 			//Date ddate = new Date();
-			ps.setString(2, carReg);
+			ps.setString(3, carReg);
 			ps.setInt(4, garage);
 			
 			ps.executeUpdate(query);

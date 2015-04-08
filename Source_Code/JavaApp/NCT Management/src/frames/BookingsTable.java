@@ -97,7 +97,7 @@ public class BookingsTable extends JPanel implements MouseListener{
 		
 		// Booking Creation Panel
 		newBookingPane = new BookingCreationPane(table, garageId, mainClient);
-		newBookingPane.setBounds(10, 220, 250, 120);
+		newBookingPane.setBounds(10, 220, 250, 150);
 		add(newBookingPane);
 		newBookingPane.setVisible(false);
 		
