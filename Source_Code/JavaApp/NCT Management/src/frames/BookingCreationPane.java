@@ -134,19 +134,7 @@ public class BookingCreationPane extends JPanel implements MouseListener{
 		btnSubmit.setIcon(submitB);
 		btnSubmit.addMouseListener(this);
 		add(btnSubmit);
-		
-		String[] days = {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31"};	
-		cBoxDay = new JComboBox<Object>(days);
-		cBoxDay.setBounds(10, 85, 40, 20);
-		cBoxDay.setFont(TEXTFONT);
-		cBoxDay.addItemListener(new ItemListener(){
-			@Override
-			public void itemStateChanged(ItemEvent e) {
-				setDate();
-			}
-		});
-		add(cBoxDay);
-		
+			
 		String[] months = {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
 		cBoxMonth = new JComboBox<Object>(months);
 		cBoxMonth.setBounds(55, 85, 80, 20);
@@ -159,6 +147,18 @@ public class BookingCreationPane extends JPanel implements MouseListener{
 			}
 		});
 		add(cBoxMonth);
+		
+		cBoxDay = new JComboBox<Object>();
+		cBoxDay.setBounds(10, 85, 40, 20);
+		cBoxDay.setFont(TEXTFONT);
+		cBoxDay.addItemListener(new ItemListener(){
+			@Override
+			public void itemStateChanged(ItemEvent e) {
+				setDate();
+			}
+		});
+		setCorrectDays(cBoxMonth.getSelectedItem().toString());
+		add(cBoxDay);
 		
 		String[] years = {"2015", "2016", "2017"};
 		cBoxYear = new JComboBox<Object>(years);
@@ -183,7 +183,6 @@ public class BookingCreationPane extends JPanel implements MouseListener{
 	
 	public void dispose(){
 		txtNewCarReg.setText("");
-		lblDate.setText("");
 		txtNewTime.setText("");
 		this.setVisible(false);
 	}
@@ -242,10 +241,10 @@ public class BookingCreationPane extends JPanel implements MouseListener{
 		Object o = e.getSource();
 		if(o.equals(btnSubmit)){
 			btnSubmit.setIcon(submitBHover);
-			//if(mainClient.createBooking(txtNewCarReg.getText(), lblDate.getText(), txtNewTime.getText(), garageId) != false){
-			//	model.addRow(txtNewCarReg.getText(), lblDate.getText(), txtNewTime.getText(), garageId);				
-			//	dispose();
-			//}
+			if(mainClient.createBooking(txtNewCarReg.getText(), lblDate.getText(), txtNewTime.getText(), garageId) != false){
+				model.addRow(txtNewCarReg.getText(), lblDate.getText(), txtNewTime.getText(), garageId);				
+				dispose();
+			}
 		}
 	}
 	@Override

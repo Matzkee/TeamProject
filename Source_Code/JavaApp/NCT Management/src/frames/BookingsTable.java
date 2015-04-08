@@ -326,12 +326,16 @@ public class BookingsTable extends JPanel implements MouseListener{
 		// Case: Delete Button
 		else if(o.equals(btnDelete)){
 			if (table.getSelectedRow() != -1){
-				systemInfo.setText("Successfully deleted booking!");
-				btnDelete.setIcon(deleteBHover);
-				tableModel.removeRow(table.getSelectedRow());
-				toggleFields(false, false, false);
-				toggleFieldPaints(false, false, false);
-				clearFields();
+				Booking tempBook = (Booking) table.getValueAt(table.getSelectedRow(), 0);
+				String query = "DELETE FROM Booking WHERE Car_Reg = '"+tempBook.getCarReg()+"' AND BTime = '"+tempBook.getTime()+"'";
+				if(mainClient.cancelBooking(query) != false){
+					systemInfo.setText("Successfully deleted booking!");
+					btnDelete.setIcon(deleteBHover);
+					tableModel.removeRow(table.getSelectedRow());
+					toggleFields(false, false, false);
+					toggleFieldPaints(false, false, false);
+					clearFields();
+				}		
 			}
 		}
 		// Case: Car Registration edit button

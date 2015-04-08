@@ -199,18 +199,11 @@ public class ClientDAO implements DaoUi{
 			//Prepare statement
 			
 			//Prepare statement
-			query = "INSERT INTO Booking (BDate,BTime,Car_Reg,Garage_Id) VALUES (?,?,?,?)";
-			this.ps = conn.prepareStatement(query);
-			ps.setString(1, date);
-			ps.setString(2, time);
-			//Implement date parsing
-			//Date ddate = new Date();
-			ps.setString(3, carReg);
-			ps.setInt(4, garage);
+			query = "INSERT INTO Booking (BDate,BTime,Car_Reg,Garage_Id) VALUES ('"+date+"','"+time+"','"+carReg+"',"+garage+")";
 			
-			ps.executeUpdate(query);
+			stmt = conn.createStatement();
+			stmt.executeUpdate(query);
 			
-			ps.close();
 			stmt.close();
 			conn.close();
 			return true;
