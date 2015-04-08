@@ -73,8 +73,9 @@ public class BookingsTable extends JPanel implements MouseListener{
 	 * Create the panel.
 	 * Constructor
 	 */
-	public BookingsTable(int garage, Client programClient) {
+	public BookingsTable(int garage, Client programClient, JLabel sysInfo) {
 		garageId = garage;
+		systemInfo = sysInfo;
 		// Main Panel Settings
 		setSize(800,400);
 		setLayout(null);
@@ -128,13 +129,6 @@ public class BookingsTable extends JPanel implements MouseListener{
 	}
 	
 	public void showLabels(){
-		// System Label
-		// Any relevant & useful info 
-		systemInfo = new JLabel("",SwingConstants.RIGHT);
-		systemInfo.setFont(SMALLTEXTFONT);
-		systemInfo.setForeground(Color.LIGHT_GRAY);
-		systemInfo.setBounds(530,388,250,12);
-		add(systemInfo);
 		// CarReg label
 		lblCarRegistration = new JLabel("Car Registration: ");
 		lblCarRegistration.setFont(TEXTFONT);
@@ -250,7 +244,6 @@ public class BookingsTable extends JPanel implements MouseListener{
 		btnAdd.addMouseListener(this);
 		add(btnAdd);
 	}
-	
 	public void toggleFields(boolean carReg, boolean date, boolean time){
 		txtCarReg.setEditable(carReg);
 		txtDate.setEditable(date);
@@ -266,6 +259,17 @@ public class BookingsTable extends JPanel implements MouseListener{
 		txtDate.setText("");
 		txtTime.setText("");
 	}
+	public void clearAllSelections(){
+		toggleFields(false, false, false);
+		toggleFieldPaints(false, false, false);
+		clearFields();
+		btnAdd.setIcon(addB);
+		btnDelete.setIcon(deleteB);
+		btnEditCarReg.setIcon(editB);
+		btnEditDate.setIcon(editB);
+		btnEditTime.setIcon(editB);
+		btnSubmit.setIcon(submitB);
+	};
 	
 	/*
 	 * Custom gradient paint for JText boxes
@@ -303,6 +307,7 @@ public class BookingsTable extends JPanel implements MouseListener{
 			// Clear systemInfo text
 			if(e.getClickCount() == 2 && !e.isConsumed()){
 				e.consume();
+				newBookingPane.setVisible(false);
 				systemInfo.setText("");
 			}
 		}
@@ -335,6 +340,7 @@ public class BookingsTable extends JPanel implements MouseListener{
 					toggleFields(false, false, false);
 					toggleFieldPaints(false, false, false);
 					clearFields();
+					btnDelete.setIcon(deleteB);
 				}		
 			}
 		}
