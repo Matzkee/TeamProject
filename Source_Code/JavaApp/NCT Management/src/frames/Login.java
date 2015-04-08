@@ -110,18 +110,21 @@ public class Login extends JFrame implements MouseListener{
 			contentPane.requestFocusInWindow();
 		}
 		else if(e.getSource().equals(btnSubmit)){
-			int[] user = client.logIn();
+			int[] user;
 			char[] pass = null;
 			client.setUsername(txtUsername.getText());
 			pass = txtPassword.getPassword();
 			String newPass = new String(pass);
 			client.setPassword(newPass);
+			user = client.logIn();
 			// Case: Administrator
 			if(user[0] == 1)
 			{
 				lblSuccess.setText("Login Successful");
-				
-				adminMenu = new AdminMenu(user[1], client);
+				txtUsername.setText("");
+				txtPassword.setText("");
+				lblSuccess.setText("");
+				adminMenu = new AdminMenu(user[1], client, this);
 				adminMenu.setVisible(true);
 				dispose();
 			}

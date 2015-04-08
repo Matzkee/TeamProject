@@ -21,6 +21,7 @@ public class AdminMenu extends JFrame implements MouseListener{
 	/**
 	 * Variable declaration.
 	 */
+	private Login loginPage;
 	private JPanel contentPane;
 	private JLabel lblHome;
 	private JLabel lblBookings;
@@ -37,9 +38,10 @@ public class AdminMenu extends JFrame implements MouseListener{
 	/**
 	 * Create the frame.
 	 */
-	public AdminMenu(int garage, Client programClient) {
+	public AdminMenu(int garage, Client programClient, Login loginP) {
 		garageId = garage;
 		mainClient = programClient;
+		loginPage = loginP;
 		// Frame Settings
 		setTitle("NCT Management");
 		setResizable(false);
@@ -93,7 +95,7 @@ public class AdminMenu extends JFrame implements MouseListener{
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					AdminMenu frame = new AdminMenu(1, new Client());
+					AdminMenu frame = new AdminMenu(1, new Client(), new Login());
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -123,6 +125,9 @@ public class AdminMenu extends JFrame implements MouseListener{
 			case "LOG OUT":
 				bookingPane.setVisible(false);
 				button.setForeground(HIGHLIGHTCOLOR);
+				mainClient.logOut();
+				loginPage.setVisible(true);
+				dispose();
 			break;
 		}
 		System.out.println("Clicked: "+button.getText());
