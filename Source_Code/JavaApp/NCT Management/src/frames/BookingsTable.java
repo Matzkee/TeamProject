@@ -404,9 +404,12 @@ public class BookingsTable extends JPanel implements MouseListener{
 		// Case: Submit button
 		else if(o.equals(btnSubmit)){
 			if(table.getSelectedRow() != -1){
-				btnSubmit.setIcon(submitBHover);
-				systemInfo.setText("Successfully submited changes!");
-				tableModel.updateRow(table.getSelectedRow(), txtCarReg.getText(), txtDate.getText(), txtTime.getText());
+				String query = "UPDATE Booking SET BDate='"+txtDate.getText()+"', BTime='"+txtTime.getText()+"' WHERE Car_Reg='"+txtCarReg.getText()+"'";
+				if(mainClient.modifyBooking(query) != false){
+					btnSubmit.setIcon(submitBHover);
+					systemInfo.setText("Successfully submited changes!");
+					tableModel.updateRow(table.getSelectedRow(), txtCarReg.getText(), txtDate.getText(), txtTime.getText());
+				}
 			}
 		}
 	}

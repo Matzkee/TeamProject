@@ -35,6 +35,7 @@ public class AdminMenu extends JFrame implements MouseListener{
 	private final Font TEXTFONT = new Font("Segoe UI", Font.PLAIN, 20);
 	private final Font SMALLTEXTFONT = new Font("Segoe UI", Font.PLAIN, 10);
 	private BookingsTable bookingPane;
+	private ResultPane resultPane;
 	private JLabel lblTests;
 	private JLabel systemInfo;
 
@@ -98,6 +99,11 @@ public class AdminMenu extends JFrame implements MouseListener{
 		contentPane.add(bookingPane);
 		bookingPane.setVisible(false);
 		
+		resultPane = new ResultPane(mainClient, systemInfo);
+		resultPane.setBounds(0, 50, 800, 400);
+		contentPane.add(resultPane);
+		resultPane.setVisible(false);
+		
 		JLabel background = new JLabel("");
 		background.setIcon(new ImageIcon(AdminMenu.class.getResource("/graphics/AdminMenu.jpg")));
 		background.setBounds(0, 0, 800, 550);
@@ -137,16 +143,19 @@ public class AdminMenu extends JFrame implements MouseListener{
 		switch(button.getText()){
 			case "HOME":
 				bookingPane.setVisible(false);
+				resultPane.setVisible(false);
 				button.setForeground(HIGHLIGHTCOLOR);
 				systemInfo.setText("HOME");
 			break;
 			case "BOOKINGS":
+				resultPane.setVisible(false);
 				bookingPane.setVisible(true);
 				button.setForeground(HIGHLIGHTCOLOR);
 				systemInfo.setText("BOOKINGS");
 			break;
 			case "LOG OUT":
 				bookingPane.setVisible(false);
+				resultPane.setVisible(false);
 				button.setForeground(HIGHLIGHTCOLOR);
 				systemInfo.setText("LOG OUT");
 				mainClient.logOut();
@@ -157,6 +166,7 @@ public class AdminMenu extends JFrame implements MouseListener{
 				bookingPane.setVisible(false);
 				systemInfo.setText("RESULTS");
 				button.setForeground(HIGHLIGHTCOLOR);
+				resultPane.setVisible(true);
 			break;
 		}
 		System.out.println("Clicked: "+button.getText());

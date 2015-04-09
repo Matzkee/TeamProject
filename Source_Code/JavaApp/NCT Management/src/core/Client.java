@@ -81,10 +81,8 @@ public class Client implements ClientUi{
 	}
 
 	@Override
-	public boolean modifyBooking(String RegNo) {
+	public boolean modifyBooking(String query) {
 		boolean success;
-		// Implement: query String
-		String query = "";
 		success = clientDAO.executeUpdate(query);
 		return success;
 	}
