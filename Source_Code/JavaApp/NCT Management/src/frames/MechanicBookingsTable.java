@@ -79,18 +79,6 @@ public class MechanicBookingsTable extends JPanel implements MouseListener{
 		// Assign mouse listener to table
 		// Set at the end for other components to be initialised first
 		table.addMouseListener(new TableMouseListener(table, txtCarReg, txtDate, txtTime, systemInfo));
-		
-		btnCreateResults = new JLabel("");
-		btnCreateResults.setBounds(10, 110, 40, 40);
-		btnCreateResults.setIcon(addB);
-		btnCreateResults.addMouseListener(this);
-		add(btnCreateResults);
-		
-		lblCreateResults = new JLabel("Create New Results");
-		lblCreateResults.setForeground(Color.LIGHT_GRAY);
-		lblCreateResults.setBounds(60, 125, 150, 14);
-		lblCreateResults.setFont(TEXTFONT);
-		add(lblCreateResults);
 	}
 	
 	public void showTable(){
@@ -133,7 +121,12 @@ public class MechanicBookingsTable extends JPanel implements MouseListener{
 		lblTime.setForeground(Color.LIGHT_GRAY);
 		lblTime.setBounds(10, 80, 110, 20);
 		add(lblTime);
-		// 
+		// Info label: create results
+		lblCreateResults = new JLabel("Create New Results");
+		lblCreateResults.setForeground(Color.LIGHT_GRAY);
+		lblCreateResults.setBounds(60, 125, 150, 14);
+		lblCreateResults.setFont(TEXTFONT);
+		add(lblCreateResults);
 	}
 	
 	public void showTextFields(){
@@ -170,6 +163,12 @@ public class MechanicBookingsTable extends JPanel implements MouseListener{
 	}
 	
 	public void showButtons(){
+		// Button: create new set of results
+		btnCreateResults = new JLabel("");
+		btnCreateResults.setBounds(10, 110, 40, 40);
+		btnCreateResults.setIcon(addB);
+		btnCreateResults.addMouseListener(this);
+		add(btnCreateResults);
 	}
 	public void clearFields(){
 		txtCarReg.setText("");
