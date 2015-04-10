@@ -50,7 +50,7 @@ public class BookingsTable extends JPanel implements MouseListener{
 	private final Font TEXTFONT = new Font("Segoe UI", Font.PLAIN, 13);
 	private final Font SMALLTEXTFONT = new Font("Segoe UI", Font.PLAIN, 10);
 	
-	// Image for buttons + scaling
+	// Images for buttons + scaling
 	private ImageIcon editImage = new ImageIcon(BookingsTable.class.getResource("/graphics/imgEdit.png"));
 	private ImageIcon deleteImage = new ImageIcon(BookingsTable.class.getResource("/graphics/imgDelete.png"));
 	private ImageIcon submitImage = new ImageIcon(BookingsTable.class.getResource("/graphics/imgSubmit.png"));

@@ -38,14 +38,21 @@ public class MechanicBookingsTable extends JPanel implements MouseListener{
 	private JTextField txtCarReg, txtDate, txtTime;
 	private JLabel lblCarRegistration, lblDate, lblTime;
 	private JLabel systemInfo;
+	private JLabel btnCreateResults;
+	private JLabel lblCreateResults;
 	private TableModel tableModel;
 	private JTable table;
 	private JScrollPane tableScrollPane;
-	private BookingCreationPane newBookingPane;
-	private boolean isCarRegEditToggled, isDateEditToggled, isTimeEditToggled;
 	/* Text Font */
 	private final Font TEXTFONT = new Font("Segoe UI", Font.PLAIN, 13);
 
+	// Images for button & scaling
+	private ImageIcon addImage = new ImageIcon(BookingsTable.class.getResource("/graphics/imgAdd.png"));
+	private ImageIcon addImageHover = new ImageIcon(BookingsTable.class.getResource("/graphics/imgAddHover.png"));
+	private final int buttonW = 40, buttonH = 40;
+	private ImageIcon addB = new ImageIcon(addImage.getImage().getScaledInstance(buttonW, buttonH, Image.SCALE_DEFAULT));
+	private ImageIcon addBHover = new ImageIcon(addImageHover.getImage().getScaledInstance(buttonW, buttonH, Image.SCALE_DEFAULT));
+	
 	/**
 	 * Create the panel.
 	 * Constructor
@@ -58,10 +65,6 @@ public class MechanicBookingsTable extends JPanel implements MouseListener{
 		setLayout(null);
 		setOpaque(false);
 		addMouseListener(this);
-		
-		isCarRegEditToggled = false;
-		isDateEditToggled = false;
-		isTimeEditToggled = false;
 		
 		mainClient = programClient;
 		mainClient.viewBookings();
@@ -76,6 +79,18 @@ public class MechanicBookingsTable extends JPanel implements MouseListener{
 		// Assign mouse listener to table
 		// Set at the end for other components to be initialised first
 		table.addMouseListener(new TableMouseListener(table, txtCarReg, txtDate, txtTime, systemInfo));
+		
+		btnCreateResults = new JLabel("");
+		btnCreateResults.setBounds(10, 110, 40, 40);
+		btnCreateResults.setIcon(addB);
+		btnCreateResults.addMouseListener(this);
+		add(btnCreateResults);
+		
+		lblCreateResults = new JLabel("Create New Results");
+		lblCreateResults.setForeground(Color.LIGHT_GRAY);
+		lblCreateResults.setBounds(60, 125, 150, 14);
+		lblCreateResults.setFont(TEXTFONT);
+		add(lblCreateResults);
 	}
 	
 	public void showTable(){
@@ -104,20 +119,21 @@ public class MechanicBookingsTable extends JPanel implements MouseListener{
 		lblCarRegistration = new JLabel("Car Registration: ");
 		lblCarRegistration.setFont(TEXTFONT);
 		lblCarRegistration.setForeground(Color.LIGHT_GRAY);
-		lblCarRegistration.setBounds(10, 70, 110, 20);
+		lblCarRegistration.setBounds(10, 20, 110, 20);
 		add(lblCarRegistration);
 		// Date label
 		lblDate = new JLabel("Date: ");
 		lblDate.setFont(TEXTFONT);
 		lblDate.setForeground(Color.LIGHT_GRAY);
-		lblDate.setBounds(10, 100, 110, 20);
+		lblDate.setBounds(10, 50, 110, 20);
 		add(lblDate);
 		// Time label
 		lblTime = new JLabel("Time: ");
 		lblTime.setFont(TEXTFONT);
 		lblTime.setForeground(Color.LIGHT_GRAY);
-		lblTime.setBounds(10, 130, 110, 20);
+		lblTime.setBounds(10, 80, 110, 20);
 		add(lblTime);
+		// 
 	}
 	
 	public void showTextFields(){
@@ -128,7 +144,7 @@ public class MechanicBookingsTable extends JPanel implements MouseListener{
 		txtCarReg.setEditable(false);
 		txtCarReg.setForeground(Color.LIGHT_GRAY);
 		txtCarReg.setFont(TEXTFONT);
-		txtCarReg.setBounds(130, 70, 100, 20);
+		txtCarReg.setBounds(130, 20, 100, 20);
 		add(txtCarReg);
 		txtCarReg.setColumns(10);
 		// Date text field
@@ -138,7 +154,7 @@ public class MechanicBookingsTable extends JPanel implements MouseListener{
 		txtDate.setForeground(Color.LIGHT_GRAY);
 		txtDate.setFont(TEXTFONT);
 		txtDate.setEditable(false);
-		txtDate.setBounds(130, 100, 100, 20);
+		txtDate.setBounds(130, 50, 100, 20);
 		add(txtDate);
 		txtDate.setColumns(10);
 		// Time text field
@@ -148,33 +164,18 @@ public class MechanicBookingsTable extends JPanel implements MouseListener{
 		txtTime.setForeground(Color.LIGHT_GRAY);
 		txtTime.setFont(TEXTFONT);
 		txtTime.setEditable(false);
-		txtTime.setBounds(130, 130, 100, 20);
+		txtTime.setBounds(130, 80, 100, 20);
 		add(txtTime);
 		txtTime.setColumns(10);
 	}
 	
 	public void showButtons(){
 	}
-	public void toggleFields(boolean carReg, boolean date, boolean time){
-		txtCarReg.setEditable(carReg);
-		txtDate.setEditable(date);
-		txtTime.setEditable(time);
-	}
-	public void toggleFieldPaints(boolean carReg, boolean date, boolean time){
-		isCarRegEditToggled = carReg;
-		isDateEditToggled = date;
-		isTimeEditToggled = time;
-	}
 	public void clearFields(){
 		txtCarReg.setText("");
 		txtDate.setText("");
 		txtTime.setText("");
 	}
-	public void clearAllSelections(){
-		toggleFields(false, false, false);
-		toggleFieldPaints(false, false, false);
-		clearFields();
-	};
 	
 	/*
 	 * Custom gradient paint for JText boxes
@@ -190,18 +191,14 @@ public class MechanicBookingsTable extends JPanel implements MouseListener{
 				txtDate.getX()+(txtDate.getWidth()/2),txtDate.getY()+(txtDate.getHeight()/4),new Color(0,0,0,0));
 		gp3 = new GradientPaint(txtTime.getX()+(txtTime.getWidth()/2),txtTime.getY()+txtTime.getHeight(),new Color(255,255,255,50),
 				txtTime.getX()+(txtTime.getWidth()/2),txtTime.getY()+(txtTime.getHeight()/4),new Color(0,0,0,0));
-		if(isCarRegEditToggled){
-			g2d.setPaint(gp);
-			g2d.fillRect(txtCarReg.getX(), txtCarReg.getY(), txtCarReg.getWidth(), txtCarReg.getHeight());
-		}
-		else if(isDateEditToggled){
-			g2d.setPaint(gp2);
-			g2d.fillRect(txtDate.getX(), txtDate.getY(), txtDate.getWidth(), txtDate.getHeight());			
-		}
-		else if(isTimeEditToggled){
-			g2d.setPaint(gp3);
-			g2d.fillRect(txtTime.getX(), txtTime.getY(), txtTime.getWidth(), txtTime.getHeight());			
-		}
+		
+		g2d.setPaint(gp);
+		g2d.fillRect(txtCarReg.getX(), txtCarReg.getY(), txtCarReg.getWidth(), txtCarReg.getHeight());
+		g2d.setPaint(gp2);
+		g2d.fillRect(txtDate.getX(), txtDate.getY(), txtDate.getWidth(), txtDate.getHeight());			
+		g2d.setPaint(gp3);
+		g2d.fillRect(txtTime.getX(), txtTime.getY(), txtTime.getWidth(), txtTime.getHeight());			
+		
 	}
 	
 	@Override
@@ -212,7 +209,6 @@ public class MechanicBookingsTable extends JPanel implements MouseListener{
 			// Clear systemInfo text
 			if(e.getClickCount() == 2 && !e.isConsumed()){
 				e.consume();
-				newBookingPane.setVisible(false);
 				systemInfo.setText("");
 			}
 		}
@@ -227,9 +223,18 @@ public class MechanicBookingsTable extends JPanel implements MouseListener{
 				table.clearSelection();
 			}
 		}
+		else if(o.equals(btnCreateResults)){
+			if (table.getSelectedRow() != -1){
+				btnCreateResults.setIcon(addBHover);
+			}
+		}
 	}
 	@Override
 	public void mouseReleased(MouseEvent e) {
+		Object o = e.getSource();
+		if(o.equals(btnCreateResults)){
+			btnCreateResults.setIcon(addB);
+		}
 	}
 	@Override
 	public void mouseEntered(MouseEvent e) {
