@@ -1,16 +1,13 @@
 package frames;
 
+import java.awt.Color;
 import java.awt.Font;
-import java.awt.Image;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
-import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
-
-import java.awt.Color;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 
 public class ResultsCreationPane extends JPanel implements MouseListener{
 	/*
@@ -24,10 +21,11 @@ public class ResultsCreationPane extends JPanel implements MouseListener{
 	private boolean alignmentIsSelected, suspensionIsSelected, brakesIsSelected, eemissionIsSelected, headlightsIsSelected;
 	private boolean alignmentChange, suspensionChange, brakesChange, eemissionChange, headlightsChange;
 	private final Color AMBIENTCOLOR = Color.LIGHT_GRAY;
-	private final Color FAILSTATIC = new Color(121,0,0);
-	private final Color FAILHOVER = new Color(237,28,36);
-	private final Color PASSSTATIC = new Color(0,94,32);
-	private final Color PASSHOVER= new Color(57,181,74);
+	private final Color HIGHLIGHTCOLOR = Color.WHITE;
+	private final Color FAILSTATIC = new Color(121,0,0,100);
+	private final Color FAILHOVER = new Color(237,28,36,200);
+	private final Color PASSSTATIC = new Color(0,94,32,100);
+	private final Color PASSHOVER= new Color(57,181,74,200);
 
 	/**
 	 * Create the panel.
@@ -175,6 +173,19 @@ public class ResultsCreationPane extends JPanel implements MouseListener{
 		btnPassHeadLights.addMouseListener(this);
 		add(btnPassHeadLights);
 	}
+	public void highlightButton(JLabel toHighlight, JLabel toDeHighlight, boolean pass){
+		if(!pass){
+			toHighlight.setBackground(FAILHOVER);
+			toDeHighlight.setBackground(PASSSTATIC);
+		}
+		else{
+			toHighlight.setBackground(PASSHOVER);
+			toDeHighlight.setBackground(FAILSTATIC);
+		}
+		toHighlight.setForeground(HIGHLIGHTCOLOR);
+		toDeHighlight.setForeground(AMBIENTCOLOR);
+		repaint();
+	}
 	@Override
 	public void mouseClicked(MouseEvent e) {
 	}
@@ -182,40 +193,54 @@ public class ResultsCreationPane extends JPanel implements MouseListener{
 	public void mousePressed(MouseEvent e) {
 		Object o = e.getSource();
 		if(o.equals(btnFailAlignment)){
-			if(!alignmentIsSelected){
-				btnFailAlignment.setBackground(FAILHOVER);	
-				btnPassAlignment.setBackground(PASSSTATIC);
+			if(alignmentIsSelected || !alignmentChange){
+				highlightButton(btnFailAlignment, btnPassAlignment, false);
 			}
 		}
 		else if(o.equals(btnFailSuspension)){
-			if(!suspensionIsSelected){
-				btnFailSuspension.setBackground(FAILHOVER);	
-				btnPassSuspension.setBackground(PASSSTATIC);
+			if(suspensionIsSelected || !suspensionChange){
+				highlightButton(btnFailSuspension, btnPassSuspension, false);
 			}
 		}
 		else if(o.equals(btnFailBrakes)){
-			btnFailBrakes.setBackground(FAILHOVER);		
+			if(brakesIsSelected || !brakesChange){
+				highlightButton(btnFailBrakes, btnPassBrakes, false);
+			}	
 		}
 		else if(o.equals(btnFailEEmission)){
-			btnFailEEmission.setBackground(FAILHOVER);	
+			if(eemissionIsSelected || !eemissionChange){
+				highlightButton(btnFailEEmission, btnPassEEmission, false);
+			}
 		}
 		else if(o.equals(btnFailHeadLights)){
-			btnFailHeadLights.setBackground(FAILHOVER);	
+			if(headlightsIsSelected || !headlightsChange){
+				highlightButton(btnFailHeadLights, btnPassHeadLights, false);
+			}
 		}
 		else if(o.equals(btnPassAlignment)){
-			btnPassAlignment.setBackground(PASSHOVER);	
+			if(!alignmentIsSelected || !alignmentChange){
+				highlightButton(btnPassAlignment, btnFailAlignment, true);
+			}
 		}
 		else if(o.equals(btnPassSuspension)){
-			btnPassSuspension.setBackground(PASSHOVER);	
+			if(!suspensionIsSelected || !suspensionChange){
+				highlightButton(btnPassSuspension, btnFailSuspension, true);
+			}
 		}
 		else if(o.equals(btnPassBrakes)){
-			btnPassBrakes.setBackground(PASSHOVER);		
+			if(!brakesIsSelected || !brakesChange){
+				highlightButton(btnPassBrakes, btnFailBrakes, true);
+			}
 		}
 		else if(o.equals(btnPassEEmission)){
-			btnPassEEmission.setBackground(PASSHOVER);	
+			if(!eemissionIsSelected || !eemissionChange){
+				highlightButton(btnPassEEmission, btnFailEEmission, true);
+			}	
 		}
 		else if(o.equals(btnPassHeadLights)){
-			btnPassHeadLights.setBackground(PASSHOVER);	
+			if(!headlightsIsSelected || !headlightsChange){
+				highlightButton(btnPassHeadLights, btnFailHeadLights, true);
+			}
 		}
 	}
 	@Override

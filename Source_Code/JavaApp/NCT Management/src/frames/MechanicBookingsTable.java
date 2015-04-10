@@ -43,6 +43,7 @@ public class MechanicBookingsTable extends JPanel implements MouseListener{
 	private TableModel tableModel;
 	private JTable table;
 	private JScrollPane tableScrollPane;
+	private ResultsCreationPane resultsPane;
 	/* Text Font */
 	private final Font TEXTFONT = new Font("Segoe UI", Font.PLAIN, 13);
 
@@ -75,6 +76,11 @@ public class MechanicBookingsTable extends JPanel implements MouseListener{
 		showLabels();
 		showTextFields();
 		showButtons();
+		
+		resultsPane = new ResultsCreationPane();
+		resultsPane.setBounds(10, 160, 300, 200);
+		add(resultsPane);
+		resultsPane.setVisible(false);
 		
 		// Assign mouse listener to table
 		// Set at the end for other components to be initialised first
@@ -176,30 +182,6 @@ public class MechanicBookingsTable extends JPanel implements MouseListener{
 		txtTime.setText("");
 	}
 	
-	/*
-	 * Custom gradient paint for JText boxes
-	 */
-	@Override
-	protected void paintComponent(Graphics g) {
-		super.paintComponent(g);
-		Graphics2D g2d = (Graphics2D) g;
-		GradientPaint gp, gp2, gp3;
-		gp = new GradientPaint(txtCarReg.getX()+(txtCarReg.getWidth()/2),txtCarReg.getY()+txtCarReg.getHeight(),new Color(255,255,255,50),
-				txtCarReg.getX()+(txtCarReg.getWidth()/2),txtCarReg.getY()+(txtCarReg.getHeight()/4),new Color(0,0,0,0));
-		gp2 = new GradientPaint(txtDate.getX()+(txtDate.getWidth()/2),txtDate.getY()+txtDate.getHeight(),new Color(255,255,255,50),
-				txtDate.getX()+(txtDate.getWidth()/2),txtDate.getY()+(txtDate.getHeight()/4),new Color(0,0,0,0));
-		gp3 = new GradientPaint(txtTime.getX()+(txtTime.getWidth()/2),txtTime.getY()+txtTime.getHeight(),new Color(255,255,255,50),
-				txtTime.getX()+(txtTime.getWidth()/2),txtTime.getY()+(txtTime.getHeight()/4),new Color(0,0,0,0));
-		
-		g2d.setPaint(gp);
-		g2d.fillRect(txtCarReg.getX(), txtCarReg.getY(), txtCarReg.getWidth(), txtCarReg.getHeight());
-		g2d.setPaint(gp2);
-		g2d.fillRect(txtDate.getX(), txtDate.getY(), txtDate.getWidth(), txtDate.getHeight());			
-		g2d.setPaint(gp3);
-		g2d.fillRect(txtTime.getX(), txtTime.getY(), txtTime.getWidth(), txtTime.getHeight());			
-		
-	}
-	
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		Object o = e.getSource();
@@ -225,6 +207,7 @@ public class MechanicBookingsTable extends JPanel implements MouseListener{
 		else if(o.equals(btnCreateResults)){
 			if (table.getSelectedRow() != -1){
 				btnCreateResults.setIcon(addBHover);
+				resultsPane.setVisible(true);
 			}
 		}
 	}

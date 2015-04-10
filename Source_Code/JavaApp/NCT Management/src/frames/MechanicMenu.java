@@ -33,8 +33,7 @@ public class MechanicMenu extends JFrame implements MouseListener{
 	private final Color AMBIENTCOLOR = Color.GRAY;
 	private final Font TEXTFONT = new Font("Segoe UI", Font.PLAIN, 20);
 	private final Font SMALLTEXTFONT = new Font("Segoe UI", Font.PLAIN, 10);
-	private BookingsTable bookingPane;
-	private ResultPane resultPane;
+	private MechanicBookingsTable bookingPane;
 	private JLabel systemInfo;
 
 
@@ -85,7 +84,7 @@ public class MechanicMenu extends JFrame implements MouseListener{
 		systemInfo.setForeground(HOVERCOLOR);
 		contentPane.add(systemInfo);
 		
-		bookingPane = new BookingsTable(garageId, mainClient, systemInfo);
+		bookingPane = new MechanicBookingsTable(garageId, mainClient, systemInfo);
 		bookingPane.setBounds(0, 50, 800, 400);
 		contentPane.add(bookingPane);
 		bookingPane.setVisible(false);
@@ -129,19 +128,16 @@ public class MechanicMenu extends JFrame implements MouseListener{
 		switch(button.getText()){
 			case "HOME":
 				bookingPane.setVisible(false);
-				resultPane.setVisible(false);
 				button.setForeground(HIGHLIGHTCOLOR);
 				systemInfo.setText("HOME");
 			break;
 			case "BOOKINGS":
-				resultPane.setVisible(false);
 				bookingPane.setVisible(true);
 				button.setForeground(HIGHLIGHTCOLOR);
 				systemInfo.setText("BOOKINGS");
 			break;
 			case "LOG OUT":
 				bookingPane.setVisible(false);
-				resultPane.setVisible(false);
 				button.setForeground(HIGHLIGHTCOLOR);
 				systemInfo.setText("LOG OUT");
 				mainClient.logOut();
