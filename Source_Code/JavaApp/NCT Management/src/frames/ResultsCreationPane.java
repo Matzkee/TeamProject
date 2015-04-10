@@ -9,8 +9,10 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
 import java.awt.Color;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
-public class ResultsCreationPane extends JPanel {
+public class ResultsCreationPane extends JPanel implements MouseListener{
 	/*
 	 * Variable declaration
 	 */
@@ -19,6 +21,9 @@ public class ResultsCreationPane extends JPanel {
 	private JLabel btnFailAlignment, btnFailSuspension, btnFailBrakes, btnFailEEmission, btnFailHeadLights;
 	private JLabel btnPassAlignment, btnPassSuspension, btnPassBrakes, btnPassEEmission, btnPassHeadLights;
 	private final Font TEXTFONT = new Font("Segoe UI", Font.PLAIN, 13);
+	private boolean alignmentIsSelected, suspensionIsSelected, brakesIsSelected, eemissionIsSelected, headlightsIsSelected;
+	private boolean alignmentChange, suspensionChange, brakesChange, eemissionChange, headlightsChange;
+	private final Color AMBIENTCOLOR = Color.LIGHT_GRAY;
 	private final Color FAILSTATIC = new Color(121,0,0);
 	private final Color FAILHOVER = new Color(237,28,36);
 	private final Color PASSSTATIC = new Color(0,94,32);
@@ -34,34 +39,57 @@ public class ResultsCreationPane extends JPanel {
 		
 		showLabels();
 		showButtons();
+		clearEverything();
+	}
+	public void clearEverything(){
+		alignmentIsSelected = false;
+		suspensionIsSelected = false;
+		brakesIsSelected = false;
+		eemissionIsSelected = false;
+		headlightsIsSelected = false;
+		alignmentChange = false;
+		suspensionChange = false;
+		brakesChange = false;
+		eemissionChange = false;
+		headlightsChange = false;
+		btnFailAlignment.setBackground(FAILSTATIC);
+		btnFailSuspension.setBackground(FAILSTATIC);
+		btnFailBrakes.setBackground(FAILSTATIC);
+		btnFailEEmission.setBackground(FAILSTATIC);
+		btnFailHeadLights.setBackground(FAILSTATIC);
+		btnPassAlignment.setBackground(PASSSTATIC);
+		btnPassSuspension.setBackground(PASSSTATIC);
+		btnPassBrakes.setBackground(PASSSTATIC);
+		btnPassEEmission.setBackground(PASSSTATIC);
+		btnPassHeadLights.setBackground(PASSSTATIC);
 	}
 	public void showLabels(){
 		lblTestAlignment = new JLabel("Alignment: ");
-		lblTestAlignment.setForeground(Color.LIGHT_GRAY);
+		lblTestAlignment.setForeground(AMBIENTCOLOR);
 		lblTestAlignment.setBounds(10, 10, 100, 20);
 		lblTestAlignment.setFont(TEXTFONT);
 		add(lblTestAlignment);
 		
 		lblTestSuspension = new JLabel("Suspension:");
-		lblTestSuspension.setForeground(Color.LIGHT_GRAY);
+		lblTestSuspension.setForeground(AMBIENTCOLOR);
 		lblTestSuspension.setBounds(10, 40, 100, 20);
 		lblTestSuspension.setFont(TEXTFONT);
 		add(lblTestSuspension);
 		
 		lblTestBrakes = new JLabel("Brakes:");
-		lblTestBrakes.setForeground(Color.LIGHT_GRAY);
+		lblTestBrakes.setForeground(AMBIENTCOLOR);
 		lblTestBrakes.setBounds(10, 70, 100, 20);
 		lblTestBrakes.setFont(TEXTFONT);
 		add(lblTestBrakes);
 		
 		lblTestEEmission = new JLabel("Exhaust Emission:");
-		lblTestEEmission.setForeground(Color.LIGHT_GRAY);
+		lblTestEEmission.setForeground(AMBIENTCOLOR);
 		lblTestEEmission.setBounds(10, 100, 100, 20);
 		lblTestEEmission.setFont(TEXTFONT);
 		add(lblTestEEmission);
 		
 		lblTestHeadLights = new JLabel("Head Lights:");
-		lblTestHeadLights.setForeground(Color.LIGHT_GRAY);
+		lblTestHeadLights.setForeground(AMBIENTCOLOR);
 		lblTestHeadLights.setBounds(10, 130, 100, 20);
 		lblTestHeadLights.setFont(TEXTFONT);
 		add(lblTestHeadLights);
@@ -70,72 +98,133 @@ public class ResultsCreationPane extends JPanel {
 		btnFailAlignment = new JLabel("Failed",SwingConstants.CENTER);
 		btnFailAlignment.setBackground(FAILSTATIC);
 		btnFailAlignment.setOpaque(true);
-		btnFailAlignment.setForeground(Color.LIGHT_GRAY);
-		btnFailAlignment.setBounds(120, 10, 60, 20);
+		btnFailAlignment.setForeground(AMBIENTCOLOR);
+		btnFailAlignment.setBounds(110, 10, 70, 20);
+		btnFailAlignment.addMouseListener(this);
 		add(btnFailAlignment);
 		
 		btnFailSuspension = new JLabel("Failed",SwingConstants.CENTER);
 		btnFailSuspension.setBackground(FAILSTATIC);
 		btnFailSuspension.setOpaque(true);
-		btnFailSuspension.setForeground(Color.LIGHT_GRAY);
-		btnFailSuspension.setBounds(120, 40, 60, 20);
+		btnFailSuspension.setForeground(AMBIENTCOLOR);
+		btnFailSuspension.setBounds(110, 40, 70, 20);
+		btnFailSuspension.addMouseListener(this);
 		add(btnFailSuspension);
 		
 		btnFailBrakes = new JLabel("Failed",SwingConstants.CENTER);
 		btnFailBrakes.setBackground(FAILSTATIC);
 		btnFailBrakes.setOpaque(true);
-		btnFailBrakes.setForeground(Color.LIGHT_GRAY);
-		btnFailBrakes.setBounds(120, 70, 60, 20);
+		btnFailBrakes.setForeground(AMBIENTCOLOR);
+		btnFailBrakes.setBounds(110, 70, 70, 20);
+		btnFailBrakes.addMouseListener(this);
 		add(btnFailBrakes);
 		
 		btnFailEEmission = new JLabel("Failed",SwingConstants.CENTER);
 		btnFailEEmission.setBackground(FAILSTATIC);
 		btnFailEEmission.setOpaque(true);
-		btnFailEEmission.setForeground(Color.LIGHT_GRAY);
-		btnFailEEmission.setBounds(120, 100, 60, 20);
+		btnFailEEmission.setForeground(AMBIENTCOLOR);
+		btnFailEEmission.setBounds(110, 100, 70, 20);
+		btnFailEEmission.addMouseListener(this);
 		add(btnFailEEmission);
 		
 		btnFailHeadLights = new JLabel("Failed",SwingConstants.CENTER);
 		btnFailHeadLights.setBackground(FAILSTATIC);
 		btnFailHeadLights.setOpaque(true);
-		btnFailHeadLights.setForeground(Color.LIGHT_GRAY);
-		btnFailHeadLights.setBounds(120, 130, 60, 20);
+		btnFailHeadLights.setForeground(AMBIENTCOLOR);
+		btnFailHeadLights.setBounds(110, 130, 70, 20);
+		btnFailHeadLights.addMouseListener(this);
 		add(btnFailHeadLights);
 		
 		btnPassAlignment = new JLabel("Passed",SwingConstants.CENTER);
-		btnPassAlignment.setBackground(Color.WHITE);
+		btnPassAlignment.setBackground(PASSSTATIC);
 		btnPassAlignment.setOpaque(true);
-		btnPassAlignment.setForeground(Color.LIGHT_GRAY);
-		btnPassAlignment.setBounds(180, 10, 60, 20);
+		btnPassAlignment.setForeground(AMBIENTCOLOR);
+		btnPassAlignment.setBounds(180, 10, 70, 20);
+		btnPassAlignment.addMouseListener(this);
 		add(btnPassAlignment);
 		
 		btnPassSuspension = new JLabel("Passed",SwingConstants.CENTER);
-		btnPassSuspension.setBackground(Color.WHITE);
+		btnPassSuspension.setBackground(PASSSTATIC);
 		btnPassSuspension.setOpaque(true);
-		btnPassSuspension.setForeground(Color.LIGHT_GRAY);
-		btnPassSuspension.setBounds(180, 40, 60, 20);
+		btnPassSuspension.setForeground(AMBIENTCOLOR);
+		btnPassSuspension.setBounds(180, 40, 70, 20);
+		btnPassSuspension.addMouseListener(this);
 		add(btnPassSuspension);
 		
 		btnPassBrakes = new JLabel("Passed",SwingConstants.CENTER);
-		btnPassBrakes.setBackground(Color.WHITE);
+		btnPassBrakes.setBackground(PASSSTATIC);
 		btnPassBrakes.setOpaque(true);
-		btnPassBrakes.setForeground(Color.LIGHT_GRAY);
-		btnPassBrakes.setBounds(180, 70, 60, 20);
+		btnPassBrakes.setForeground(AMBIENTCOLOR);
+		btnPassBrakes.setBounds(180, 70, 70, 20);
+		btnPassBrakes.addMouseListener(this);
 		add(btnPassBrakes);
 		
 		btnPassEEmission = new JLabel("Passed",SwingConstants.CENTER);
-		btnPassEEmission.setBackground(Color.WHITE);
+		btnPassEEmission.setBackground(PASSSTATIC);
 		btnPassEEmission.setOpaque(true);
-		btnPassEEmission.setForeground(Color.LIGHT_GRAY);
-		btnPassEEmission.setBounds(180, 100, 60, 20);
+		btnPassEEmission.setForeground(AMBIENTCOLOR);
+		btnPassEEmission.setBounds(180, 100, 70, 20);
+		btnPassEEmission.addMouseListener(this);
 		add(btnPassEEmission);
 		
 		btnPassHeadLights = new JLabel("Passed",SwingConstants.CENTER);
-		btnPassHeadLights.setBackground(Color.WHITE);
+		btnPassHeadLights.setBackground(PASSSTATIC);
 		btnPassHeadLights.setOpaque(true);
-		btnPassHeadLights.setForeground(Color.LIGHT_GRAY);
-		btnPassHeadLights.setBounds(180, 130, 60, 20);
+		btnPassHeadLights.setForeground(AMBIENTCOLOR);
+		btnPassHeadLights.setBounds(180, 130, 70, 20);
+		btnPassHeadLights.addMouseListener(this);
 		add(btnPassHeadLights);
 	}
-
+	@Override
+	public void mouseClicked(MouseEvent e) {
+	}
+	@Override
+	public void mousePressed(MouseEvent e) {
+		Object o = e.getSource();
+		if(o.equals(btnFailAlignment)){
+			if(!alignmentIsSelected){
+				btnFailAlignment.setBackground(FAILHOVER);	
+				btnPassAlignment.setBackground(PASSSTATIC);
+			}
+		}
+		else if(o.equals(btnFailSuspension)){
+			if(!suspensionIsSelected){
+				btnFailSuspension.setBackground(FAILHOVER);	
+				btnPassSuspension.setBackground(PASSSTATIC);
+			}
+		}
+		else if(o.equals(btnFailBrakes)){
+			btnFailBrakes.setBackground(FAILHOVER);		
+		}
+		else if(o.equals(btnFailEEmission)){
+			btnFailEEmission.setBackground(FAILHOVER);	
+		}
+		else if(o.equals(btnFailHeadLights)){
+			btnFailHeadLights.setBackground(FAILHOVER);	
+		}
+		else if(o.equals(btnPassAlignment)){
+			btnPassAlignment.setBackground(PASSHOVER);	
+		}
+		else if(o.equals(btnPassSuspension)){
+			btnPassSuspension.setBackground(PASSHOVER);	
+		}
+		else if(o.equals(btnPassBrakes)){
+			btnPassBrakes.setBackground(PASSHOVER);		
+		}
+		else if(o.equals(btnPassEEmission)){
+			btnPassEEmission.setBackground(PASSHOVER);	
+		}
+		else if(o.equals(btnPassHeadLights)){
+			btnPassHeadLights.setBackground(PASSHOVER);	
+		}
+	}
+	@Override
+	public void mouseReleased(MouseEvent e) {
+	}
+	@Override
+	public void mouseEntered(MouseEvent e) {
+	}
+	@Override
+	public void mouseExited(MouseEvent e) {
+	}
 }
