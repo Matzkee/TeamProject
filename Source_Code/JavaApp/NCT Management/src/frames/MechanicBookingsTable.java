@@ -190,6 +190,9 @@ public class MechanicBookingsTable extends JPanel implements MouseListener{
 			// Clear systemInfo text
 			if(e.getClickCount() == 2 && !e.isConsumed()){
 				e.consume();
+				if (table.getSelectedRow() != -1){
+					table.clearSelection();
+				}
 				systemInfo.setText("");
 			}
 		}
@@ -200,9 +203,6 @@ public class MechanicBookingsTable extends JPanel implements MouseListener{
 		// Case: JPanel, main booking panel
 		if(o.equals(this)){
 			systemInfo.setText("Main Panel");
-			if (table.getSelectedRow() != -1){
-				table.clearSelection();
-			}
 		}
 		else if(o.equals(btnCreateResults)){
 			if (table.getSelectedRow() != -1){

@@ -220,51 +220,71 @@ public class ResultsCreationPane extends JPanel implements MouseListener{
 		else if(o.equals(btnFailAlignment)){
 			if(alignmentIsSelected || !alignmentChange){
 				highlightButton(btnFailAlignment, btnPassAlignment, false);
+				alignmentChange = true;
+				alignmentIsSelected = false;
 			}
 		}
 		else if(o.equals(btnFailSuspension)){
 			if(suspensionIsSelected || !suspensionChange){
 				highlightButton(btnFailSuspension, btnPassSuspension, false);
+				suspensionChange = true;
+				suspensionIsSelected = false;
 			}
 		}
 		else if(o.equals(btnFailBrakes)){
 			if(brakesIsSelected || !brakesChange){
 				highlightButton(btnFailBrakes, btnPassBrakes, false);
+				brakesChange = true;
+				brakesIsSelected = false;
 			}	
 		}
 		else if(o.equals(btnFailEEmission)){
 			if(eemissionIsSelected || !eemissionChange){
 				highlightButton(btnFailEEmission, btnPassEEmission, false);
+				eemissionChange = true;
+				eemissionIsSelected = false;
 			}
 		}
 		else if(o.equals(btnFailHeadLights)){
 			if(headlightsIsSelected || !headlightsChange){
 				highlightButton(btnFailHeadLights, btnPassHeadLights, false);
+				headlightsChange = true;
+				headlightsIsSelected = false;
 			}
 		}
 		else if(o.equals(btnPassAlignment)){
 			if(!alignmentIsSelected || !alignmentChange){
 				highlightButton(btnPassAlignment, btnFailAlignment, true);
+				alignmentChange = true;
+				alignmentIsSelected = true;
 			}
 		}
 		else if(o.equals(btnPassSuspension)){
 			if(!suspensionIsSelected || !suspensionChange){
 				highlightButton(btnPassSuspension, btnFailSuspension, true);
+				suspensionChange = true;
+				suspensionIsSelected = true;
 			}
 		}
 		else if(o.equals(btnPassBrakes)){
 			if(!brakesIsSelected || !brakesChange){
 				highlightButton(btnPassBrakes, btnFailBrakes, true);
+				brakesChange = true;
+				brakesIsSelected = true;
 			}
 		}
 		else if(o.equals(btnPassEEmission)){
 			if(!eemissionIsSelected || !eemissionChange){
 				highlightButton(btnPassEEmission, btnFailEEmission, true);
+				eemissionChange = true;
+				eemissionIsSelected = true;
 			}	
 		}
 		else if(o.equals(btnPassHeadLights)){
 			if(!headlightsIsSelected || !headlightsChange){
 				highlightButton(btnPassHeadLights, btnFailHeadLights, true);
+				headlightsChange = true;
+				headlightsIsSelected = true;
 			}
 		}
 	}
