@@ -2,9 +2,11 @@ package frames;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.Image;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
+import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
@@ -26,6 +28,14 @@ public class ResultsCreationPane extends JPanel implements MouseListener{
 	private final Color FAILHOVER = new Color(237,28,36,200);
 	private final Color PASSSTATIC = new Color(0,94,32,100);
 	private final Color PASSHOVER= new Color(57,181,74,200);
+	// Images & scaling
+	private final int buttonW = 40, buttonH = 40;
+	private ImageIcon submitImage = new ImageIcon(BookingsTable.class.getResource("/graphics/imgSubmit.png"));
+	private ImageIcon submitImageHover = new ImageIcon(BookingsTable.class.getResource("/graphics/imgSubmitHover.png"));
+	private ImageIcon submitB = new ImageIcon(submitImage.getImage().getScaledInstance(buttonW, buttonH, Image.SCALE_DEFAULT));
+	private ImageIcon submitBHover = new ImageIcon(submitImageHover.getImage().getScaledInstance(buttonW, buttonH, Image.SCALE_DEFAULT));
+	private JLabel btnSubmit;
+	private JLabel lblSubmitResults;
 
 	/**
 	 * Create the panel.
@@ -172,6 +182,18 @@ public class ResultsCreationPane extends JPanel implements MouseListener{
 		btnPassHeadLights.setBounds(180, 130, 70, 20);
 		btnPassHeadLights.addMouseListener(this);
 		add(btnPassHeadLights);
+		
+		btnSubmit = new JLabel("");
+		btnSubmit.setBounds(10, 160, 40, 40);
+		btnSubmit.setIcon(submitB);
+		btnSubmit.addMouseListener(this);
+		add(btnSubmit);
+		
+		lblSubmitResults = new JLabel("Submit results");
+		lblSubmitResults.setForeground(Color.LIGHT_GRAY);
+		lblSubmitResults.setFont(TEXTFONT);
+		lblSubmitResults.setBounds(60, 170, 100, 14);
+		add(lblSubmitResults);
 	}
 	public void highlightButton(JLabel toHighlight, JLabel toDeHighlight, boolean pass){
 		if(!pass){
@@ -192,7 +214,10 @@ public class ResultsCreationPane extends JPanel implements MouseListener{
 	@Override
 	public void mousePressed(MouseEvent e) {
 		Object o = e.getSource();
-		if(o.equals(btnFailAlignment)){
+		if(o.equals(btnSubmit)){
+			btnSubmit.setIcon(submitBHover);
+		}
+		else if(o.equals(btnFailAlignment)){
 			if(alignmentIsSelected || !alignmentChange){
 				highlightButton(btnFailAlignment, btnPassAlignment, false);
 			}
@@ -245,6 +270,10 @@ public class ResultsCreationPane extends JPanel implements MouseListener{
 	}
 	@Override
 	public void mouseReleased(MouseEvent e) {
+		Object o = e.getSource();
+		if(o.equals(btnSubmit)){
+			btnSubmit.setIcon(submitB);
+		}
 	}
 	@Override
 	public void mouseEntered(MouseEvent e) {
