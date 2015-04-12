@@ -216,6 +216,12 @@ public class ResultsCreationPane extends JPanel implements MouseListener{
 		Object o = e.getSource();
 		if(o.equals(btnSubmit)){
 			btnSubmit.setIcon(submitBHover);
+			
+			// Implement:
+			// if booking is selected
+			// if booleans have changed
+			// create a TestResults query
+			// create a delete booking query
 		}
 		else if(o.equals(btnFailAlignment)){
 			if(alignmentIsSelected || !alignmentChange){

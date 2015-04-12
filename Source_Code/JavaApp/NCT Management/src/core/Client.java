@@ -66,9 +66,9 @@ public class Client implements ClientUi{
 
 	// Interface Methods
 	@Override
-	public boolean createBooking(String carReg, String date, String time, int garage) {
+	public boolean createBooking(String query) {
 		boolean success;
-		success = clientDAO.addBooking(carReg, date, time, garage);
+		success = clientDAO.executeUpdate(query);
 		return success;
 	}
 

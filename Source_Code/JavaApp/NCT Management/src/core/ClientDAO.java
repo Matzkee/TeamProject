@@ -34,6 +34,9 @@ public class ClientDAO implements DaoUi{
 	// ClientDAO Methods
 	public ArrayList<Booking> getBookings(){
 		
+		// To do:
+		// Get bookings only for the garage the user comes from
+		
 		//temporary variables
 		bookings = new ArrayList<Booking>();
 		Booking booking = null;
@@ -189,46 +192,6 @@ public class ClientDAO implements DaoUi{
 		else{
 			return users;
 		}
-	}
-	public boolean addBooking(String carReg, String date, String time, int garage){
-		//query the database for the user with these credentials 
-		String query = "";
-		try{
-			// Load the database driver
-			Class.forName( "com.mysql.jdbc.Driver" );
-			// Get a connection to the database
-			this.conn = DriverManager.getConnection("jdbc:mysql://83.212.127.2:3306/NCT", "user", "TeamGravity123");
-			//Prepare statement
-			
-			//Prepare statement
-			query = "INSERT INTO Booking (BDate,BTime,Car_Reg,Garage_Id) VALUES ('"+date+"','"+time+"','"+carReg+"',"+garage+")";
-			
-			stmt = conn.createStatement();
-			stmt.executeUpdate(query);
-			
-			stmt.close();
-			conn.close();
-			return true;
-		}
-		catch(SQLException e){
-			
-			//Temporary System message
-			System.out.println( "SQL Exception:" ) ;
-			
-			// Loop through the SQL Exceptions
-			while( e != null ){
-				System.out.println( "State  : " + e.getSQLState()  ) ;
-				System.out.println( "Message: " + e.getMessage()   ) ;
-				System.out.println( "Error  : " + e.getErrorCode() ) ;
-				
-				e = e.getNextException() ;
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		
-		
-		return false;
 	}
 	// Interface MEthods
 	@Override
