@@ -216,6 +216,9 @@ public class ResultsCreationPane extends JPanel implements MouseListener{
 		Object o = e.getSource();
 		if(o.equals(btnSubmit)){
 			btnSubmit.setIcon(submitBHover);
+			if (table.getSelectedRow() != -1){
+				
+			}
 			
 			// Implement:
 			// if booking is selected

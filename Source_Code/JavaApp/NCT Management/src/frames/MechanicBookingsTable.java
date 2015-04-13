@@ -182,6 +182,8 @@ public class MechanicBookingsTable extends JPanel implements MouseListener{
 		txtTime.setText("");
 	}
 	
+	// Mouse listener methods
+	
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		Object o = e.getSource();
