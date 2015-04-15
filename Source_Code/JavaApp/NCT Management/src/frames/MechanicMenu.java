@@ -110,7 +110,8 @@ public class MechanicMenu extends JFrame implements MouseListener{
 				try {
 					MechanicMenu frame = new MechanicMenu(1, 111111, new Client(), new Login());
 					frame.setVisible(true);
-					frame.requestFocusInWindow();
+					frame.setTitle("NCT Management");
+					frame.setLocationRelativeTo(null);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}

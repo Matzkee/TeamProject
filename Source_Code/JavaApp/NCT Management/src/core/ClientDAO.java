@@ -91,6 +91,7 @@ public class ClientDAO implements DaoUi{
 	public ArrayList<TestResults> getTestResults(String RegNo){
 		// Temporary variables
 		String query;
+		tests = new ArrayList<TestResults>();
 		int count = 0;
 		//query the database for the user with these credentials 
 		try{

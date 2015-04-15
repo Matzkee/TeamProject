@@ -124,7 +124,8 @@ public class AdminMenu extends JFrame implements MouseListener{
 				try {
 					AdminMenu frame = new AdminMenu(1, new Client(), new Login());
 					frame.setVisible(true);
-					frame.requestFocusInWindow();
+					frame.setTitle("NCT Management");
+					frame.setLocationRelativeTo(null);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}

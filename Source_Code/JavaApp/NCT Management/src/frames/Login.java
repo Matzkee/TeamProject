@@ -45,7 +45,9 @@ public class Login extends JFrame implements MouseListener{
 				try {
 					Login frame = new Login();
 					frame.setVisible(true);
+					frame.setTitle("NCT Management");
 					frame.requestFocusInWindow();
+					frame.setLocationRelativeTo(null);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}

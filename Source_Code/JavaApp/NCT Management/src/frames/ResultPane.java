@@ -145,6 +145,14 @@ public class ResultPane extends JPanel implements MouseListener{
 		add(tableScrollPane);
 	}
 	
+	public void clearFields(){
+		lblTest1.setText("");
+		lblTest2.setText("");
+		lblTest3.setText("");
+		lblTest4.setText("");
+		lblTest5.setText("");
+	}
+	
 	@Override
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
@@ -167,7 +175,12 @@ public class ResultPane extends JPanel implements MouseListener{
 			btnSubmit.setIcon(submitBHover);
 			if(mainClient.viewTestResults(txtCarReg.getText()) != false){
 				tests = mainClient.getTestResults();
+				if(tableScrollPane != null){
+					remove(tableScrollPane);
+					clearFields();
+				}
 				showTable();
+				systemLabel.setText("Found data!");
 			}
 			else{
 				systemLabel.setText("Error: no data found!");
