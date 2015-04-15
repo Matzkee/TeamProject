@@ -37,11 +37,11 @@ public class Client implements ClientUi{
 		int[] success;
 		success = clientDAO.verifyUsername(username, password);
 		
-		if (success[0] == 1){
+		if (success[1] == 1){
 			System.out.println("Admin Login Successful!" + success[0]);
 			return success;
 		}
-		else if(success[0] == 2){
+		else if(success[1] == 2){
 			System.out.println("Mechanic Login Successful!" + success[0]);
 			return success;
 		}
@@ -51,7 +51,6 @@ public class Client implements ClientUi{
 		}
 	}
 	public void logOut(){
-		
 		//reset the username and password
 		this.username = null;
 		this.password = null;

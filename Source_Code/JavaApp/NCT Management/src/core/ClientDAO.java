@@ -199,7 +199,7 @@ public class ClientDAO implements DaoUi{
 		
 		// Temporary variables
 		String query;
-		int[] user = {0,0};
+		int[] user = {0,0,0};
 		int count = 0;
 		//query the database for the user with these credentials 
 		try{
@@ -216,8 +216,9 @@ public class ClientDAO implements DaoUi{
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()){
 				count += 1;
-				user[0] = rs.getInt(2);
-				user[1] = rs.getInt(6);
+				user[0] = rs.getInt(1); // User Id
+				user[1] = rs.getInt(2); // User Type
+				user[2] = rs.getInt(6); // Garage Id
 				System.out.println("Found user in database ");
 			}
 			ps.close();

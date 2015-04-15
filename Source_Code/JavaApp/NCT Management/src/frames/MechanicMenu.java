@@ -26,7 +26,7 @@ public class MechanicMenu extends JFrame implements MouseListener{
 	private JLabel lblHome;
 	private JLabel lblBookings;
 	private JLabel lblLogOut;
-	private int garageId;
+	private int garageId, userId;
 	private Client mainClient;
 	private final Color HIGHLIGHTCOLOR = new Color(214,137,4);
 	private final Color HOVERCOLOR = Color.LIGHT_GRAY;
@@ -40,8 +40,9 @@ public class MechanicMenu extends JFrame implements MouseListener{
 	/**
 	 * Create the frame.
 	 */
-	public MechanicMenu(int garage, Client programClient, Login loginP) {
+	public MechanicMenu(int garage, int user, Client programClient, Login loginP) {
 		garageId = garage;
+		userId = user;
 		mainClient = programClient;
 		loginPage = loginP;
 		// Frame Settings
@@ -84,7 +85,7 @@ public class MechanicMenu extends JFrame implements MouseListener{
 		systemInfo.setForeground(HOVERCOLOR);
 		contentPane.add(systemInfo);
 		
-		bookingPane = new MechanicBookingsTable(garageId, mainClient, systemInfo);
+		bookingPane = new MechanicBookingsTable(garageId, userId, mainClient, systemInfo);
 		bookingPane.setBounds(0, 50, 800, 400);
 		contentPane.add(bookingPane);
 		bookingPane.setVisible(false);
@@ -107,8 +108,9 @@ public class MechanicMenu extends JFrame implements MouseListener{
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					MechanicMenu frame = new MechanicMenu(1, new Client(), new Login());
+					MechanicMenu frame = new MechanicMenu(1, 1, new Client(), new Login());
 					frame.setVisible(true);
+					frame.requestFocusInWindow();
 				} catch (Exception e) {
 					e.printStackTrace();
 				}

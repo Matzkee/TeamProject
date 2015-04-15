@@ -9,6 +9,7 @@ import java.awt.event.MouseListener;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTable;
 import javax.swing.SwingConstants;
 
 public class ResultsCreationPane extends JPanel implements MouseListener{
@@ -16,6 +17,9 @@ public class ResultsCreationPane extends JPanel implements MouseListener{
 	 * Variable declaration
 	 */
 	private static final long serialVersionUID = 1L;
+	private int userId;
+	private JTable bookingTable;
+	private JLabel systemInfo;
 	private JLabel lblTestAlignment, lblTestSuspension, lblTestBrakes, lblTestEEmission, lblTestHeadLights;
 	private JLabel btnFailAlignment, btnFailSuspension, btnFailBrakes, btnFailEEmission, btnFailHeadLights;
 	private JLabel btnPassAlignment, btnPassSuspension, btnPassBrakes, btnPassEEmission, btnPassHeadLights;
@@ -40,7 +44,11 @@ public class ResultsCreationPane extends JPanel implements MouseListener{
 	/**
 	 * Create the panel.
 	 */
-	public ResultsCreationPane() {
+	public ResultsCreationPane(JTable table, JLabel sysLabel, int user) {
+		bookingTable = table;
+		systemInfo = sysLabel;
+		userId = user;
+		
 		setSize(300,200);
 		setOpaque(false);
 		setLayout(null);
@@ -216,8 +224,13 @@ public class ResultsCreationPane extends JPanel implements MouseListener{
 		Object o = e.getSource();
 		if(o.equals(btnSubmit)){
 			btnSubmit.setIcon(submitBHover);
-			if (table.getSelectedRow() != -1){
-				
+			if (bookingTable.getSelectedRow() != -1){
+				if(alignmentChange && suspensionChange && brakesChange && eemissionChange && headlightsChange){
+					String query = "";
+				}
+				else{
+					systemInfo.setText("You must select ");
+				}
 			}
 			
 			// Implement:

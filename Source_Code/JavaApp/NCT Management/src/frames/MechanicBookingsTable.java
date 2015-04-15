@@ -3,9 +3,6 @@ package frames;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Font;
-import java.awt.GradientPaint;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -32,7 +29,7 @@ public class MechanicBookingsTable extends JPanel implements MouseListener{
 	 * Variable declaration.
 	 */
 	private static final long serialVersionUID = 1L;
-	private int garageId = 1;
+	private int garageId, userId;
 	private ArrayList<Booking> allBookings = new ArrayList<>();
 	private Client mainClient;
 	private JTextField txtCarReg, txtDate, txtTime;
@@ -58,8 +55,9 @@ public class MechanicBookingsTable extends JPanel implements MouseListener{
 	 * Create the panel.
 	 * Constructor
 	 */
-	public MechanicBookingsTable(int garage, Client programClient, JLabel sysInfo) {
+	public MechanicBookingsTable(int garage, int user, Client programClient, JLabel sysInfo) {
 		garageId = garage;
+		userId = user;
 		systemInfo = sysInfo;
 		// Main Panel Settings
 		setSize(800,400);
@@ -77,7 +75,7 @@ public class MechanicBookingsTable extends JPanel implements MouseListener{
 		showTextFields();
 		showButtons();
 		
-		resultsPane = new ResultsCreationPane();
+		resultsPane = new ResultsCreationPane(table, systemInfo, userId);
 		resultsPane.setBounds(10, 160, 300, 200);
 		add(resultsPane);
 		resultsPane.setVisible(false);
