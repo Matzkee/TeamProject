@@ -334,6 +334,8 @@ INSERT INTO Users (Type_Id,Name,LoginName,Password,Garage_Id) VALUES (2,'Linus H
 INSERT INTO Users (Type_Id,Name,LoginName,Password,Garage_Id) VALUES (2,'Rahim Moreno','adipiscing.lacus.Ut@magna.edu','PL95584647461678732373155750',30);
 INSERT INTO Users (Type_Id,Name,LoginName,Password,Garage_Id) VALUES (2,'Sonya Branch','nisl.Maecenas@Duisvolutpat.co.uk','AZ13095779106095207925960369',26);
 INSERT INTO Users (Type_Id,Name,LoginName,Password,Garage_Id) VALUES (2,'Petra Ayers','scelerisque@laoreetipsum.co.uk','GI10AMHL044909611905175',1);
+INSERT INTO Users (Type_Id,Name,LoginName,Password,Garage_Id) VALUES (1,'Admin','admin','admin',1);
+INSERT INTO Users (Type_Id,Name,LoginName,Password,Garage_Id) VALUES (2,'Mechanic','mechanic','mechanic',1);
 /**/
 /**/
 /**/

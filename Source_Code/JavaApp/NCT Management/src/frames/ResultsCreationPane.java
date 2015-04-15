@@ -12,19 +12,26 @@ import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.SwingConstants;
 
+import components.TableModel;
+
+import core.Booking;
+import core.Client;
+
 public class ResultsCreationPane extends JPanel implements MouseListener{
 	/*
 	 * Variable declaration
 	 */
 	private static final long serialVersionUID = 1L;
 	private int userId;
+	private Client mainClient;
 	private JTable bookingTable;
+	private TableModel tableModel;
 	private JLabel systemInfo;
 	private JLabel lblTestAlignment, lblTestSuspension, lblTestBrakes, lblTestEEmission, lblTestHeadLights;
 	private JLabel btnFailAlignment, btnFailSuspension, btnFailBrakes, btnFailEEmission, btnFailHeadLights;
 	private JLabel btnPassAlignment, btnPassSuspension, btnPassBrakes, btnPassEEmission, btnPassHeadLights;
 	private final Font TEXTFONT = new Font("Segoe UI", Font.PLAIN, 13);
-	private boolean alignmentIsSelected, suspensionIsSelected, brakesIsSelected, eemissionIsSelected, headlightsIsSelected;
+	private int alignment, suspension, brakes, eemission, headlights;
 	private boolean alignmentChange, suspensionChange, brakesChange, eemissionChange, headlightsChange;
 	private final Color AMBIENTCOLOR = Color.LIGHT_GRAY;
 	private final Color HIGHLIGHTCOLOR = Color.WHITE;
@@ -44,10 +51,12 @@ public class ResultsCreationPane extends JPanel implements MouseListener{
 	/**
 	 * Create the panel.
 	 */
-	public ResultsCreationPane(JTable table, JLabel sysLabel, int user) {
+	public ResultsCreationPane(JTable table, JLabel sysLabel, int user, Client client) {
 		bookingTable = table;
 		systemInfo = sysLabel;
 		userId = user;
+		mainClient = client;
+		tableModel = (TableModel) bookingTable.getModel();
 		
 		setSize(300,200);
 		setOpaque(false);
@@ -58,11 +67,11 @@ public class ResultsCreationPane extends JPanel implements MouseListener{
 		clearEverything();
 	}
 	public void clearEverything(){
-		alignmentIsSelected = false;
-		suspensionIsSelected = false;
-		brakesIsSelected = false;
-		eemissionIsSelected = false;
-		headlightsIsSelected = false;
+		alignment = 0;
+		suspension = 0;
+		brakes = 0;
+		eemission = 0;
+		headlights = 0;
 		alignmentChange = false;
 		suspensionChange = false;
 		brakesChange = false;
@@ -225,14 +234,29 @@ public class ResultsCreationPane extends JPanel implements MouseListener{
 		if(o.equals(btnSubmit)){
 			btnSubmit.setIcon(submitBHover);
 			if (bookingTable.getSelectedRow() != -1){
+				Booking currentBook = (Booking) bookingTable.getValueAt(bookingTable.getSelectedRow(), 0);
 				if(alignmentChange && suspensionChange && brakesChange && eemissionChange && headlightsChange){
-					String query = "";
+					String query = "INSERT INTO TestResults(User_Id, Car_Reg, Alignment, Suspension, Brakes, Exhaust_Emission, Head_Lights) VALUES ("
+							+ userId + ",'"+currentBook.getCarReg()+"',"+alignment+","+suspension+","+brakes+","+eemission+","+headlights+")";
+					if(mainClient.addTestResults(query) != false){
+						// Delete the booking
+						query = "DELETE FROM Booking WHERE Car_Reg='"+currentBook.getCarReg()+"'";
+						mainClient.cancelBooking(query);
+						// Update the table & label
+						tableModel.removeRow(bookingTable.getSelectedRow());
+						systemInfo.setText("Test results successfully added!");
+					}
+					else{
+						systemInfo.setText("Error: database unreachable!");
+					}
 				}
 				else{
-					systemInfo.setText("You must select ");
+					systemInfo.setText("You must change test values first!");
 				}
 			}
-			
+			else{
+				systemInfo.setText("You must select a booking first!");
+			}
 			// Implement:
 			// if booking is selected
 			// if booleans have changed
@@ -240,73 +264,73 @@ public class ResultsCreationPane extends JPanel implements MouseListener{
 			// create a delete booking query
 		}
 		else if(o.equals(btnFailAlignment)){
-			if(alignmentIsSelected || !alignmentChange){
+			if(alignment != 0|| !alignmentChange){
 				highlightButton(btnFailAlignment, btnPassAlignment, false);
 				alignmentChange = true;
-				alignmentIsSelected = false;
+				alignment = 0;
 			}
 		}
 		else if(o.equals(btnFailSuspension)){
-			if(suspensionIsSelected || !suspensionChange){
+			if(suspension != 0|| !suspensionChange){
 				highlightButton(btnFailSuspension, btnPassSuspension, false);
 				suspensionChange = true;
-				suspensionIsSelected = false;
+				suspension = 0;
 			}
 		}
 		else if(o.equals(btnFailBrakes)){
-			if(brakesIsSelected || !brakesChange){
+			if(brakes != 0|| !brakesChange){
 				highlightButton(btnFailBrakes, btnPassBrakes, false);
 				brakesChange = true;
-				brakesIsSelected = false;
+				brakes = 0;
 			}	
 		}
 		else if(o.equals(btnFailEEmission)){
-			if(eemissionIsSelected || !eemissionChange){
+			if(eemission != 0|| !eemissionChange){
 				highlightButton(btnFailEEmission, btnPassEEmission, false);
 				eemissionChange = true;
-				eemissionIsSelected = false;
+				eemission = 0;
 			}
 		}
 		else if(o.equals(btnFailHeadLights)){
-			if(headlightsIsSelected || !headlightsChange){
+			if(headlights != 0|| !headlightsChange){
 				highlightButton(btnFailHeadLights, btnPassHeadLights, false);
 				headlightsChange = true;
-				headlightsIsSelected = false;
+				headlights = 0;
 			}
 		}
 		else if(o.equals(btnPassAlignment)){
-			if(!alignmentIsSelected || !alignmentChange){
+			if(alignment != 1|| !alignmentChange){
 				highlightButton(btnPassAlignment, btnFailAlignment, true);
 				alignmentChange = true;
-				alignmentIsSelected = true;
+				alignment = 1;
 			}
 		}
 		else if(o.equals(btnPassSuspension)){
-			if(!suspensionIsSelected || !suspensionChange){
+			if(suspension != 1|| !suspensionChange){
 				highlightButton(btnPassSuspension, btnFailSuspension, true);
 				suspensionChange = true;
-				suspensionIsSelected = true;
+				suspension = 1;
 			}
 		}
 		else if(o.equals(btnPassBrakes)){
-			if(!brakesIsSelected || !brakesChange){
+			if(brakes != 1|| !brakesChange){
 				highlightButton(btnPassBrakes, btnFailBrakes, true);
 				brakesChange = true;
-				brakesIsSelected = true;
+				brakes = 1;
 			}
 		}
 		else if(o.equals(btnPassEEmission)){
-			if(!eemissionIsSelected || !eemissionChange){
+			if(eemission != 1|| !eemissionChange){
 				highlightButton(btnPassEEmission, btnFailEEmission, true);
 				eemissionChange = true;
-				eemissionIsSelected = true;
+				eemission = 1;
 			}	
 		}
 		else if(o.equals(btnPassHeadLights)){
-			if(!headlightsIsSelected || !headlightsChange){
+			if(headlights != 1|| !headlightsChange){
 				highlightButton(btnPassHeadLights, btnFailHeadLights, true);
 				headlightsChange = true;
-				headlightsIsSelected = true;
+				headlights = 1;
 			}
 		}
 	}

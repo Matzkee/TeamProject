@@ -118,18 +118,18 @@ public class Login extends JFrame implements MouseListener{
 			client.setPassword(newPass);
 			user = client.logIn();
 			// Case: Administrator
-			if(user[0] == 1)
+			if(user[1] == 1)
 			{
 				lblSuccess.setText("Login Successful");
 				txtUsername.setText("");
 				txtPassword.setText("");
 				lblSuccess.setText("");
-				adminMenu = new AdminMenu(user[1], client, this);
+				adminMenu = new AdminMenu(user[2], client, this);
 				adminMenu.setVisible(true);
 				dispose();
 			}
 			// Case: Mechanic
-			else if(user[0] == 2){
+			else if(user[1] == 2){
 				lblSuccess.setText("Login Successful");
 			}
 			else{

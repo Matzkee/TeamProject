@@ -108,7 +108,7 @@ public class MechanicMenu extends JFrame implements MouseListener{
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					MechanicMenu frame = new MechanicMenu(1, 1, new Client(), new Login());
+					MechanicMenu frame = new MechanicMenu(1, 111111, new Client(), new Login());
 					frame.setVisible(true);
 					frame.requestFocusInWindow();
 				} catch (Exception e) {

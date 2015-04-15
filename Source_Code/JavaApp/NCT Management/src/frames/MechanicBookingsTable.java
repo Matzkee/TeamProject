@@ -75,7 +75,7 @@ public class MechanicBookingsTable extends JPanel implements MouseListener{
 		showTextFields();
 		showButtons();
 		
-		resultsPane = new ResultsCreationPane(table, systemInfo, userId);
+		resultsPane = new ResultsCreationPane(table, systemInfo, userId, mainClient);
 		resultsPane.setBounds(10, 160, 300, 200);
 		add(resultsPane);
 		resultsPane.setVisible(false);

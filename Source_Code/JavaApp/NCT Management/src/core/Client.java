@@ -111,5 +111,12 @@ public class Client implements ClientUi{
 		success = clientDAO.executeUpdate(query);
 		return success;
 	}
+
+	@Override
+	public boolean addTestResults(String query) {
+		boolean success;
+		success = clientDAO.executeUpdate(query);
+		return success;
+	}
 	
 }
