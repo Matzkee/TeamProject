@@ -25,6 +25,7 @@ public class MechanicMenu extends JFrame implements MouseListener{
 	private JPanel contentPane;
 	private JLabel lblHome;
 	private JLabel lblBookings;
+	private JLabel lblResults;
 	private JLabel lblLogOut;
 	private int garageId, userId;
 	private Client mainClient;
@@ -34,6 +35,7 @@ public class MechanicMenu extends JFrame implements MouseListener{
 	private final Font TEXTFONT = new Font("Segoe UI", Font.PLAIN, 20);
 	private final Font SMALLTEXTFONT = new Font("Segoe UI", Font.PLAIN, 10);
 	private MechanicBookingsTable bookingPane;
+	private ResultPane resultPane;
 	private JLabel systemInfo;
 
 
@@ -70,6 +72,13 @@ public class MechanicMenu extends JFrame implements MouseListener{
 		lblBookings.addMouseListener(this);
 		contentPane.add(lblBookings);
 		
+		lblResults = new JLabel("RESULTS", SwingConstants.CENTER);
+		lblResults.setForeground(Color.GRAY);
+		lblResults.setFont(TEXTFONT);
+		lblResults.setBounds(260, 0, 100, 30);
+		lblResults.addMouseListener(this);
+		contentPane.add(lblResults);
+		
 		lblLogOut = new JLabel("LOG OUT", SwingConstants.CENTER);
 		lblLogOut.setForeground(AMBIENTCOLOR);
 		lblLogOut.setFont(TEXTFONT);
@@ -89,6 +98,11 @@ public class MechanicMenu extends JFrame implements MouseListener{
 		bookingPane.setBounds(0, 50, 800, 400);
 		contentPane.add(bookingPane);
 		bookingPane.setVisible(false);
+		
+		resultPane = new ResultPane(mainClient, systemInfo);
+		resultPane.setBounds(0, 50, 800, 400);
+		contentPane.add(resultPane);
+		resultPane.setVisible(false);
 		
 		JLabel background = new JLabel("");
 		background.setIcon(new ImageIcon(AdminMenu.class.getResource("/graphics/AdminMenu.jpg")));
@@ -131,16 +145,25 @@ public class MechanicMenu extends JFrame implements MouseListener{
 		switch(button.getText()){
 			case "HOME":
 				bookingPane.setVisible(false);
+				resultPane.setVisible(false);
 				button.setForeground(HIGHLIGHTCOLOR);
 				systemInfo.setText("HOME");
 			break;
 			case "BOOKINGS":
+				resultPane.setVisible(false);
 				bookingPane.setVisible(true);
 				button.setForeground(HIGHLIGHTCOLOR);
 				systemInfo.setText("BOOKINGS");
 			break;
+			case "RESULTS":
+				bookingPane.setVisible(false);
+				resultPane.setVisible(true);
+				button.setForeground(HIGHLIGHTCOLOR);
+				systemInfo.setText("RESULTS");
+			break;
 			case "LOG OUT":
 				bookingPane.setVisible(false);
+				resultPane.setVisible(false);
 				button.setForeground(HIGHLIGHTCOLOR);
 				systemInfo.setText("LOG OUT");
 				mainClient.logOut();
@@ -175,6 +198,9 @@ public class MechanicMenu extends JFrame implements MouseListener{
 			case "BOOKINGS":
 				button.setForeground(HOVERCOLOR);
 			break;
+			case "RESULTS":
+				button.setForeground(HOVERCOLOR);
+			break;
 			case "LOG OUT":
 				button.setForeground(HOVERCOLOR);
 			break;
@@ -188,6 +214,9 @@ public class MechanicMenu extends JFrame implements MouseListener{
 				button.setForeground(AMBIENTCOLOR);
 			break;
 			case "BOOKINGS":
+				button.setForeground(AMBIENTCOLOR);
+			break;
+			case "RESULTS":
 				button.setForeground(AMBIENTCOLOR);
 			break;
 			case "LOG OUT":
