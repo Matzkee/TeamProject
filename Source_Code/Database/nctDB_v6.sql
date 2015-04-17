@@ -620,7 +620,7 @@ INSERT INTO TestResults (User_Id,Car_Reg,Alignment,Suspension,Brakes,Exhaust_Emi
 INSERT INTO TestResults (User_Id,Car_Reg,Alignment,Suspension,Brakes,Exhaust_Emission,Head_Lights,TRDate) VALUES (25,'D5SBHTUB',1,1,0,0,0,'2014-03-20');
 INSERT INTO TestResults (User_Id,Car_Reg,Alignment,Suspension,Brakes,Exhaust_Emission,Head_Lights,TRDate) VALUES (83,'JP7N9DAX',0,0,0,1,0,'2014-04-20');
 INSERT INTO TestResults (User_Id,Car_Reg,Alignment,Suspension,Brakes,Exhaust_Emission,Head_Lights,TRDate) VALUES (71,'9G5C2PWV',1,1,1,1,1,'2014-05-27');
-INSERT INTO TestResults (User_Id,Car_Reg,Alignment,Suspension,Brakes,Exhaust_Emission,Head_Lights,TRDate) VALUES (45,'FXW9CTFC',1,0,1,0,1),'2014-07-11';
+INSERT INTO TestResults (User_Id,Car_Reg,Alignment,Suspension,Brakes,Exhaust_Emission,Head_Lights,TRDate) VALUES (45,'FXW9CTFC',1,0,1,0,1,'2014-07-11');
 INSERT INTO TestResults (User_Id,Car_Reg,Alignment,Suspension,Brakes,Exhaust_Emission,Head_Lights,TRDate) VALUES (88,'8VE3JXUH',0,1,0,1,1,'2014-01-01');
 INSERT INTO TestResults (User_Id,Car_Reg,Alignment,Suspension,Brakes,Exhaust_Emission,Head_Lights,TRDate) VALUES (43,'2SU5NVEZ',1,1,1,1,0,'2014-02-11');
 INSERT INTO TestResults (User_Id,Car_Reg,Alignment,Suspension,Brakes,Exhaust_Emission,Head_Lights,TRDate) VALUES (23,'PMQYXRD3',1,1,0,1,0,'2014-03-02');
