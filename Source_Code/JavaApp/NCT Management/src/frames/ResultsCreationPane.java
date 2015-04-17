@@ -5,6 +5,9 @@ import java.awt.Font;
 import java.awt.Image;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
@@ -13,7 +16,6 @@ import javax.swing.JTable;
 import javax.swing.SwingConstants;
 
 import components.TableModel;
-
 import core.Booking;
 import core.Client;
 
@@ -225,6 +227,11 @@ public class ResultsCreationPane extends JPanel implements MouseListener{
 		toDeHighlight.setForeground(AMBIENTCOLOR);
 		repaint();
 	}
+	public String getCurrentDate(){
+		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		Date date = new Date();
+		return dateFormat.format(date);
+	}
 	@Override
 	public void mouseClicked(MouseEvent e) {
 	}
@@ -257,11 +264,6 @@ public class ResultsCreationPane extends JPanel implements MouseListener{
 			else{
 				systemInfo.setText("You must select a booking first!");
 			}
-			// Implement:
-			// if booking is selected
-			// if booleans have changed
-			// create a TestResults query
-			// create a delete booking query
 		}
 		else if(o.equals(btnFailAlignment)){
 			if(alignment != 0|| !alignmentChange){
