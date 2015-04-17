@@ -33,7 +33,7 @@ public class MechanicMenu extends JFrame implements MouseListener{
 	private final Color HOVERCOLOR = Color.LIGHT_GRAY;
 	private final Color AMBIENTCOLOR = Color.GRAY;
 	private final Font TEXTFONT = new Font("Segoe UI", Font.PLAIN, 20);
-	private final Font SMALLTEXTFONT = new Font("Segoe UI", Font.PLAIN, 10);
+	private final Font SMALLTEXTFONT = new Font("Segoe UI", Font.PLAIN, 12);
 	private MechanicBookingsTable bookingPane;
 	private ResultPane resultPane;
 	private JLabel systemInfo;
@@ -122,7 +122,7 @@ public class MechanicMenu extends JFrame implements MouseListener{
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					MechanicMenu frame = new MechanicMenu(1, 111111, new Client(), new Login());
+					MechanicMenu frame = new MechanicMenu(1, 102, new Client(), new Login());
 					frame.setVisible(true);
 					frame.setTitle("NCT Management");
 					frame.setLocationRelativeTo(null);

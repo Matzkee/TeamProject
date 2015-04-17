@@ -35,7 +35,7 @@ public class Login extends JFrame implements MouseListener{
 	private JLabel lblSuccess;
 	private Client client;
 	private AdminMenu adminMenu;
-
+	private MechanicMenu mechanicMenu;
 	/**
 	 * Launch the application.
 	 */
@@ -133,6 +133,12 @@ public class Login extends JFrame implements MouseListener{
 			// Case: Mechanic
 			else if(user[1] == 2){
 				lblSuccess.setText("Login Successful");
+				txtUsername.setText("");
+				txtPassword.setText("");
+				lblSuccess.setText("");
+				mechanicMenu = new MechanicMenu(user[2], user[0], client, this);
+				mechanicMenu.setVisible(true);
+				dispose();
 			}
 			else{
 				lblSuccess.setText("Login Failed");

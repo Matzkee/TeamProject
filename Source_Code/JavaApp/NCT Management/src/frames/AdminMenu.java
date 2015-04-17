@@ -33,7 +33,7 @@ public class AdminMenu extends JFrame implements MouseListener{
 	private final Color HOVERCOLOR = Color.LIGHT_GRAY;
 	private final Color AMBIENTCOLOR = Color.GRAY;
 	private final Font TEXTFONT = new Font("Segoe UI", Font.PLAIN, 20);
-	private final Font SMALLTEXTFONT = new Font("Segoe UI", Font.PLAIN, 10);
+	private final Font SMALLTEXTFONT = new Font("Segoe UI", Font.PLAIN, 12);
 	private BookingsTable bookingPane;
 	private ResultPane resultPane;
 	private JLabel lblTests;

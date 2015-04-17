@@ -8,6 +8,7 @@ public class TestResults {
 	private String testBrakes;
 	private String testEEmission;
 	private String testHeadLights;
+	private String testDate;
 	
 	// Getters & Setters
 	public String getTestAlignment() {
@@ -54,6 +55,12 @@ public class TestResults {
 			this.testHeadLights = "passed";
 		else
 			this.testHeadLights = "failed";
+	}
+	public String getTestDate() {
+		return testDate;
+	}
+	public void setTestDate(String testDate) {
+		this.testDate = testDate;
 	}
 
 }

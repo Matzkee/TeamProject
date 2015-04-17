@@ -243,8 +243,10 @@ public class ResultsCreationPane extends JPanel implements MouseListener{
 			if (bookingTable.getSelectedRow() != -1){
 				Booking currentBook = (Booking) bookingTable.getValueAt(bookingTable.getSelectedRow(), 0);
 				if(alignmentChange && suspensionChange && brakesChange && eemissionChange && headlightsChange){
-					String query = "INSERT INTO TestResults(User_Id, Car_Reg, Alignment, Suspension, Brakes, Exhaust_Emission, Head_Lights) VALUES ("
-							+ userId + ",'"+currentBook.getCarReg()+"',"+alignment+","+suspension+","+brakes+","+eemission+","+headlights+")";
+					String query = "INSERT INTO TestResults(User_Id, Car_Reg, Alignment, Suspension,"
+							+ " Brakes, Exhaust_Emission, Head_Lights) VALUES ("
+							+ userId + ",'"+currentBook.getCarReg()+"',"+alignment+","+suspension+","
+							+ brakes+","+eemission+","+headlights+")";//,'"+getCurrentDate()+"')";
 					if(mainClient.addTestResults(query) != false){
 						// Delete the booking
 						query = "DELETE FROM Booking WHERE Car_Reg='"+currentBook.getCarReg()+"'";

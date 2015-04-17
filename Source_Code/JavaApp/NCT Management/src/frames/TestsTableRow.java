@@ -39,7 +39,8 @@ public class TestsTableRow extends JPanel{
 	private static final long serialVersionUID = 1L;
 	
 	// Components declaration
-	private JLabel lblTest;
+	private JLabel lblTest, lblDate;
+	private Font textfont = new Font("Segoe UI", Font.PLAIN, 12);
 	
 	/**
 	 * Create the panel.
@@ -53,7 +54,7 @@ public class TestsTableRow extends JPanel{
 		
 		lblTest = new JLabel("Test");
 		lblTest.setForeground(Color.LIGHT_GRAY);
-		lblTest.setFont(new Font("Segoe UI", Font.PLAIN, 12));
+		lblTest.setFont(textfont);
 		lblTest.setBounds(5, 11, 80, 14);
 		add(lblTest);
 		
@@ -62,9 +63,16 @@ public class TestsTableRow extends JPanel{
 		separator.setForeground(Color.LIGHT_GRAY);
 		separator.setBounds(86, 5, 1, 30);
 		add(separator);
+		
+		lblDate = new JLabel("Date");
+		lblDate.setForeground(Color.LIGHT_GRAY);
+		lblDate.setFont(textfont);
+		lblDate.setBounds(100, 12, 150, 14);
+		add(lblDate);
 	}
 	public void setRowLabels(TestResults test, boolean isSelected, JTable table){
 		lblTest.setText("Test");
+		lblDate.setText(test.getTestDate());
 		
 		if(isSelected){
 			isHighlighted = true;

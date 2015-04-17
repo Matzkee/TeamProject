@@ -113,6 +113,7 @@ public class ClientDAO implements DaoUi{
 				tempTest.setTestBrakes(rs.getInt(5));
 				tempTest.setTestEEmission(rs.getInt(6));
 				tempTest.setTestHeadLights(rs.getInt(7));
+				tempTest.setTestDate(rs.getString(8));
 				tests.add(tempTest);
 				count += 1;
 			}
