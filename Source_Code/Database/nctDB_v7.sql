@@ -44,6 +44,7 @@ Car_Reg varchar(10) not null,
 Owner_Id int,
 Make varchar(20) not null,
 Model varchar(30) not null,
+MadeDate year(4) DEFAULT '2013',
 PRIMARY KEY(Car_Reg),
 FOREIGN KEY(Owner_Id) REFERENCES Owner(Owner_Id)
 );
