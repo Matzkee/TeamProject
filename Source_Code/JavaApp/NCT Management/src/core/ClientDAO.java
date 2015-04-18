@@ -33,10 +33,6 @@ public class ClientDAO implements DaoUi{
 	
 	// ClientDAO Methods
 	public ArrayList<Booking> getBookings(int garage){
-		
-		// To do:
-		// Get bookings only for the garage the user comes from
-		
 		//temporary variables
 		bookings = new ArrayList<Booking>();
 		Booking booking = null;
@@ -123,7 +119,7 @@ public class ClientDAO implements DaoUi{
 		}
 		catch(SQLException e){
 					
-			//Temporary System message
+			// Temporary System message
 			System.out.println( "SQL Exception:" ) ;
 
 			// Loop through the SQL Exceptions

@@ -75,8 +75,12 @@ public class Client implements ClientUi{
 	public void viewBookings(int garage) {
 		bookings = new ArrayList<Booking>();
 		bookings = clientDAO.getBookings(garage);
-		System.out.println("Loaded bookings: "+bookings.size());
-		
+		if(bookings != null){
+			System.out.println("Loaded bookings: "+bookings.size());			
+		}
+		else{
+			System.out.println("There are no bookings to load");
+		}
 	}
 
 	@Override

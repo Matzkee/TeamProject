@@ -39,7 +39,7 @@ public class BookingsTable extends JPanel implements MouseListener{
 	private JTextField txtCarReg, txtDate, txtTime;
 	private JLabel btnDelete, btnEditDate, btnEditTime, btnSubmit, btnAdd;
 	private JLabel lblSubmit, lblDelete, lblNew;
-	private JLabel lblCarRegistration, lblDate, lblTime, lblEdit;
+	private JLabel lblCarRegistration, lblDate, lblTime, lblEditDate;
 	private JLabel systemInfo;
 	private TableModel tableModel;
 	private JTable table;
@@ -147,26 +147,32 @@ public class BookingsTable extends JPanel implements MouseListener{
 		lblTime.setBounds(10, 130, 110, 20);
 		add(lblTime);
 		// Info: edit
-		lblEdit = new JLabel("Edit", SwingConstants.CENTER);
-		lblEdit.setBounds(240, 55, 20, 14);
-		lblEdit.setForeground(Color.LIGHT_GRAY);
-		lblEdit.setFont(SMALLTEXTFONT);
-		add(lblEdit);
+		lblEditDate = new JLabel("Edit", SwingConstants.CENTER);
+		lblEditDate.setBounds(265, 104, 20, 14);
+		lblEditDate.setForeground(Color.LIGHT_GRAY);
+		lblEditDate.setFont(SMALLTEXTFONT);
+		add(lblEditDate);
+		
+		JLabel lblEditTime = new JLabel("Edit", SwingConstants.CENTER);
+		lblEditTime.setForeground(Color.LIGHT_GRAY);
+		lblEditTime.setFont(new Font("Segoe UI", Font.PLAIN, 10));
+		lblEditTime.setBounds(265, 134, 20, 14);
+		add(lblEditTime);
 		// Info: submit
-		lblSubmit = new JLabel("Submit", SwingConstants.CENTER);
-		lblSubmit.setBounds(300, 70, 40, 14);
+		lblSubmit = new JLabel("Submit Changes", SwingConstants.CENTER);
+		lblSubmit.setBounds(205, 185, 80, 14);
 		lblSubmit.setForeground(Color.LIGHT_GRAY);
 		lblSubmit.setFont(SMALLTEXTFONT);
 		add(lblSubmit);
 		// Info: delete
 		lblDelete = new JLabel("Delete", SwingConstants.CENTER);
-		lblDelete.setBounds(300, 205, 40, 14);
+		lblDelete.setBounds(335, 185, 40, 14);
 		lblDelete.setForeground(Color.LIGHT_GRAY);
 		lblDelete.setFont(SMALLTEXTFONT);
 		add(lblDelete);
 		// Info: new
-		lblNew = new JLabel("New",SwingConstants.CENTER);
-		lblNew.setBounds(10, 155, 40, 12);
+		lblNew = new JLabel("Create New Booking",SwingConstants.CENTER);
+		lblNew.setBounds(45, 185, 100, 12);
 		lblNew.setForeground(Color.LIGHT_GRAY);
 		lblNew.setFont(SMALLTEXTFONT);
 		add(lblNew);
@@ -220,13 +226,13 @@ public class BookingsTable extends JPanel implements MouseListener{
 		add(btnEditTime);
 		// Button: delete booking
 		btnDelete = new JLabel("");
-		btnDelete.setBounds(300, 220, 40, 40);
+		btnDelete.setBounds(300, 170, 40, 40);
 		btnDelete.setIcon(deleteB);
 		btnDelete.addMouseListener(this);
 		add(btnDelete);
 		// Button: submit changes
 		btnSubmit = new JLabel("");
-		btnSubmit.setBounds(300, 80, 40, 40);
+		btnSubmit.setBounds(170, 170, 40, 40);
 		btnSubmit.setIcon(submitB);
 		btnSubmit.addMouseListener(this);
 		add(btnSubmit);
