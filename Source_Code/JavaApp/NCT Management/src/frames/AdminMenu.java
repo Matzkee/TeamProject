@@ -89,7 +89,7 @@ public class AdminMenu extends JFrame implements MouseListener{
 		// System Label
 		// Any relevant & useful info 
 		systemInfo = new JLabel("", SwingConstants.RIGHT);
-		systemInfo.setBounds(540, 480, 250, 12);
+		systemInfo.setBounds(540, 475, 250, 16);
 		systemInfo.setFont(SMALLTEXTFONT);
 		systemInfo.setForeground(HOVERCOLOR);
 		contentPane.add(systemInfo);

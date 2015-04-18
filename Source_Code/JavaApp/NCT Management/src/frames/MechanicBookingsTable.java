@@ -193,7 +193,10 @@ public class MechanicBookingsTable extends JPanel implements MouseListener{
 				if (table.getSelectedRow() != -1){
 					table.clearSelection();
 				}
+				resultsPane.clearEverything();
+				resultsPane.setVisible(false);
 				systemInfo.setText("");
+				clearFields();
 			}
 		}
 	}
@@ -208,6 +211,9 @@ public class MechanicBookingsTable extends JPanel implements MouseListener{
 			if (table.getSelectedRow() != -1){
 				btnCreateResults.setIcon(addBHover);
 				resultsPane.setVisible(true);
+			}
+			else{
+				systemInfo.setText("Select a booking first to create results");
 			}
 		}
 	}

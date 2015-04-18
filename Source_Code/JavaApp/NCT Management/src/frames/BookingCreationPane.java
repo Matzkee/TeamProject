@@ -55,6 +55,7 @@ public class BookingCreationPane extends JPanel implements MouseListener{
 	private JLabel lblNewBooking, lblNewCarReg, lblNewDate, lblNewTime;
 	private JLabel btnSubmit;
 	private JLabel lblDate;
+	private JLabel systemInfo;
 	private JComboBox<Object> cBoxDay, cBoxMonth, cBoxYear;
 	private JTextField txtNewCarReg, txtNewTime;
 	private final Font TEXTFONT = new Font("Segoe UI", Font.PLAIN, 12);
@@ -73,7 +74,7 @@ public class BookingCreationPane extends JPanel implements MouseListener{
 	/**
 	 * Create the panel.
 	 */
-	public BookingCreationPane(JTable mytable, int garage, Client programClient) {
+	public BookingCreationPane(JTable mytable, int garage, Client programClient, JLabel sysInfo) {
 		setOpaque(false);
 		setSize(250, 150);
 		setLayout(null);
@@ -82,6 +83,7 @@ public class BookingCreationPane extends JPanel implements MouseListener{
 		model = (TableModel) table.getModel();
 		garageId = garage;
 		mainClient = programClient;
+		systemInfo = sysInfo;
 		
 		lblNewBooking = new JLabel("New Booking");
 		lblNewBooking.setRequestFocusEnabled(false);
@@ -244,8 +246,12 @@ public class BookingCreationPane extends JPanel implements MouseListener{
 			String query = "INSERT INTO Booking (BDate,BTime,Car_Reg,Garage_Id) VALUES ('"+
 			lblDate.getText()+"','"+txtNewTime.getText()+"','"+txtNewCarReg.getText()+"',"+garageId+")";
 			if(mainClient.createBooking(query) != false){
-				model.addRow(txtNewCarReg.getText(), lblDate.getText(), txtNewTime.getText(), garageId);				
+				model.addRow(txtNewCarReg.getText(), lblDate.getText(), txtNewTime.getText(), garageId);
+				systemInfo.setText("Successfully added booking!");
 				dispose();
+			}
+			else{
+				systemInfo.setText("Connection failure!");
 			}
 		}
 	}

@@ -78,15 +78,25 @@ public class ResultsCreationPane extends JPanel implements MouseListener{
 		eemissionChange = false;
 		headlightsChange = false;
 		btnFailAlignment.setBackground(FAILSTATIC);
+		btnFailAlignment.setForeground(AMBIENTCOLOR);
 		btnFailSuspension.setBackground(FAILSTATIC);
+		btnFailSuspension.setForeground(AMBIENTCOLOR);
 		btnFailBrakes.setBackground(FAILSTATIC);
+		btnFailBrakes.setForeground(AMBIENTCOLOR);
 		btnFailEEmission.setBackground(FAILSTATIC);
+		btnFailEEmission.setForeground(AMBIENTCOLOR);
 		btnFailHeadLights.setBackground(FAILSTATIC);
+		btnFailHeadLights.setForeground(AMBIENTCOLOR);
 		btnPassAlignment.setBackground(PASSSTATIC);
+		btnPassAlignment.setForeground(AMBIENTCOLOR);
 		btnPassSuspension.setBackground(PASSSTATIC);
+		btnPassSuspension.setForeground(AMBIENTCOLOR);
 		btnPassBrakes.setBackground(PASSSTATIC);
+		btnPassBrakes.setForeground(AMBIENTCOLOR);
 		btnPassEEmission.setBackground(PASSSTATIC);
+		btnPassEEmission.setForeground(AMBIENTCOLOR);
 		btnPassHeadLights.setBackground(PASSSTATIC);
+		btnPassHeadLights.setForeground(AMBIENTCOLOR);
 	}
 	public void showLabels(){
 		lblTestAlignment = new JLabel("Alignment: ");
@@ -247,13 +257,15 @@ public class ResultsCreationPane extends JPanel implements MouseListener{
 						// Update the table & label
 						tableModel.removeRow(bookingTable.getSelectedRow());
 						systemInfo.setText("Test results successfully added!");
+						clearEverything();
+						this.setVisible(false);
 					}
 					else{
 						systemInfo.setText("Error: database unreachable!");
 					}
 				}
 				else{
-					systemInfo.setText("You must change test values first!");
+					systemInfo.setText("You must change all test values first!");
 				}
 			}
 			else{

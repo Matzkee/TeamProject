@@ -96,7 +96,7 @@ public class BookingsTable extends JPanel implements MouseListener{
 		showButtons();
 		
 		// Booking Creation Panel
-		newBookingPane = new BookingCreationPane(table, garageId, mainClient);
+		newBookingPane = new BookingCreationPane(table, garageId, mainClient, systemInfo);
 		newBookingPane.setBounds(10, 220, 250, 150);
 		add(newBookingPane);
 		newBookingPane.setVisible(false);
@@ -243,8 +243,7 @@ public class BookingsTable extends JPanel implements MouseListener{
 		btnAdd.addMouseListener(this);
 		add(btnAdd);
 	}
-	public void toggleFields(boolean carReg, boolean date, boolean time){
-		txtCarReg.setEditable(carReg);
+	public void toggleFields(boolean date, boolean time){
 		txtDate.setEditable(date);
 		txtTime.setEditable(time);
 	}
@@ -258,7 +257,7 @@ public class BookingsTable extends JPanel implements MouseListener{
 		txtTime.setText("");
 	}
 	public void clearAllSelections(){
-		toggleFields(false, false, false);
+		toggleFields(false, false);
 		toggleFieldPaints(false, false);
 		clearFields();
 		btnAdd.setIcon(addB);
@@ -296,27 +295,27 @@ public class BookingsTable extends JPanel implements MouseListener{
 	public void mouseClicked(MouseEvent e) {
 		Object o = e.getSource();
 		if(o.equals(this)){
+			systemInfo.setText("Main Panel");
 			// Double click event
 			// Clear systemInfo text
 			if(e.getClickCount() == 2 && !e.isConsumed()){
 				e.consume();
+				if (table.getSelectedRow() != -1){
+					table.clearSelection();
+				}
 				newBookingPane.setVisible(false);
 				systemInfo.setText("");
+				toggleFields(false, false);
+				toggleFieldPaints(false, false);
+				clearFields();
 			}
 		}
 	}
 	@Override
 	public void mousePressed(MouseEvent e) {
 		Object o = e.getSource();
-		// Case: JPanel, main booking panel
-		if(o.equals(this)){
-			systemInfo.setText("Main Panel");
-			if (table.getSelectedRow() != -1){
-				table.clearSelection();
-			}
-		}
 		// Case: Add booking button
-		else if(o.equals(btnAdd)){
+		if(o.equals(btnAdd)){
 			systemInfo.setText("Add new booking");
 			btnAdd.setIcon(addBHover);
 			newBookingPane.setVisible(true);
@@ -330,7 +329,7 @@ public class BookingsTable extends JPanel implements MouseListener{
 					systemInfo.setText("Successfully deleted booking!");
 					btnDelete.setIcon(deleteBHover);
 					tableModel.removeRow(table.getSelectedRow());
-					toggleFields(false, false, false);
+					toggleFields(false, false);
 					toggleFieldPaints(false, false);
 					clearFields();
 					btnDelete.setIcon(deleteB);
@@ -349,17 +348,20 @@ public class BookingsTable extends JPanel implements MouseListener{
 				btnEditDate.setIcon(editBHover);
 				if(txtDate.isEditable()){
 					// set not editable
-					toggleFields(false, false, false);
+					toggleFields(false, false);
 					toggleFieldPaints(false, false);
 					repaint();
 				}
 				else{
-					systemInfo.setText("Toggled editable date");
+					systemInfo.setText("Date is now editable");
 					// set editable
-					toggleFields(false, true, false);
+					toggleFields(true, false);
 					toggleFieldPaints(true, false);
 					repaint();
 				}
+			}
+			else{
+				systemInfo.setText("Select a booking first to edit it");
 			}
 		}
 		// Case: Time edit button
@@ -368,17 +370,20 @@ public class BookingsTable extends JPanel implements MouseListener{
 				btnEditTime.setIcon(editBHover);
 				if(txtTime.isEditable()){
 					// set not editable
-					toggleFields(false, false, false);
+					toggleFields(false, false);
 					toggleFieldPaints(false, false);
 					repaint();
 				}
 				else{
-					systemInfo.setText("Toggled editable time");
+					systemInfo.setText("Time is now editable");
 					// set editable
-					toggleFields(false, false, true);
+					toggleFields(false, true);
 					toggleFieldPaints(false, true);
 					repaint();
 				}
+			}
+			else{
+				systemInfo.setText("Select a booking first to edit it");
 			}
 		}
 		// Case: Edit Submit button
@@ -389,7 +394,16 @@ public class BookingsTable extends JPanel implements MouseListener{
 					btnSubmit.setIcon(submitBHover);
 					systemInfo.setText("Successfully submited changes!");
 					tableModel.updateRow(table.getSelectedRow(), txtCarReg.getText(), txtDate.getText(), txtTime.getText());
+					toggleFields(false, false);
+					toggleFieldPaints(false, false);
+					clearFields();
 				}
+				else{
+					systemInfo.setText("Connection failure!");
+				}
+			}
+			else{
+				systemInfo.setText("Select a booking first to update it");
 			}
 		}
 	}
