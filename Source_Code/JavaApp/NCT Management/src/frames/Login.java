@@ -93,7 +93,7 @@ public class Login extends JFrame implements MouseListener{
 		lblSuccess = new JLabel("");
 		lblSuccess.setForeground(Color.WHITE);
 		lblSuccess.setFont(new Font("Segoe UI", Font.BOLD, 12));
-		lblSuccess.setBounds(128, 185, 101, 16);
+		lblSuccess.setBounds(128, 185, 300, 16);
 		contentPane.add(lblSuccess);
 		
 		JLabel loginBackground = new JLabel("");
@@ -111,53 +111,62 @@ public class Login extends JFrame implements MouseListener{
 		if(e.getSource().equals(contentPane)){
 			contentPane.requestFocusInWindow();
 		}
-		else if(e.getSource().equals(btnSubmit)){
-			int[] user;
-			char[] pass = null;
-			client.setUsername(txtUsername.getText());
-			pass = txtPassword.getPassword();
-			String newPass = new String(pass);
-			client.setPassword(newPass);
-			user = client.logIn();
-			// Case: Administrator
-			if(user[1] == 1)
-			{
-				lblSuccess.setText("Login Successful");
-				txtUsername.setText("");
-				txtPassword.setText("");
-				lblSuccess.setText("");
-				adminMenu = new AdminMenu(user[2], client, this);
-				adminMenu.setVisible(true);
-				dispose();
-			}
-			// Case: Mechanic
-			else if(user[1] == 2){
-				lblSuccess.setText("Login Successful");
-				txtUsername.setText("");
-				txtPassword.setText("");
-				lblSuccess.setText("");
-				mechanicMenu = new MechanicMenu(user[2], user[0], client, this);
-				mechanicMenu.setVisible(true);
-				dispose();
-			}
-			else{
-				lblSuccess.setText("Login Failed");
-			}
-		}
 	}
 	@Override
 	public void mousePressed(MouseEvent e) {
-		if(e.getSource().equals(btnSubmit)){
-			btnSubmit.setIcon(btnClick);
+		if(e.getSource().equals(btnSubmit)) {
+			lblSuccess.setText("");
+			btnSubmit.setIcon(btnHover);
+			
+			if(client.connectionTest() != false){
+				int[] user;
+				char[] pass = null;
+				client.setUsername(txtUsername.getText());
+				pass = txtPassword.getPassword();
+				String newPass = new String(pass);
+				client.setPassword(newPass);
+				user = client.logIn();
+				// Case: Administrator
+				if(user[1] == 1)
+				{
+					lblSuccess.setText("Login Successful!");
+					txtUsername.setText("");
+					txtPassword.setText("");
+					lblSuccess.setText("");
+					adminMenu = new AdminMenu(user[2], client, this);
+					adminMenu.setVisible(true);
+					dispose();
+				}
+				// Case: Mechanic
+				else if(user[1] == 2){
+					lblSuccess.setText("Login Successful!");
+					txtUsername.setText("");
+					txtPassword.setText("");
+					lblSuccess.setText("");
+					mechanicMenu = new MechanicMenu(user[2], user[0], client, this);
+					mechanicMenu.setVisible(true);
+					dispose();
+				}
+				else{
+					lblSuccess.setText("Login Failed! Invalid Username or Password");
+				}	
+			}
+			else{
+				lblSuccess.setText("Connection Failed!");
+			}
+			
 		}
 	}
 	@Override
 	public void mouseReleased(MouseEvent e) {
+		if(e.getSource().equals(btnSubmit)){
+			btnSubmit.setIcon(btnStatic);
+		}
 	}
 	@Override
 	public void mouseEntered(MouseEvent e) {
 		if(e.getSource().equals(btnSubmit)){
-			btnSubmit.setIcon(btnHover);
+			btnSubmit.setIcon(btnClick);
 		}
 	}
 	@Override
