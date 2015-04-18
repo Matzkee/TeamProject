@@ -32,7 +32,7 @@ public class ClientDAO implements DaoUi{
 	
 	
 	// ClientDAO Methods
-	public ArrayList<Booking> getBookings(){
+	public ArrayList<Booking> getBookings(int garage){
 		
 		// To do:
 		// Get bookings only for the garage the user comes from
@@ -49,8 +49,9 @@ public class ClientDAO implements DaoUi{
 			// Get a connection to the database
 			this.conn = DriverManager.getConnection("jdbc:mysql://83.212.127.2:3306/NCT", "user", "TeamGravity123");
 			//Prepare statement
-			query = "SELECT * FROM Booking WHERE DATEDIFF(BDate,curdate()) < 30 ORDER BY BDate";
+			query = "SELECT * FROM Booking WHERE DATEDIFF(BDate,curdate()) < 60 AND Garage_Id =? ORDER BY BDate";
 			this.ps = conn.prepareStatement(query);
+			ps.setInt(1, garage);
 			//Execute Query
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()){

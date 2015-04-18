@@ -72,9 +72,9 @@ public class Client implements ClientUi{
 	}
 
 	@Override
-	public void viewBookings() {
+	public void viewBookings(int garage) {
 		bookings = new ArrayList<Booking>();
-		bookings = clientDAO.getBookings();
+		bookings = clientDAO.getBookings(garage);
 		System.out.println("Loaded bookings: "+bookings.size());
 		
 	}

@@ -3,7 +3,7 @@ package core;
 public interface ClientUi {
 	
 	public boolean createBooking(String query);
-	public void viewBookings();
+	public void viewBookings(int garage);
 	public boolean modifyBooking(String query);
 	public boolean cancelBooking(String query);
 	public boolean addTestResults(String query);

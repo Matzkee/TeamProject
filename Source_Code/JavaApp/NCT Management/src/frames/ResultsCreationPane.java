@@ -5,9 +5,6 @@ import java.awt.Font;
 import java.awt.Image;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
@@ -16,6 +13,7 @@ import javax.swing.JTable;
 import javax.swing.SwingConstants;
 
 import components.TableModel;
+
 import core.Booking;
 import core.Client;
 
@@ -226,11 +224,6 @@ public class ResultsCreationPane extends JPanel implements MouseListener{
 		toHighlight.setForeground(HIGHLIGHTCOLOR);
 		toDeHighlight.setForeground(AMBIENTCOLOR);
 		repaint();
-	}
-	public String getCurrentDate(){
-		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-		Date date = new Date();
-		return dateFormat.format(date);
 	}
 	@Override
 	public void mouseClicked(MouseEvent e) {

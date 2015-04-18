@@ -66,7 +66,7 @@ public class MechanicBookingsTable extends JPanel implements MouseListener{
 		addMouseListener(this);
 		
 		mainClient = programClient;
-		mainClient.viewBookings();
+		mainClient.viewBookings(garageId);
 		
 		allBookings = mainClient.getBookings();
 		

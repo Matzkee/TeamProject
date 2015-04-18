@@ -37,7 +37,7 @@ public class BookingsTable extends JPanel implements MouseListener{
 	private ArrayList<Booking> allBookings = new ArrayList<>();
 	private Client mainClient;
 	private JTextField txtCarReg, txtDate, txtTime;
-	private JLabel btnDelete, btnEditCarReg, btnEditDate, btnEditTime, btnSubmit, btnAdd;
+	private JLabel btnDelete, btnEditDate, btnEditTime, btnSubmit, btnAdd;
 	private JLabel lblSubmit, lblDelete, lblNew;
 	private JLabel lblCarRegistration, lblDate, lblTime, lblEdit;
 	private JLabel systemInfo;
@@ -45,7 +45,7 @@ public class BookingsTable extends JPanel implements MouseListener{
 	private JTable table;
 	private JScrollPane tableScrollPane;
 	private BookingCreationPane newBookingPane;
-	private boolean isCarRegEditToggled, isDateEditToggled, isTimeEditToggled;
+	private boolean isDateEditToggled, isTimeEditToggled;
 	/* Text Font */
 	private final Font TEXTFONT = new Font("Segoe UI", Font.PLAIN, 13);
 	private final Font SMALLTEXTFONT = new Font("Segoe UI", Font.PLAIN, 10);
@@ -82,12 +82,11 @@ public class BookingsTable extends JPanel implements MouseListener{
 		setOpaque(false);
 		addMouseListener(this);
 		
-		isCarRegEditToggled = false;
 		isDateEditToggled = false;
 		isTimeEditToggled = false;
 		
 		mainClient = programClient;
-		mainClient.viewBookings();
+		mainClient.viewBookings(garageId);
 		
 		allBookings = mainClient.getBookings();
 		
@@ -207,12 +206,6 @@ public class BookingsTable extends JPanel implements MouseListener{
 	}
 	
 	public void showButtons(){
-		// Button: edit car registration
-		btnEditCarReg = new JLabel("");
-		btnEditCarReg.setBounds(240, 70, 20, 20);
-		btnEditCarReg.setIcon(editB);
-		btnEditCarReg.addMouseListener(this);
-		add(btnEditCarReg);
 		// Button: edit date
 		btnEditDate = new JLabel("");
 		btnEditDate.setBounds(240, 100, 20, 20);
@@ -249,8 +242,7 @@ public class BookingsTable extends JPanel implements MouseListener{
 		txtDate.setEditable(date);
 		txtTime.setEditable(time);
 	}
-	public void toggleFieldPaints(boolean carReg, boolean date, boolean time){
-		isCarRegEditToggled = carReg;
+	public void toggleFieldPaints(boolean date, boolean time){
 		isDateEditToggled = date;
 		isTimeEditToggled = time;
 	}
@@ -261,11 +253,10 @@ public class BookingsTable extends JPanel implements MouseListener{
 	}
 	public void clearAllSelections(){
 		toggleFields(false, false, false);
-		toggleFieldPaints(false, false, false);
+		toggleFieldPaints(false, false);
 		clearFields();
 		btnAdd.setIcon(addB);
 		btnDelete.setIcon(deleteB);
-		btnEditCarReg.setIcon(editB);
 		btnEditDate.setIcon(editB);
 		btnEditTime.setIcon(editB);
 		btnSubmit.setIcon(submitB);
@@ -278,18 +269,12 @@ public class BookingsTable extends JPanel implements MouseListener{
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		Graphics2D g2d = (Graphics2D) g;
-		GradientPaint gp, gp2, gp3;
-		gp = new GradientPaint(txtCarReg.getX()+(txtCarReg.getWidth()/2),txtCarReg.getY()+txtCarReg.getHeight(),new Color(255,255,255,50),
-				txtCarReg.getX()+(txtCarReg.getWidth()/2),txtCarReg.getY()+(txtCarReg.getHeight()/4),new Color(0,0,0,0));
+		GradientPaint gp2, gp3;
 		gp2 = new GradientPaint(txtDate.getX()+(txtDate.getWidth()/2),txtDate.getY()+txtDate.getHeight(),new Color(255,255,255,50),
 				txtDate.getX()+(txtDate.getWidth()/2),txtDate.getY()+(txtDate.getHeight()/4),new Color(0,0,0,0));
 		gp3 = new GradientPaint(txtTime.getX()+(txtTime.getWidth()/2),txtTime.getY()+txtTime.getHeight(),new Color(255,255,255,50),
 				txtTime.getX()+(txtTime.getWidth()/2),txtTime.getY()+(txtTime.getHeight()/4),new Color(0,0,0,0));
-		if(isCarRegEditToggled){
-			g2d.setPaint(gp);
-			g2d.fillRect(txtCarReg.getX(), txtCarReg.getY(), txtCarReg.getWidth(), txtCarReg.getHeight());
-		}
-		else if(isDateEditToggled){
+		if(isDateEditToggled){
 			g2d.setPaint(gp2);
 			g2d.fillRect(txtDate.getX(), txtDate.getY(), txtDate.getWidth(), txtDate.getHeight());			
 		}
@@ -340,29 +325,16 @@ public class BookingsTable extends JPanel implements MouseListener{
 					btnDelete.setIcon(deleteBHover);
 					tableModel.removeRow(table.getSelectedRow());
 					toggleFields(false, false, false);
-					toggleFieldPaints(false, false, false);
+					toggleFieldPaints(false, false);
 					clearFields();
 					btnDelete.setIcon(deleteB);
-				}		
-			}
-		}
-		// Case: Car Registration edit button
-		else if(o.equals(btnEditCarReg)){
-			if (table.getSelectedRow() != -1){
-				btnEditCarReg.setIcon(editBHover);
-				if(txtCarReg.isEditable()){
-					// set not editable
-					toggleFields(false, false, false);
-					toggleFieldPaints(false, false, false);
-					repaint();
 				}
 				else{
-					systemInfo.setText("Toggled editable car reg");
-					// set editable
-					toggleFields(true, false, false);
-					toggleFieldPaints(true, false, false);
-					repaint();
+					systemInfo.setText("Connection failure!");
 				}
+			}
+			else{
+				systemInfo.setText("Select a booking first to delete it");
 			}
 		}
 		// Case: Date edit button
@@ -372,14 +344,14 @@ public class BookingsTable extends JPanel implements MouseListener{
 				if(txtDate.isEditable()){
 					// set not editable
 					toggleFields(false, false, false);
-					toggleFieldPaints(false, false, false);
+					toggleFieldPaints(false, false);
 					repaint();
 				}
 				else{
 					systemInfo.setText("Toggled editable date");
 					// set editable
 					toggleFields(false, true, false);
-					toggleFieldPaints(false, true, false);
+					toggleFieldPaints(true, false);
 					repaint();
 				}
 			}
@@ -391,19 +363,19 @@ public class BookingsTable extends JPanel implements MouseListener{
 				if(txtTime.isEditable()){
 					// set not editable
 					toggleFields(false, false, false);
-					toggleFieldPaints(false, false, false);
+					toggleFieldPaints(false, false);
 					repaint();
 				}
 				else{
 					systemInfo.setText("Toggled editable time");
 					// set editable
 					toggleFields(false, false, true);
-					toggleFieldPaints(false, false, true);
+					toggleFieldPaints(false, true);
 					repaint();
 				}
 			}
 		}
-		// Case: Submit button
+		// Case: Edit Submit button
 		else if(o.equals(btnSubmit)){
 			if(table.getSelectedRow() != -1){
 				String query = "UPDATE Booking SET BDate='"+txtDate.getText()+"', BTime='"+txtTime.getText()+"' WHERE Car_Reg='"+txtCarReg.getText()+"'";
@@ -427,10 +399,6 @@ public class BookingsTable extends JPanel implements MouseListener{
 			if (table.getSelectedRow() != -1){
 				btnDelete.setIcon(deleteB);
 			}
-		}
-		// Case: Car Registration edit button
-		else if(o.equals(btnEditCarReg)){
-			btnEditCarReg.setIcon(editB);
 		}
 		// Case: Date edit button
 		else if(o.equals(btnEditDate)){
