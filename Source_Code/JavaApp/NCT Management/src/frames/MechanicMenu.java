@@ -2,7 +2,6 @@ package frames;
 
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -37,6 +36,15 @@ public class MechanicMenu extends JFrame implements MouseListener{
 	private MechanicBookingsTable bookingPane;
 	private ResultPane resultPane;
 	private JLabel systemInfo;
+	private static final String WELCOME_MESSAGE = "<html>Welcome to the NCT Managment system.<br><br>"
+			+ "You are logged in as Mechanic.<br><br>"
+			+ "To view all bookings select 'BOOKINGS' in the menu up top.<br>"
+			+ "To view any previous test results for a specific car click 'RESUTLS'.<br>"
+			+ "To log out of this account click 'LOG OUT'.<br><br>"
+			+ "When in doubt as to if transactions complete or not, or if any error has occured -<br>"
+			+ "always consult the small information text in the bottom right of the program.<br>"
+			+ "Right above a small 'car' logo with 'NCT Management' written beside.<html>";
+	private JLabel lblWelcomeMessage;
 
 
 	/**
@@ -104,6 +112,12 @@ public class MechanicMenu extends JFrame implements MouseListener{
 		contentPane.add(resultPane);
 		resultPane.setVisible(false);
 		
+		lblWelcomeMessage = new JLabel(WELCOME_MESSAGE);
+		lblWelcomeMessage.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+		lblWelcomeMessage.setBounds(50, 100, 500, 300);
+		lblWelcomeMessage.setForeground(HOVERCOLOR);
+		contentPane.add(lblWelcomeMessage);
+		
 		JLabel background = new JLabel("");
 		background.setIcon(new ImageIcon(AdminMenu.class.getResource("/graphics/AdminMenu.jpg")));
 		background.setBounds(0, 0, 800, 550);
@@ -111,28 +125,6 @@ public class MechanicMenu extends JFrame implements MouseListener{
 		
 		pack();
 	}
-	
-	
-	/**
-	 * Launch the application.
-	 * Placeholder:
-	 * remove once program is finished
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					MechanicMenu frame = new MechanicMenu(1, 102, new Client(), new Login());
-					frame.setVisible(true);
-					frame.setTitle("NCT Management");
-					frame.setLocationRelativeTo(null);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
 
 	// Mouse Listener Methods
 	// Interface methods
@@ -148,18 +140,21 @@ public class MechanicMenu extends JFrame implements MouseListener{
 				resultPane.setVisible(false);
 				button.setForeground(HIGHLIGHTCOLOR);
 				systemInfo.setText("HOME");
+				lblWelcomeMessage.setText(WELCOME_MESSAGE);
 			break;
 			case "BOOKINGS":
 				resultPane.setVisible(false);
 				bookingPane.setVisible(true);
 				button.setForeground(HIGHLIGHTCOLOR);
 				systemInfo.setText("BOOKINGS");
+				lblWelcomeMessage.setText("");
 			break;
 			case "RESULTS":
 				bookingPane.setVisible(false);
 				resultPane.setVisible(true);
 				button.setForeground(HIGHLIGHTCOLOR);
 				systemInfo.setText("RESULTS");
+				lblWelcomeMessage.setText("");
 			break;
 			case "LOG OUT":
 				bookingPane.setVisible(false);
@@ -168,6 +163,7 @@ public class MechanicMenu extends JFrame implements MouseListener{
 				systemInfo.setText("LOG OUT");
 				mainClient.logOut();
 				loginPage.setVisible(true);
+				lblWelcomeMessage.setText("");
 				dispose();
 			break;
 		}

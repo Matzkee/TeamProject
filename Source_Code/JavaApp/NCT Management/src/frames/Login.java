@@ -1,32 +1,26 @@
 package frames;
 
 import java.awt.Color;
-import java.awt.EventQueue;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-import javax.swing.JLabel;
-import javax.swing.ImageIcon;
-
 import java.awt.Dimension;
-
-import javax.swing.JTextField;
-
+import java.awt.EventQueue;
 import java.awt.Font;
-import java.awt.event.FocusEvent;
-import java.awt.event.FocusListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
+import javax.swing.ImageIcon;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.JPasswordField;
+import javax.swing.JTextField;
+import javax.swing.border.EmptyBorder;
 
 import core.Client;
 
 public class Login extends JFrame implements MouseListener{
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private HintTextField txtUsername;
+	private JTextField txtUsername;
 	private JPasswordField txtPassword;
 	private JLabel btnSubmit;
 	private ImageIcon btnStatic = new ImageIcon(Login.class.getResource("/graphics/LoginBtnStatic.png"));
@@ -68,7 +62,7 @@ public class Login extends JFrame implements MouseListener{
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		txtUsername = new HintTextField("username");
+		txtUsername = new JTextField();
 		txtUsername.setFont(new Font("Segoe UI", Font.PLAIN, 13));
 		txtUsername.setForeground(Color.GRAY);
 		txtUsername.setOpaque(false);
@@ -95,6 +89,18 @@ public class Login extends JFrame implements MouseListener{
 		lblSuccess.setFont(new Font("Segoe UI", Font.BOLD, 12));
 		lblSuccess.setBounds(128, 185, 300, 16);
 		contentPane.add(lblSuccess);
+		
+		JLabel lblUsername = new JLabel("username");
+		lblUsername.setFont(new Font("Segoe UI", Font.PLAIN, 11));
+		lblUsername.setForeground(Color.LIGHT_GRAY);
+		lblUsername.setBounds(183, 81, 50, 14);
+		contentPane.add(lblUsername);
+		
+		JLabel lblPassword = new JLabel("password");
+		lblPassword.setFont(new Font("Segoe UI", Font.PLAIN, 11));
+		lblPassword.setForeground(Color.LIGHT_GRAY);
+		lblPassword.setBounds(183, 128, 50, 14);
+		contentPane.add(lblPassword);
 		
 		JLabel loginBackground = new JLabel("");
 		loginBackground.setIcon(new ImageIcon(Login.class.getResource("/graphics/Login.jpg")));
@@ -135,6 +141,7 @@ public class Login extends JFrame implements MouseListener{
 					lblSuccess.setText("");
 					adminMenu = new AdminMenu(user[2], client, this);
 					adminMenu.setVisible(true);
+					adminMenu.setLocationRelativeTo(null);
 					dispose();
 				}
 				// Case: Mechanic
@@ -145,6 +152,7 @@ public class Login extends JFrame implements MouseListener{
 					lblSuccess.setText("");
 					mechanicMenu = new MechanicMenu(user[2], user[0], client, this);
 					mechanicMenu.setVisible(true);
+					mechanicMenu.setLocationRelativeTo(null);
 					dispose();
 				}
 				else{
@@ -173,40 +181,6 @@ public class Login extends JFrame implements MouseListener{
 	public void mouseExited(MouseEvent e) {
 		if(e.getSource().equals(btnSubmit)){
 			btnSubmit.setIcon(btnStatic);
-		}
-	}
-	
-	// Custom text field showing hints
-	class HintTextField extends JTextField implements FocusListener{
-		private static final long serialVersionUID = 1L;
-		private final String hint;
-		private boolean showingHint;
-		
-		public HintTextField(final String hint) {
-			super(hint);
-			this.hint = hint;
-			this.showingHint = true;
-			super.addFocusListener(this);
-		}
-		@Override
-		public void focusGained(FocusEvent e) {
-			if(this.getText().isEmpty()) {
-				super.setForeground(Color.BLACK);
-				super.setText("");
-				showingHint = false;
-			}
-		}
-		@Override
-		public void focusLost(FocusEvent e) {
-			if(this.getText().isEmpty()) {
-				super.setForeground(Color.GRAY);
-				super.setText(hint);
-				showingHint = true;
-			}
-		}
-		@Override
-		public String getText() {
-			return showingHint ? "" : super.getText();
 		}
 	}
 }
