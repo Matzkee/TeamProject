@@ -1,0 +1,35 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <com.example.hou.tools.SlideMenu
+        android:id="@+id/slide_menu"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent" >
+
+        <include layout="@layout/layout_menu" />
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:background="@color/color_2"
+            android:orientation="vertical" >
+
+            <include layout="@layout/layout_title_bar_test" />
+            <LinearLayout android:id="@+id/isTestResultList" android:orientation="horizontal"
+                android:layout_width="fill_parent" android:layout_height="wrap_content">
+
+                <EditText android:id="@+id/showdate" android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" android:layout_weight="1"/>
+                <TextView
+                    android:id="@+id/pickdate"
+                    android:text="选择日期"
+                    android:clickable="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+        </LinearLayout>
+    </com.example.hou.tools.SlideMenu>
+
+</RelativeLayout>

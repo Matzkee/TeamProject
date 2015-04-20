@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="2.5" 
+	xmlns="http://java.sun.com/xml/ns/javaee" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee 
+	http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
+  <display-name></display-name>
+  <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>Login</servlet-name>
+    <servlet-class>com.nct.net.Login</servlet-class>
+  </servlet>
+  <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>BookingList</servlet-name>
+    <servlet-class>com.nct.net.BookingList</servlet-class>
+  </servlet>
+  <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>TestResultShow</servlet-name>
+    <servlet-class>com.nct.net.TestResultShow</servlet-class>
+  </servlet>
+  <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>TestResultFeedback</servlet-name>
+    <servlet-class>com.nct.net.TestResultFeedback</servlet-class>
+  </servlet>
+  <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>TestResultDateList</servlet-name>
+    <servlet-class>com.nct.net.TestResultDateList</servlet-class>
+  </servlet>
+  <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>TestResultDateShow</servlet-name>
+    <servlet-class>com.nct.net.TestResultDateShow</servlet-class>
+  </servlet>
+  <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>Register</servlet-name>
+    <servlet-class>com.nct.net.Register</servlet-class>
+  </servlet>
+  <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>TestIsConect</servlet-name>
+    <servlet-class>com.nct.net.TestIsConect</servlet-class>
+  </servlet>
+
+
+
+
+
+
+
+
+  <servlet-mapping>
+    <servlet-name>Login</servlet-name>
+    <url-pattern>/servlet/Login</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>BookingList</servlet-name>
+    <url-pattern>/servlet/BookingList</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>TestResultShow</servlet-name>
+    <url-pattern>/servlet/TestResultShow</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>TestResultFeedback</servlet-name>
+    <url-pattern>/servlet/TestResultFeedback</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>TestResultDateList</servlet-name>
+    <url-pattern>/servlet/TestResultDateList</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>TestResultDateShow</servlet-name>
+    <url-pattern>/servlet/TestResultDateShow</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>Register</servlet-name>
+    <url-pattern>/servlet/Register</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>TestIsConect</servlet-name>
+    <url-pattern>/servlet/TestIsConect</url-pattern>
+  </servlet-mapping>	
+  <welcome-file-list>
+    <welcome-file>index.jsp</welcome-file>
+  </welcome-file-list>
+</web-app>

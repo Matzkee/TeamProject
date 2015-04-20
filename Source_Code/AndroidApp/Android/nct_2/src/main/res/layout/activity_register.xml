@@ -1,0 +1,129 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/color_2"
+    >
+    <include layout="@layout/layout_title_bar_result" />
+    <RelativeLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/textView"
+            android:text="@string/Photo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <ImageView
+            android:id="@+id/Photo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="#999999"
+            android:layout_toRightOf="@+id/textView"/>
+        <Button
+            android:id="@+id/CameraButton"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="Camera"
+            android:layout_toRightOf="@id/Photo"/>
+     </RelativeLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <TextView
+            android:id="@+id/RegisterNameTextView"
+            android:text="@string/RegisterName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <EditText android:text="" android:id="@+id/RegisterName1"
+            android:layout_width="fill_parent" android:layout_height="wrap_content" android:singleLine="true" android:layout_toRightOf="@+id/RegisterNameTextView"></EditText>
+    </RelativeLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <TextView
+            android:id="@+id/RegisterLoginName"
+            android:text="@string/RegisterLoginName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <EditText android:text="" android:id="@+id/RegisterLoginName1"
+            android:layout_width="fill_parent" android:layout_height="wrap_content" android:singleLine="true" android:layout_toRightOf="@+id/RegisterLoginName"></EditText>
+    </RelativeLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <RelativeLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/RegisterPassword"
+                android:text="@string/RegisterPassword"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:singleLine="true"/>
+
+            <EditText
+                android:inputType="textPassword"
+                android:singleLine="true"
+                android:id="@+id/RegisterPassword1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/RegisterPassword"></EditText>
+    </RelativeLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/GarageInfomation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <RelativeLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/RegisterGarage"
+            android:text="@string/RegisterGarage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <Spinner android:id="@+id/Garage"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/RegisterGarage"></Spinner>
+    </RelativeLayout>
+    <TextView
+        android:id="@+id/Role"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <RadioGroup android:id="@+id/RegisterRadioGroup" android:contentDescription="Role"
+        android:layout_width="wrap_content" android:layout_height="wrap_content">
+
+        <RadioButton android:layout_width="wrap_content" android:layout_height="wrap_content"  android:text="@string/Administrator"  ></RadioButton>
+        <RadioButton android:layout_width="wrap_content" android:layout_height="wrap_content"  android:text="@string/Mechanic" ></RadioButton>
+    </RadioGroup>
+    <Button
+        android:text="@string/RegisterSubmit"
+        android:id="@+id/RegisterSubmit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+</LinearLayout>

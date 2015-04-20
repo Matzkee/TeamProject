@@ -1,0 +1,299 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/color_2"
+    >
+    <include layout="@layout/layout_title_bar_result" />
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:textColor="@color/color_7"
+            android:text="@string/Car_Registration_ID"
+            android:textSize="@dimen/activity_vertical_margin1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:textSize="@dimen/activity_vertical_margin1"
+            android:textColor="#ffffff"
+            android:id="@+id/Car_Registration_ID"
+            android:cursorVisible="false"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:text=""
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:text="@string/BookingTime"
+            android:textSize="@dimen/activity_vertical_margin1"
+            android:textColor="@color/color_7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:textSize="@dimen/activity_vertical_margin1"
+            android:textColor="#ffffff"
+            android:id="@+id/BookingTime"
+            android:cursorVisible="false"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:text=""
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:textSize="@dimen/activity_vertical_margin1"
+            android:text="@string/OwnerName"
+            android:textColor="@color/color_7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:textSize="@dimen/activity_vertical_margin1"
+            android:textColor="#ffffff"
+            android:id="@+id/OwnerName"
+            android:cursorVisible="false"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:text=""
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:textSize="@dimen/activity_vertical_margin1"
+            android:text="@string/Make"
+            android:textColor="@color/color_7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:textSize="@dimen/activity_vertical_margin1"
+            android:textColor="#ffffff"
+            android:id="@+id/Make"
+            android:cursorVisible="false"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:text=""
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:textSize="@dimen/activity_vertical_margin1"
+            android:text="@string/Model"
+            android:textColor="@color/color_7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:textSize="@dimen/activity_vertical_margin1"
+            android:textColor="#ffffff"
+            android:id="@+id/Model"
+            android:cursorVisible="false"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:text=""
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:textSize="@dimen/activity_vertical_margin1"
+            android:text="@string/MakeDate"
+            android:textColor="@color/color_7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:textSize="@dimen/activity_vertical_margin1"
+            android:textColor="#ffffff"
+            android:id="@+id/MakeDate"
+            android:cursorVisible="false"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:text=""
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <Button
+            android:id="@+id/isDetection"
+            android:text="@string/isDetection"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" />
+        </LinearLayout>
+
+    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/ScrollView" android:layout_width="fill_parent"
+        android:layout_height="wrap_content" >
+
+    <LinearLayout
+        android:id="@+id/Detection"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+    <TextView
+        android:id="@+id/text"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:textColor="#33CCFF"
+        android:text="Please fill in the test results："
+        android:textSize="9pt"
+        />
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Alignment："
+                android:textSize="9pt"
+                />
+                <TextView
+                android:id="@+id/alignment"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/color_0"
+                android:text="Please select."
+                android:textSize="9pt"
+                />
+        </LinearLayout>
+        <RadioGroup android:id="@+id/radioGroup" android:contentDescription="性别"
+            android:layout_width="wrap_content" android:layout_height="wrap_content">
+
+            <RadioButton android:layout_width="wrap_content" android:layout_height="wrap_content" android:id="@+id/radioMale" android:text="@string/pass"  ></RadioButton>
+            <RadioButton android:layout_width="wrap_content" android:layout_height="wrap_content" android:id="@+id/radioFemale" android:text="@string/fail" ></RadioButton>
+        </RadioGroup>
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Suspension："
+                android:textSize="9pt"
+                />
+            <TextView
+                android:id="@+id/suspension"
+                android:textColor="@color/color_0"
+                android:text="Please select."
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="9pt"
+                />
+        </LinearLayout>
+        <RadioGroup android:id="@+id/radioGroup1" android:contentDescription="性别"
+            android:layout_width="wrap_content" android:layout_height="wrap_content">
+
+            <RadioButton android:layout_width="wrap_content" android:layout_height="wrap_content" android:id="@+id/radioMale1" android:text="@string/pass"  ></RadioButton>
+            <RadioButton android:layout_width="wrap_content" android:layout_height="wrap_content" android:id="@+id/radioFemale1" android:text="@string/fail" ></RadioButton>
+        </RadioGroup>
+
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Brakes："
+                android:textSize="9pt"
+                />
+            <TextView
+                android:textColor="@color/color_0"
+                android:text="Please select."
+                android:id="@+id/brakes"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="9pt"
+                />
+        </LinearLayout>
+    <RadioGroup android:id="@+id/radioGroup2" android:contentDescription="性别"
+        android:layout_width="wrap_content" android:layout_height="wrap_content">
+        <RadioButton android:layout_width="wrap_content" android:layout_height="wrap_content" android:id="@+id/radioMale2" android:text="@string/pass" ></RadioButton>
+        <RadioButton android:layout_width="wrap_content" android:layout_height="wrap_content" android:id="@+id/radioFemale2" android:text="@string/fail"></RadioButton>
+    </RadioGroup>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Exhaust_Emission："
+                android:textSize="9pt"
+                />
+            <TextView
+                android:textColor="@color/color_0"
+                android:text="Please select."
+                android:id="@+id/exhaust_Emission"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="9pt"
+                />
+        </LinearLayout>
+        <RadioGroup android:id="@+id/radioGroup3" android:contentDescription="性别"
+            android:layout_width="wrap_content" android:layout_height="wrap_content">
+
+            <RadioButton android:layout_width="wrap_content" android:layout_height="wrap_content" android:id="@+id/radioMale3" android:text="@string/pass" ></RadioButton>
+            <RadioButton android:layout_width="wrap_content" android:layout_height="wrap_content" android:id="@+id/radioFemale3" android:text="@string/fail"></RadioButton>
+        </RadioGroup>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Head_Lights："
+                android:textSize="9pt"
+                />
+            <TextView
+                android:textColor="@color/color_0"
+                android:text="Please select."
+                android:id="@+id/head_Lights"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="9pt"
+                />
+        </LinearLayout>
+        <RadioGroup android:id="@+id/radioGroup4" android:contentDescription="性别"
+            android:layout_width="wrap_content" android:layout_height="wrap_content">
+
+            <RadioButton android:layout_width="wrap_content" android:layout_height="wrap_content" android:id="@+id/radioMale4" android:text="@string/pass" ></RadioButton>
+            <RadioButton android:layout_width="wrap_content" android:layout_height="wrap_content" android:id="@+id/radioFemale4" android:text="@string/fail"></RadioButton>
+        </RadioGroup>
+        <Button
+            android:id="@+id/resultSubmit"
+            android:text="@string/resultsubmit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+    </ScrollView>
+</LinearLayout>
