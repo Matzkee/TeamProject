@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!--  <string name="IP">http://10.0.0.11:8080/NCT/servlet/</string> -->
+        <string name="IP">http://snf-32966.vm.okeanos-global.grnet.gr:8080/NCT/servlet/</string>
+    <string name="app_name">NCT</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="LoginTitle">NCT MANAGEMENT SYSTEM</string>
+    <string name="action_settings">Settings</string>
+    <string name="loginUserNameLabel">UserName</string>
+    <string name="loginPasswordLabel">PassWord</string>
+    <string name="loginSubmit">Log In</string>
+    <string name="loginRegister">Sign up</string>
+    <string name="loginTitle"></string>
+    <string name="loginRememberMe">Remember me</string>
+    <string name="MENU_EXIT"></string>
+    <string name="MENU_ABOUT"></string>
+    <string name="aboutInfo">		</string>
+    <string name="ok_label">确认</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_booking_list">BookingList</string>
+    <string name="title_section1">Section 1</string>
+    <string name="title_section2">Section 2</string>
+    <string name="title_section3">Section 3</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="action_example">Example action</string>
+    <string name="title_activity_result">Result</string>
+    <string name="picker_date">[pick]</string>
+    <string name="title_activity_booking_ling">BookingLing</string>
+    <string name="Car_Registration_ID">Car_Registration_ID:</string>
+    <string name="BookingTime">BookingTime:</string>
+    <string name="OwnerName">OwnerName:</string>
+    <string name="Make">Manufacturer:</string>
+    <string name="Model">Model:</string>
+    <string name="MakeDate">MakeDate:</string>
+    <string name="pass">PASS</string>
+    <string name="fail">FAIL</string>
+    <string name="resultsubmit">Submit</string>
+    <string name="isDetection">Start Detection</string>
+    <string name="title_activity_testing_result">TestingResult</string>
+
+    <!-- Booking List -->
+    <string name="Info1">From \t\t\</string>
+    <string name="Info2">\t\tTo\t\t</string>
+    <string name="title_activity_testing_result_date">TestingResultDate</string>
+    <!-- TestResultDateInfo -->
+    <string name="Name">Name: </string>
+    <string name="Address">Address: </string>
+    <string name="Email">Email: </string>
+    <string name="TestDate">TestDate: </string>
+    <string name="title_activity_register">Register</string>
+    <!-- Register -->
+    <string name="Photo">Photo:\t\t\</string>
+    <string name="RegisterName">Name:\t\t\</string>
+    <string name="RegisterLoginName">LoginName:\t\t\</string>
+    <string name="RegisterPassword">Password:\t\t\</string>
+    <string name="RegisterGarage">Garage:\t\t\</string>
+    <string name="Administrator">Administrator</string>
+    <string name="Mechanic">Mechanic</string>
+    <string name="RegisterSubmit">Submit</string>
+    <string name="title_activity_note">Note</string>
+
+    <!-- Note -->
+    <string name="addNote">addNote</string>
+    <string name="title_activity_add_note">AddNote</string>
+    <string name="title_activity_update_note">UpdateNote</string>
+
+</resources>
