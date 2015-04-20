@@ -173,17 +173,22 @@ public class ResultPane extends JPanel implements MouseListener{
 		Object o = e.getSource();
 		if(o.equals(btnSubmit)){
 			btnSubmit.setIcon(submitBHover);
-			if(mainClient.viewTestResults(txtCarReg.getText()) != false){
-				tests = mainClient.getTestResults();
-				if(tableScrollPane != null){
-					remove(tableScrollPane);
-					clearFields();
+			if(mainClient.connectionTest() != false){
+				if(mainClient.viewTestResults(txtCarReg.getText()) != false){
+					tests = mainClient.getTestResults();
+					if(tableScrollPane != null){
+						remove(tableScrollPane);
+						clearFields();
+					}
+					showTable();
+					systemLabel.setText("Found data!");
 				}
-				showTable();
-				systemLabel.setText("Found data!");
+				else{
+					systemLabel.setText("Error: no data found or invalid car registration!");
+				}				
 			}
 			else{
-				systemLabel.setText("Error: no data found!");
+				systemLabel.setText("Conenction failure!");
 			}
 		}
 	}

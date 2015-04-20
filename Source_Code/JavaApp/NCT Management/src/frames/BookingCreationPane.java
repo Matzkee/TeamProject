@@ -245,10 +245,15 @@ public class BookingCreationPane extends JPanel implements MouseListener{
 			btnSubmit.setIcon(submitBHover);
 			String query = "INSERT INTO Booking (BDate,BTime,Car_Reg,Garage_Id) VALUES ('"+
 			lblDate.getText()+"','"+txtNewTime.getText()+"','"+txtNewCarReg.getText()+"',"+garageId+")";
-			if(mainClient.createBooking(query) != false){
-				model.addRow(txtNewCarReg.getText(), lblDate.getText(), txtNewTime.getText(), garageId);
-				systemInfo.setText("Successfully added booking!");
-				dispose();
+			if(mainClient.connectionTest() != false){
+				if(mainClient.createBooking(query) != false){
+					model.addRow(txtNewCarReg.getText(), lblDate.getText(), txtNewTime.getText(), garageId);
+					systemInfo.setText("Successfully added booking!");
+					dispose();
+				}
+				else{
+					systemInfo.setText("Invalid car registration!");
+				}				
 			}
 			else{
 				systemInfo.setText("Connection failure!");
